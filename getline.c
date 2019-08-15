@@ -1,8 +1,12 @@
-#define MAX 10
+#define MAX 1024
 #define READING 1
-#define NOTREADING 0
 #include "holberton.h"
-#include <stdio.h>
+
+/**
+ * _getline - function that gets a line from the stdin.
+ * @pos: pointer to the actual buffer position.
+ * Return: pointer to the buffer that stores the line.
+ */
 char *_getline(ssize_t *pos)
 {
 	ssize_t n;
@@ -10,6 +14,7 @@ char *_getline(ssize_t *pos)
 	int state;
 	size_t size = MAX, aux;
 	char *buf = malloc(sizeof(char) * size);
+
 	cpy = buf;
 	state = READING;
 	while (state)

@@ -7,7 +7,7 @@ int main (void)
 	char go[] = "tony";
 	char *buf = go;
 	buf = _getline(p);
-
+	printf("%s", buf);
 	free(buf);
 	return (0);
 }
