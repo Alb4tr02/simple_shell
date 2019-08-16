@@ -1,6 +1,7 @@
 #define MAX 1024
 #define READING 1
 #include "holberton.h"
+#include <stdio.h>
 
 /**
  * _getline - function that gets a line from the stdin.
@@ -17,6 +18,7 @@ char *_getline(ssize_t *pos)
 
 	cpy = buf;
 	state = READING;
+	//printf("ko:)");
 	while (state)
 	{
 		if (!buf)
@@ -41,5 +43,8 @@ char *_getline(ssize_t *pos)
 			buf += aux;
 		}
 	}
+	*pos -= 1;
+	if (buf[*pos] == '\n')
+		*pos -= 1;
 	return (cpy);
 }
