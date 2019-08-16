@@ -1,4 +1,3 @@
-=======
 #include "holberton.h"
 /**
  * add_node - adds a new node at the beginning of a list_t list.
@@ -6,7 +5,7 @@
  * @args: string to be stored
  * Return: direction of the new node
  */
-command_t *add_node(command_t **head, char **args)
+command_t *add_node(command_t **head, char **args, int id)
 {
 	int flag = 1;
 	command_t *p = *head;
@@ -18,6 +17,7 @@ command_t *add_node(command_t **head, char **args)
 			if (!new)
 				return (NULL);
 			new->args = args;
+			new->id = id;
 			new->next = NULL;
 			if (!p)
 			{
@@ -31,5 +31,4 @@ command_t *add_node(command_t **head, char **args)
 			p = p->next;
 	} while (flag);
 	return (new);
->>>>>>> b195efcdec08fdcad857354d3d4ae42d1c3b2ec2
 }

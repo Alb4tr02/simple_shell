@@ -27,7 +27,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
 {
 	ssize_t aux, aux2, p = 0;
 	unsigned int size = 0, flag = 0;
-	int sp, s, i, y, j;
+	int sp, s, i, y, j, id;
 	command_t *head, *args;
 
 	head = NULL;
@@ -53,7 +53,8 @@ command_t *_getargs(char *buf, ssize_t *pos)
 		if (p != 0 && sp == 0)
 			sp++;
 		args = fill_nodes(buf, sp);
-		add_node(&head, args);
+		id = clfun(&argv[0]);
+		add_node(&head, args, id);
 	}
 
 	return (head);

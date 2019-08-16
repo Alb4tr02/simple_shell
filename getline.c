@@ -18,7 +18,6 @@ char *_getline(ssize_t *pos)
 
 	cpy = buf;
 	state = READING;
-	//printf("ko:)");
 	while (state)
 	{
 		if (!buf)
