@@ -2,6 +2,8 @@
 #define shelly
 #include <unistd.h>
 #include <stdlib.h>
+#define EXT 0
+#define BUILT 1
 /**
  * struct args - singly linked list
  * @arg: argument
@@ -21,4 +23,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_getline(ssize_t *);
 command_t *add_node(command_t **head, char **args);
 command_t *_getargs(char *buf, ssize_t *pos);
+int clfun(char **arg);
+int look(char *fun);
+void prompt(void);
 #endif

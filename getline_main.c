@@ -2,6 +2,23 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+void prompt(void)
+{
+	int  y, r, p;
+	p = r = y = 0;
+	char *prompt = ">:v";
+	char *yellow = "\033[1;33m";
+	char *reset = "\033[0m";
+	for (; reset[r]; r++)
+		;
+	for (; yellow[y]; y++)
+		;
+	for (; prompt[p]; p++)
+		;
+	write(1, yellow, y);
+	write(1, prompt, p);
+	write(1, reset, r);
+}
 int main (void)
 {
 	int status;
@@ -10,9 +27,7 @@ int main (void)
 	size_t *p = &a;
 	char *buf = NULL;
 	char r = 'a';
-	char *prompt = "ko:)";
-	//printf("%s", prompt);
-	write(1, prompt, 4);
+	prompt();
 	buf = _getline(p);
 	//printf("%s", buf);
 	command_t *h = _getargs(buf, p);
@@ -27,7 +42,7 @@ int main (void)
 	}
 	else
 		wait(NULL);
-	printf("(*< --o--o");
+	prompt();
 	if (status == -1)
 	{
 		printf("Error.\n");

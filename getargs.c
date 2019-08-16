@@ -55,6 +55,8 @@ command_t *_getargs(char *buf, ssize_t *pos)
 			for (j = 0; j < s; j++, aux2++)
 				*(*(args + i) + j) = buf[aux2];
 			*(*(args + i) + s) = 0;
+			if (i == 0)
+				clfun(&(args[i]));
 			while (buf[aux] == ' ')
 				aux++;
 		}
