@@ -5,9 +5,8 @@
 #define EXT 0
 #define BUILT 1
 /**
- * struct args - singly linked list
- * @arg: argument
- * @f: pointer to function
+ * struct comand_s - singly linked list
+ * @args: argument
  * @next: points to the next node
  *
  * Description: singly linked list node structure
@@ -16,6 +15,7 @@
 typedef struct command_s
 {
 	char **args;
+	int id;
 	struct command_s *next;
 } command_t;
 
