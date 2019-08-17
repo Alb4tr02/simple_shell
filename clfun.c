@@ -2,12 +2,12 @@
 #include <stdio.h>
 int look(char *fun)
 {
-	int pos = 0, flag = 0;
+	int pos = 0, flag = 0, i = 0;
 	char *current;
-	char **built {"history", "exit", "env", "help", NULL};
-	while (*built)
+	char *built[] =  {"history", "exit", "env", "help", NULL};
+	while (built[i])
 	{
-		current = *built;
+		current = built[i];
 		for (pos = 0; current[pos] && fun[pos]; pos++)
 		{
 			if (current[pos] == fun[pos])
@@ -18,7 +18,7 @@ int look(char *fun)
 			else
 				break;
 		}
-		built++;
+		i++;
 	}
 	return ((flag == 0) ? EXT: BUILT);
 }

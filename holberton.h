@@ -21,8 +21,9 @@ typedef struct command_s
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_getline(ssize_t *);
-command_t *add_node(command_t **head, char **args);
+command_t *add_node(command_t **head, char **args, int id);
 command_t *_getargs(char *buf, ssize_t *pos);
+char **fill_nodes(char *buf, int sp, ssize_t *pos);
 int clfun(char **arg);
 int look(char *fun);
 void prompt(void);

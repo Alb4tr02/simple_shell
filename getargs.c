@@ -28,7 +28,8 @@ command_t *_getargs(char *buf, ssize_t *pos)
 	ssize_t aux, aux2, p = 0;
 	unsigned int size = 0, flag = 0;
 	int sp, s, i, y, j, id;
-	command_t *head, *args;
+	command_t *head;
+	char **args;
 
 	head = NULL;
 	while (p <= *pos)
@@ -52,8 +53,8 @@ command_t *_getargs(char *buf, ssize_t *pos)
 		}
 		if (p != 0 && sp == 0)
 			sp++;
-		args = fill_nodes(buf, sp);
-		id = clfun(&argv[0]);
+		args = fill_nodes(buf, sp, pos);
+		id = clfun(&args[0]);
 		add_node(&head, args, id);
 	}
 
@@ -66,12 +67,12 @@ command_t *_getargs(char *buf, ssize_t *pos)
 * @sp: size of args
 * Return: a pointer to the linked list
 */
-command_t *fill_nodes(char *buf, int *sp)
+char **fill_nodes(char *buf, int sp, ssize_t *pos)
 {
     char **args = NULL;
-    int i, aux, aux2, s, y, j;
+    int i, aux = 0, aux2, s, y, j;
 
-    *args = malloc(sizeof(char* ) * (sp + 1));
+    args = malloc(sizeof(char* ) * (sp + 1));
     *(args + sp) = NULL;
     for (i = 0; sp > 0; sp--, i++)
     {
@@ -93,5 +94,5 @@ command_t *fill_nodes(char *buf, int *sp)
             aux++;
     }
 
-    return (args)
+    return (args);
 }
