@@ -26,8 +26,8 @@ int istoken(char c)
 command_t *_getargs(char *buf, ssize_t *pos)
 {
 	ssize_t p = 0;
-	unsigned int size = 0, flag = 0;
-	int sp, s, y, j, id, aux = 0;
+	unsigned int flag = 0;
+	int sp, id, aux = 0;
 	command_t *head;
 	char **args;
 	int *paux = &aux;
