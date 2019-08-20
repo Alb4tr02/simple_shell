@@ -27,4 +27,5 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux);
 int clfun(char **arg);
 int look(char *fun);
 void prompt(void);
+void freecommand(command_t *h);
 #endif

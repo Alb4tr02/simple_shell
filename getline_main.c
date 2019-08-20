@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+void freecommand(command_t *h)
+{
+	int i = 0;
+	char **args;
+	args = h->args;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args[i]);
+	free(args);
+	free(h);
+}
 int main (void)
 {
 	int status;
@@ -9,7 +23,7 @@ int main (void)
 	ssize_t *p = &a;
 	char *buf = NULL;
 	command_t *h;
-
+	command_t *cpy;
 	while (1)
 	{
 		status = 0;
@@ -17,10 +31,17 @@ int main (void)
 		prompt();
 		buf = _getline(p);
 		h = _getargs(buf, p);
+		if (buf[0] == '*')
+		{
+			freecommand(h);
+			free(buf);
+			return (0);
+		}
 		if (!h)
 			printf("no sirve esta mierda\n");
 		while (h != NULL)
 		{
+			cpy = h;
 			if (!h->args)
 				printf("no sirve esta mierda\n");
 			if (fork() == 0)
@@ -34,6 +55,7 @@ int main (void)
 				printf("Error.\n");
 			}
 			h = h->next;
+			freecommand(cpy);
 		}
 			free(buf);
 	}

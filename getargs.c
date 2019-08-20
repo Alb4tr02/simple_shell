@@ -28,8 +28,8 @@ command_t *_getargs(char *buf, ssize_t *pos)
 	ssize_t p = 0;
 	unsigned int flag = 0;
 	int sp, id, aux = 0;
-	command_t *head;
-	char **args;
+	command_t *head = NULL;
+	char **args = NULL;
 	int *paux = &aux;
 
 	head = NULL;
@@ -80,6 +80,8 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
     s = 0;
     aux3 = *paux;
     args = malloc(sizeof(char* ) * (sp + 1));
+    if (!args)
+	    return (NULL);
     *(args + sp) = NULL;
     for (i = 0; sp > 0; sp--, i++)
     {
