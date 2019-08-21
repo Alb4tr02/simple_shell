@@ -19,7 +19,7 @@ void getentorno(void)
 		;
 	for (m = 0; name[m]; m++, n++)
 		pathname[n] = name[m];
-	pathname[m] = 0;
+	pathname[n] = 0;
 	printf("%s\n", pathname);
 	fd = open(pathname, O_WRONLY | O_APPEND);
 	while(environ[i])
@@ -27,12 +27,11 @@ void getentorno(void)
 		for (l = 0; *(environ[i] + l); l++)
 			;
 		write(fd, environ[i], l + 1);
-
+		i++;
 	}
 	char end[] = {-1};
 	write(fd, end, 1);
 	close(fd);
-	return;
 /*
 		ssize_t ht = 0;
 	ssize_t *hht = &ht;
