@@ -6,11 +6,10 @@
 int main (void)
 {
     int status;
-    ssize_t a = 0;
+    ssize_t a = 89;
     ssize_t *p = &a;
     char *buf = NULL;
     command_t *h;
-
     getentorno();
     while (1)
     {
@@ -20,11 +19,11 @@ int main (void)
         buf = _getline(p, NULL);
         h = _getargs(buf, p);
         if (!h)
-            printf("no sirve esta mierda\n");
+		return (0);
         while (h != NULL)
         {
             if (!h->args)
-                printf("no sirve esta mierda\n");
+                return (0);
             if (fork() == 0)
             {
                 status = execve(*h->args, h->args, NULL);

@@ -60,5 +60,4 @@ void actenv(char *varname, char *valor)
 		}
 	}
 	movbuf(env, offs, p, i);
-	
 }

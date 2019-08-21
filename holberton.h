@@ -9,7 +9,7 @@
 #include <unistd.h>
 #define EXT 0
 #define BUILT 1
-void getentorno(void);
+
 /**
  * struct comand_s - singly linked list
  * @args: argument
@@ -34,7 +34,7 @@ int clfun(char **arg);
 int look(char *fun);
 void prompt(void);
 int _readandcpy(char *fr, char *to, char *buf);
-
+char *getvar(char *varname, char *buf);
 void freecommand(command_t *h);
-
+void getentorno(void);
 #endif

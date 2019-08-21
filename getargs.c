@@ -9,7 +9,7 @@
 int istoken(char c)
 {
 	int i = 0;
-	char tokens[] = {'&', '|', '\0', '<', '>', ';', '\n',  -1};
+	char tokens[] = {'&', '|', '\0', '<', '>', ':',  ';', '\n',  -1};
 
 	while (tokens[i++] != -1)
 		if (tokens[i] == c)
