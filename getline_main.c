@@ -30,6 +30,11 @@ int main (void)
 		a = 0;
 		prompt();
 		buf = _getline(p);
+		if (buf[0] == '\n')
+		{
+			free (buf);
+			continue;
+		}
 		h = _getargs(buf, p);
 		if (buf[0] == '*')
 		{
@@ -38,7 +43,7 @@ int main (void)
 			return (0);
 		}
 		if (!h)
-			printf("no sirve esta mierda\n");
+			return (0);
 		while (h != NULL)
 		{
 			cpy = h;
