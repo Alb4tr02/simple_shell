@@ -5,19 +5,35 @@
 #include <stdlib.h>
 #include "holberton.h"
 #define MAX 1024
-int _getenv(char *pathname, int pid)
+void getentorno(void)
 {
 	extern char *environ[];
-	int i = 0, l = 0, fd = 0;
+	int i = 0, l = 0, fd = 0, m = 0, n = 0;
+	char buf[MAX];
+	char *pathname = NULL;
+	char *name = "/environ";
+	pathname = getcwd(buf, MAX);
+	for (; pathname[n]; n++)
+		;
+	for (; name[m]; m++)
+		;
+	for (m = 0; name[m]; m++, n++)
+		pathname[n] = name[m];
+	pathname[m] = 0;
+	printf("%s\n", pathname);
 	fd = open(pathname, O_WRONLY | O_APPEND);
 	while(environ[i])
 	{
 		for (l = 0; *(environ[i] + l); l++)
 			;
-		write(fd, environ[i], l);
+		write(fd, environ[i], l + 1);
 
 	}
-/
+	char end[] = {-1};
+	write(fd, end, 1);
+	close(fd);
+	return;
+/*
 		ssize_t ht = 0;
 	ssize_t *hht = &ht;
 	int i = 0, jk = 0, fd = 0;
