@@ -9,7 +9,7 @@
 int istoken(char c)
 {
 	int i = 0;
-	char tokens[] = {'&', '|', '\0', '<', '>', -1};
+	char tokens[] = {'&', '|', '\0', '<', '>', ';', '\n',  -1};
 
 	while (tokens[i++] != -1)
 		if (tokens[i] == c)
@@ -25,23 +25,25 @@ int istoken(char c)
  */
 command_t *_getargs(char *buf, ssize_t *pos)
 {
-	ssize_t aux, aux2, p = 0;
-	unsigned int size = 0, flag = 0;
-	int sp, s, i, y, j, id;
-	command_t *head;
-	char **args;
+	ssize_t p = 0;
+	unsigned int flag = 0;
+	int sp, id, aux = 0;
+	command_t *head = NULL;
+	char **args = NULL;
+	int *paux = &aux;
 
 	head = NULL;
 	while (p <= *pos)
 	{
-		aux = p;
 		sp = 0;
 		flag = 1;
-		while (!istoken(buf[p]) && p <= *pos)
+		while (buf[p] == ' ')
+			p++, aux++;
+		while (p <= *pos)
 		{
 			if (p == *pos && buf[p] != ' ')
 				sp++;
-			if (buf[p] == ' ')
+			if (buf[p] == ' ' || istoken(buf[p]))
 			{
 				if (flag)
 					sp++;
@@ -49,11 +51,16 @@ command_t *_getargs(char *buf, ssize_t *pos)
 			}
 			else
 				flag = 1;
+			if (istoken(buf[p]))
+				break;
 			p++;
 		}
 		if (p != 0 && sp == 0)
 			sp++;
-		args = fill_nodes(buf, sp, pos);
+		p++;
+		while(buf[p] == ' ')
+			p++;
+		args = fill_nodes(buf, sp, pos, paux);
 		id = clfun(&args[0]);
 		add_node(&head, args, id);
 	}
@@ -67,18 +74,22 @@ command_t *_getargs(char *buf, ssize_t *pos)
 * @sp: size of args
 * Return: a pointer to the linked list
 */
-char **fill_nodes(char *buf, int sp, ssize_t *pos)
+char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 {
     char **args = NULL;
-    int i, aux = 0, aux2, s, y, j;
+    int aux2, s, y, j, i, aux3;
 
+    s = 0;
+    aux3 = *paux;
     args = malloc(sizeof(char* ) * (sp + 1));
+    if (!args)
+	    return (NULL);
     *(args + sp) = NULL;
     for (i = 0; sp > 0; sp--, i++)
     {
-        aux2 = aux;
-        for (s = 0; buf[aux] != ' ' && aux <= *pos; aux++, s++)
-            ;
+        aux2 = aux3;
+        for (s = 0; buf[aux3] != ' ' && !istoken(buf[aux3])&& aux3 <= *pos; aux3++, s++)
+		;
         args[i] = malloc(sizeof(char) * (s + 1));
         if (!args[i])
         {
@@ -90,9 +101,10 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos)
         for (j = 0; j < s; j++, aux2++)
             *(*(args + i) + j) = buf[aux2];
         *(*(args + i) + s) = 0;
-        while (buf[aux] == ' ')
-            aux++;
+        while (buf[aux3] == ' ' || istoken(buf[aux3]))
+            aux3++;
     }
+    *paux = aux3;
 
     return (args);
 }
