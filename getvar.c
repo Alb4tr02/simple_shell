@@ -11,6 +11,7 @@ char *getvar(char *varname, char *buf)
 	char *env = NULL;
 	char buffer[MAX];
 	pathname = getcwd(buffer, MAX);
+	getentorno();
 	for (; pathname[c1]; c1++)
 		;
 	for (; name[c2]; c2++, c1++)

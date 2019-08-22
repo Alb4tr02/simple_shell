@@ -25,6 +25,7 @@ int main (void)
         char *buf = NULL;
         command_t *h;
         command_t *cpy;
+	getentorno();
         while (1)
         {
                 status = 0;

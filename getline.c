@@ -17,7 +17,7 @@ char *_getline(ssize_t *pos, char *pathname)
 	size_t size = MAX, aux;
 	char *buf = malloc(sizeof(char) * size);
 	if (pathname == NULL)
-		fd = 1;
+		fd = STDIN_FILENO;
 	else
 		fd = open(pathname, O_RDONLY);
 	cpy = buf;

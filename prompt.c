@@ -13,7 +13,7 @@ void prompt(void)
                 ;
         for (; prompt[p]; p++)
                 ;
-        write(1, yellow, y);
-        write(1, prompt, p);
-        write(1, reset, r);
+        write(STDIN_FILENO, yellow, y);
+        write(STDIN_FILENO, prompt, p);
+        write(STDIN_FILENO, reset, r);
 }

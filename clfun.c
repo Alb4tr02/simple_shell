@@ -31,6 +31,8 @@ char **getdir(void)
 	char *var = "PATH";
 	char **dir = NULL;
 	getvar(var, path);
+	if (path[0] == 0)
+		return (NULL);
 	for (; path[i]; i++)
 		if (path[i] == ':')
 			sp++;
@@ -42,6 +44,14 @@ char **getdir(void)
 	dir[sp] = NULL;
 	for (i = 0; i < sp; i++)
 	{
+		if (path[0] == ':')
+		{
+			char py[MAX];
+			getcwd(py, MAX);
+			dir[0] = py;
+			i++;
+		}
+
 		aux = j;
 		for (l = 0 ; path[j] != ':'; j++, l++)
 			;
@@ -66,6 +76,8 @@ int  clfun(char **arg)
 	int found = 0;
 	com = *arg;
 	dir = getdir();
+	if (dir == NULL)
+		return (look(*arg));
 	if (*(*(arg + 0) + 0) == '/')
 		return (EXT);
 	res = look(*arg);
