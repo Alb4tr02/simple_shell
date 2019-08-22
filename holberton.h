@@ -5,8 +5,9 @@
 #define EXT 0
 #define BUILT 1
 /**
- * struct comand_s - singly linked list
+ * struct command_s - singly linked list
  * @args: argument
+ * @id: id token (0- intern or 1 - extern)
  * @next: points to the next node
  *
  * Description: singly linked list node structure
@@ -19,6 +20,18 @@ typedef struct command_s
 	struct command_s *next;
 } command_t;
 
+/**
+* struct builtins - type of builtins
+*
+* @built: command
+* @f: the function assoiated
+*/
+typedef struct builtins
+{
+	char *built;
+	int (*f)(command_t *h, command_t *copy);
+} builtin;
+
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_getline(ssize_t *);
 command_t *add_node(command_t **head, char **args, int id);
@@ -28,4 +41,12 @@ int clfun(char **arg);
 int look(char *fun);
 void prompt(void);
 void freecommand(command_t *h);
+void funexc(command_t *h);
+void _extern(command_t *h);
+void _built(command_t *h, command_t *copy);
+int salir(command_t *h, command_t *copy);
+int _history(command_t *h, command_t *copy);
+int _env(command_t *h, command_t *copy);
+int _help(command_t *h, command_t *copy);
+int _cd(command_t *h, command_t *copy);
 #endif

@@ -1,6 +1,6 @@
 #include "holberton.h"
 #include <stdio.h>
-​
+
 /**
  * istoken - verfy operators.
  * @c: character to verify
@@ -10,13 +10,13 @@ int istoken(char c)
 {
         int i = 0;
         char tokens[] = {'&', '|', '\0', '<', '>', ';', '\n',  -1};
-​
+
         while (tokens[i++] != -1)
                 if (tokens[i] == c)
                         return (1);
         return (0);
 }
-​
+
 /**
  * _getargs  - create a linked list that contains all arguments.
  * @buf: buffer with the string
@@ -31,7 +31,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
         command_t *head = NULL;
         char **args = NULL;
         int *paux = &aux;
-​
+
         head = NULL;
         while (p <= *pos)
         {
@@ -64,10 +64,10 @@ command_t *_getargs(char *buf, ssize_t *pos)
                 id = clfun(&args[0]);
                 add_node(&head, args, id);
         }
-​
+
         return (head);
 }
-​
+
 /**
  * fill_nodes - create a linked list that contains all arguments.
  * @buf: poiter to pointer to a space in memory
@@ -78,7 +78,7 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 {
 	char **args = NULL;
 	int aux2, s, y, j, i, aux3;
-​
+
 	s = 0;
 	aux3 = *paux;
 	args = malloc(sizeof(char* ) * (sp + 1));
@@ -105,6 +105,6 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 			aux3++;
 	}
 	*paux = aux3;
-​
+
 	return (args);
 }
