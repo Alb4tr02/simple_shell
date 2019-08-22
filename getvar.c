@@ -18,24 +18,33 @@ char *getvar(char *varname, char *buf)
 		pathname[c1] = name[c2];
 	pathname[c1] = 0;
 	env = _getline(&p, pathname);
-	for (; i <= p; i++)
+	if (env == NULL)
+		return (NULL);
+	for (; env && env[i] && i <=p; i++)
 	{
 		pvar = 0;
-		if (env[i] == varname[pvar] && env[i - 1] == '\n')
+		if (env && varname)
 		{
-			flag = 1;
-			for (; varname[pvar]; pvar++, i++)
-				if (varname[pvar] != env[i])
-					flag = 0;
-			if (flag && env[i] == '=')
+			if (i != 0)
 			{
-				i++;
-				for (; env[i] != '\n'; i++, j++)
-					buf[j] = env[i];
-				buf[j] = 0;
-				break;
+				if ( env[i] == varname[pvar] && env[i - 1] == '\n')
+				{
+					flag = 1;
+					for (; varname[pvar]; pvar++, i++)
+						if (varname[pvar] != env[i])
+							flag = 0;
+					if (flag && env[i] == '=')
+					{
+						i++;
+						for (; env[i] != '\n'; i++, j++)
+							buf[j] = env[i];
+						buf[j] = 0;
+						break;
+					}
+				}
 			}
 		}
 	}
+	free (env);
 	return (buf);
 }

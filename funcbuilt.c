@@ -9,10 +9,10 @@
 * @copy: copy of head of linked list
 * Return: no return
 */
-int _history(command_t *h, command_t *copy)
+int _history(command_t *h)
 {
 	(void)h;
-	freecommand(copy);
+	printf("función history\n");
 	return (0);
 }
 
@@ -22,10 +22,10 @@ int _history(command_t *h, command_t *copy)
 * @copy: copy of head of linked list
 * Return: no return
 */
-int _env(command_t *h, command_t *copy)
+int _env(command_t *h)
 {
 	(void)h;
-	freecommand(copy);
+	printf("función env\n");
 	return (0);
 }
 
@@ -35,10 +35,10 @@ int _env(command_t *h, command_t *copy)
 * @copy: copy of head of linked list
 * Return: no return
 */
-int _help(command_t *h, command_t *copy)
+int _help(command_t *h)
 {
 	(void)h;
-	freecommand(copy);
+	printf("función help\n");
 	return (0);
 }
 
@@ -48,9 +48,9 @@ int _help(command_t *h, command_t *copy)
 * @copy: copy of head of linked list
 * Return: no return
 */
-int _cd(command_t *h, command_t *copy)
+int _cd(command_t *h)
 {
 	(void)h;
-	freecommand(copy);
+	printf("función cd\n");
 	return (0);
 }

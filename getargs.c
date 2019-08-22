@@ -10,9 +10,12 @@ int istoken(char c)
 {
         int i = 0;
         char tokens[] = {'&', '|', '\0', '<', '>', ';', '\n',  -1};
-        while (tokens[i++] != -1)
+        while (tokens[i] != -1)
+	{
                 if (tokens[i] == c)
                         return (1);
+		i++;
+	}
         return (0);
 }
 
@@ -26,7 +29,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
 {
         ssize_t p = 0;
         unsigned int flag = 0;
-        int sp, id, aux = 0;
+        int sp = 0, id = 0, aux = 0;
         command_t *head = NULL;
         char **args = NULL;
         int *paux = &aux;
@@ -76,7 +79,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
 char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 {
 	char **args = NULL;
-	int aux2, s, y, j, i, aux3;
+	int aux2 = 0, s = 0, y = 0, j = 0, i = 0, aux3 = 0;
 
 	s = 0;
 	aux3 = *paux;
@@ -100,7 +103,7 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 		for (j = 0; j < s; j++, aux2++)
 			*(*(args + i) + j) = buf[aux2];
 		*(*(args + i) + s) = 0;
-		while (buf[aux3] == ' ' || istoken(buf[aux3]))
+		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3])))
 			aux3++;
 	}
 	*paux = aux3;

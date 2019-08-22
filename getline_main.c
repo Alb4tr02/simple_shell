@@ -6,23 +6,23 @@
 void freecommand(command_t *h)
 {
         int i = 0;
-        char **args;
-        args = h->args;
-        while (args[i])
-        {
-                free(args[i]);
-                i++;
-        }
-        free(args[i]);
-        free(args);
-        free(h);
+	char **args = NULL;
+	args = h->args;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args[i]);
+	free(args);
+	free(h);
 }
 int main (void)
 {
 	ssize_t a = 0;
 	ssize_t *p = &a;
 	char *buf = NULL;
-	command_t *h;
+	command_t *h = NULL;
 	getentorno();
 	while (1)
 	{
@@ -35,10 +35,10 @@ int main (void)
 			continue;
 		}
 		h = _getargs(buf, p);
+		free(buf);
 		if (!h)
 			return (0);
 		funexc(h);
-		free(buf);
 	}
 	return (0);
 }

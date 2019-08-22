@@ -10,12 +10,14 @@
  */
 char *_getline(ssize_t *pos, char *pathname)
 {
-	int fd;
-	ssize_t n;
-	char *cpy;
-	int state;
-	size_t size = MAX, aux;
-	char *buf = malloc(sizeof(char) * size);
+	int fd = 0;
+	ssize_t n = 0;
+	char *cpy = NULL;
+	int state = 0;
+	size_t size = MAX, aux = 0;
+	char *buf = NULL;
+	int flag = 1;
+	buf = _calloc(sizeof(char) * size, size);
 	if (pathname == NULL)
 		fd = STDIN_FILENO;
 	else
@@ -44,10 +46,13 @@ char *_getline(ssize_t *pos, char *pathname)
 			buf = (char *)_realloc(buf, aux, size);
 			cpy = buf;
 			buf += aux;
+			flag = 0;
 		}
 	}
 	*pos -= 1;
 	if (buf[*pos] == '\n')
 		*pos -= 1;
+	if (flag)
+		return (buf);
 	return (cpy);
 }

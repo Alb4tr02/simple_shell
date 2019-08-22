@@ -35,10 +35,11 @@ typedef struct command_s
 typedef struct builtins
 {
 	char *built;
-	int (*f)(command_t *h, command_t *copy);
+	int (*f)(command_t *h);
 } builtin;
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void *_calloc(unsigned int nmemb, unsigned int size);
 char *_getline(ssize_t *pos, char *pathname);
 command_t *add_node(command_t **head, char **args, int id);
 command_t *_getargs(char *buf, ssize_t *pos);
@@ -52,10 +53,10 @@ void freecommand(command_t *h);
 void getentorno(void);
 void funexc(command_t *h);
 void _extern(command_t *h);
-void _built(command_t *h, command_t *copy);
-int salir(command_t *h, command_t *copy);
-int _history(command_t *h, command_t *copy);
-int _env(command_t *h, command_t *copy);
-int _help(command_t *h, command_t *copy);
-int _cd(command_t *h, command_t *copy);
+void _built(command_t *h);
+int salir(command_t *h);
+int _history(command_t *h);
+int _env(command_t *h);
+int _help(command_t *h);
+int _cd(command_t *h);
 #endif

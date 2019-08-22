@@ -4,8 +4,8 @@
 int look(char *fun)
 {
 	int pos = 0, flag = 0, i = 0;
-	char *current;
-	char *built[] =  {"history", "exit", "env", "help", NULL};
+	char *current = NULL;
+	char *built[] =  {"history", "exit", "env", "help", "cd", NULL};
 	while (built[i])
 	{
 		current = built[i];
@@ -27,7 +27,8 @@ char **getdir(void)
 {
 	int sp = 0, i = 0, l = 0, aux = 0, j = 0;
 	int p = 0;
-	char path[MAX];
+	char *path;
+	path = _calloc(1024, sizeof(char));
 	char *var = "PATH";
 	char **dir = NULL;
 	getvar(var, path);
@@ -40,7 +41,7 @@ char **getdir(void)
 		sp++;
 	if (sp == 0)
 		return (dir);
-	dir = malloc(sizeof(void *) * (sp + 1));
+	dir = _calloc((sp + 1), sizeof(void *));
 	dir[sp] = NULL;
 	for (i = 0; i < sp; i++)
 	{
@@ -53,17 +54,29 @@ char **getdir(void)
 		}
 
 		aux = j;
-		for (l = 0 ; path[j] != ':'; j++, l++)
-			;
+		for (l = 0 ; j < 1024 &&  path[j] != ':'; j++, l++)
+		        ;
 		j++;
-		dir[i] = malloc(l + 1);
-		for (p = 0; path[aux] != ':'; aux++, p++)
+		dir[i] = _calloc(sizeof(char), (l + 2));
+		for (p = 0; aux < 1024 && path[aux] != ':'; aux++, p++)
 			*(dir[i] + p) = path[aux];
 		*(dir[i] + p) = '/';
 		p++;
 		*(dir[i] + p) = 0;
 	}
+	free(path);
 	return (dir);
+}
+void freedir(char **dir, char *arg)
+{
+	int l = 0;
+
+	if (arg)
+		free(arg);
+	for (l = 0; dir[l]; l++)
+		free(dir[l]);
+	free(dir[l]);
+	free(dir);
 }
 int  clfun(char **arg)
 {
@@ -73,14 +86,18 @@ int  clfun(char **arg)
 	char *aux = NULL;
 	unsigned int i = 0, l = 0, la = 0;
 	int res, fd  = 0;
-	int found = 0;
+	int found = 1;
+	res = look(*arg);
+	if (res == BUILT)
+		return (BUILT);
 	com = *arg;
-	dir = getdir();
-	if (dir == NULL)
-		return (look(*arg));
 	if (*(*(arg + 0) + 0) == '/')
 		return (EXT);
-	res = look(*arg);
+	dir = getdir();
+	if (dir == NULL)
+	{
+		return (look(*arg));
+	}
 	for (; com[la]; la++)
 		;
 	la++;
@@ -89,7 +106,7 @@ int  clfun(char **arg)
 		crtdir = dir[i];
 		for (l = 0; crtdir[l]; l++)
 			;
-		aux = malloc(la + l);
+		aux = _calloc(sizeof(char), (la + l + 1));
 		for (l = 0; crtdir[l]; l++)
 			aux[l] = crtdir[l];
 		for (la = 0; com[la]; la++, l++)
@@ -98,19 +115,19 @@ int  clfun(char **arg)
 		fd = open(aux, O_RDONLY);
 		if (fd != -1)
 		{
-			free(*arg);
+			freedir(dir, *arg);
 			*arg = aux;
-			for (l = 0; dir[l]; l++)
-				free(dir[l]);
-			free(dir[l]);
-			free(dir);
 			found = 0;
 			close(fd);
 			break;
 		}
 		i++;
+		free(aux);
 	}
 	if (found)
+	{
+		freedir(dir, NULL);
 		res = -1;
+	}
 	return (res);
 }
