@@ -23,7 +23,6 @@ int main (void)
 	ssize_t *p = &a;
 	char *buf = NULL;
 	command_t *h = NULL;
-	getentorno();
 	while (1)
 	{
 		a = 0;

@@ -17,11 +17,13 @@ char *_getline(ssize_t *pos, char *pathname)
 	size_t size = MAX, aux = 0;
 	char *buf = NULL;
 	int flag = 1;
-	buf = _calloc(sizeof(char) * size, size);
 	if (pathname == NULL)
-		fd = STDIN_FILENO;
+		fd = STDIN_FILENO, size = 100;
 	else
 		fd = open(pathname, O_RDONLY);
+	buf = _calloc(size, size);
+	buf[size -1] = 0;
+	buf[0] = 0;
 	cpy = buf;
 	state = READING;
 	while (state)

@@ -1,50 +1,28 @@
 #include "holberton.h"
 #include <stdio.h>
 #define MAX 1024
+extern char **environ;
 char *getvar(char *varname, char *buf)
 {
-	ssize_t p = 0;
-	int i = 0, pvar = 0, flag = 1;
-	int j = 0, c1 = 0, c2 = 0;
-	char *name = "/environ";
-	char *pathname = NULL;
-	char *env = NULL;
-	char buffer[MAX];
-	pathname = getcwd(buffer, MAX);
-	getentorno();
-	for (; pathname[c1]; c1++)
-		;
-	for (; name[c2]; c2++, c1++)
-		pathname[c1] = name[c2];
-	pathname[c1] = 0;
-	env = _getline(&p, pathname);
-	if (env == NULL)
-		return (NULL);
-	for (; env && env[i] && i <=p; i++)
+	int i = 0, j = 0, flag = 1, aux = 0;
+	while (environ[i])
 	{
-		pvar = 0;
-		if (env && varname)
+		if ( varname[0] == environ[i][0] )
 		{
-			if (i != 0)
+			flag = 1, j = 0;
+			for (; varname[j]; j++)
+				if (varname[j] != environ[i][j])
+					flag = 0;
+			if (flag && environ[i][j] == '=')
 			{
-				if ( env[i] == varname[pvar] && env[i - 1] == '\n')
-				{
-					flag = 1;
-					for (; varname[pvar]; pvar++, i++)
-						if (varname[pvar] != env[i])
-							flag = 0;
-					if (flag && env[i] == '=')
-					{
-						i++;
-						for (; env[i] != '\n'; i++, j++)
-							buf[j] = env[i];
-						buf[j] = 0;
-						break;
-					}
-				}
+				j++;
+				for (; environ[i][j]; aux++, j++)
+					buf[aux] = environ[i][j];
+				buf[aux] = 0;
+				return (buf);
 			}
 		}
+		i++;
 	}
-	free (env);
-	return (buf);
+	return (NULL);
 }

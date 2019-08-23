@@ -25,7 +25,7 @@ int look(char *fun)
 }
 char **getdir(void)
 {
-	int sp = 0, i = 0, l = 0, aux = 0, j = 0;
+	int sp = 0, i = 0, l = 0, aux = 0, j = 0, flag = 1;
 	int p = 0;
 	char *path;
 	path = _calloc(1024, sizeof(char));
@@ -45,24 +45,32 @@ char **getdir(void)
 	dir[sp] = NULL;
 	for (i = 0; i < sp; i++)
 	{
-		if (path[0] == ':')
+		if (path[0] == ':' && flag)
 		{
-			char py[MAX];
+			int g = 0;
+			char *py =_calloc(MAX, MAX);
 			getcwd(py, MAX);
+			for (; py[g]; g++)
+				;
+			py[g] = '/';
+			g++;
+			py[g] = 0;
 			dir[0] = py;
-			i++;
+			i++, j++;
+			flag = 0;
 		}
-
 		aux = j;
-		for (l = 0 ; j < 1024 &&  path[j] != ':'; j++, l++)
+		for (l = 0 ; j < 1024 && path[j] && path[j] != ':'; j++, l++)
 		        ;
 		j++;
 		dir[i] = _calloc(sizeof(char), (l + 2));
-		for (p = 0; aux < 1024 && path[aux] != ':'; aux++, p++)
+		for (p = 0; path[aux] && aux < 1024 && path[aux] != ':'; aux++, p++)
 			*(dir[i] + p) = path[aux];
 		*(dir[i] + p) = '/';
 		p++;
 		*(dir[i] + p) = 0;
+		aux++;
+		j = aux;
 	}
 	free(path);
 	return (dir);
