@@ -39,13 +39,13 @@ command_t *_getargs(char *buf, ssize_t *pos)
         {
                 sp = 0;
                 flag = 1;
-                while (buf[p] == ' ')
+                while (buf[p] == ' ' || buf[p] == '\t')
                         p++, aux++;
                 while (p <= *pos)
                 {
-                        if (p == *pos && buf[p] != ' ')
+                        if (p == *pos && buf[p] != ' ' && buf[p] != '\t')
                                 sp++;
-                        if (buf[p] == ' ' || istoken(buf[p]))
+                        if (buf[p] == ' ' || istoken(buf[p]) || buf[p] == '\t')
                         {
                                 if (flag)
                                         sp++;
@@ -60,7 +60,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
                 if (p != 0 && sp == 0)
                         sp++;
                 p++;
-                while(buf[p] == ' ')
+                while(buf[p] == ' ' || buf[p] == '\t')
                         p++;
                 args = fill_nodes(buf, sp, pos, paux);
                 id = clfun(&args[0]);
@@ -90,7 +90,7 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 	for (i = 0; sp > 0; sp--, i++)
 	{
 		aux2 = aux3;
-		for (s = 0; buf[aux3] != ' ' && !istoken(buf[aux3])&& aux3 <= *pos; aux3++, s++)
+		for (s = 0; buf[aux3] != ' ' && buf[aux3] != '\t' && !istoken(buf[aux3])&& aux3 <= *pos; aux3++, s++)
 			;
 		args[i] = malloc(sizeof(char) * (s + 1));
 		if (!args[i])
@@ -103,7 +103,7 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 		for (j = 0; j < s; j++, aux2++)
 			*(*(args + i) + j) = buf[aux2];
 		*(*(args + i) + s) = 0;
-		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3])))
+		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3] || buf[aux3] == '\t')))
 			aux3++;
 	}
 	*paux = aux3;
