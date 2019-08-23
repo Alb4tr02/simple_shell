@@ -1,27 +1,36 @@
-#define MAX 1024
+#define MAX 4096
 #define READING 1
 #include "holberton.h"
+#include <stdio.h>
 
 /**
  * _getline - function that gets a line from the stdin.
  * @pos: pointer to the actual buffer position.
  * Return: pointer to the buffer that stores the line.
  */
-char *_getline(ssize_t *pos)
+char *_getline(ssize_t *pos, char *pathname)
 {
-	ssize_t n;
-	char *cpy;
-	int state;
-	size_t size = MAX, aux;
-	char *buf = malloc(sizeof(char) * size);
-
+	int fd = 0;
+	ssize_t n = 0;
+	char *cpy = NULL;
+	int state = 0;
+	size_t size = MAX, aux = 0;
+	char *buf = NULL;
+	int flag = 1;
+	if (pathname == NULL)
+		fd = STDIN_FILENO, size = 100;
+	else
+		fd = open(pathname, O_RDONLY);
+	buf = _calloc(size, size);
+	buf[size -1] = 0;
+	buf[0] = 0;
 	cpy = buf;
 	state = READING;
 	while (state)
 	{
 		if (!buf)
 			return (NULL);
-		n = read(STDIN_FILENO, buf, MAX);
+		n = read(fd, buf, MAX);
 		*pos += n;
 		if (n == -1)
 		{
@@ -39,7 +48,13 @@ char *_getline(ssize_t *pos)
 			buf = (char *)_realloc(buf, aux, size);
 			cpy = buf;
 			buf += aux;
+			flag = 0;
 		}
 	}
+	*pos -= 1;
+	if (buf[*pos] == '\n')
+		*pos -= 1;
+	if (flag)
+		return (buf);
 	return (cpy);
 }
