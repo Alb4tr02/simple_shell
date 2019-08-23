@@ -40,9 +40,10 @@ char **getdir(void)
 	int sp = 0, i = 0, l = 0, aux = 0, j = 0, flag = 1;
 	int p = 0;
 	char *path;
-	path = _calloc(1024, sizeof(char));
 	char *var = "PATH";
 	char **dir = NULL;
+
+	path = _calloc(1024, sizeof(char));
 	getvar(var, path);
 	if (path[0] == 0)
 		return (NULL);
