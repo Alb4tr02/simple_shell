@@ -14,6 +14,8 @@ void getentorno(void)
 	char *env = NULL;
 	char *pathname = NULL;
 	char *name = "/environ";
+	int ll = 0;
+
 	pathname = getcwd(buf, MAX);
 	for (; pathname[n]; n++)
 		;
@@ -32,7 +34,6 @@ void getentorno(void)
 	}
 	close(fd);
 	env = _getline(&pos, pathname);
-	int ll = 0;
 	for (; ll <= pos; ll++)
 		if (env[ll] == 0)
 			env[ll] = '\n';
