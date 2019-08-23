@@ -43,7 +43,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
                         p++, aux++;
                 while (p <= *pos)
                 {
-                        if (p == *pos && buf[p] != ' ' && buf[p] != '\t')
+                        if (p == *pos && buf[p] != ' ' && buf[p] != '\t' && !istoken(buf[p]))
                                 sp++;
                         if (buf[p] == ' ' || istoken(buf[p]) || buf[p] == '\t')
                         {
@@ -103,7 +103,7 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 		for (j = 0; j < s; j++, aux2++)
 			*(*(args + i) + j) = buf[aux2];
 		*(*(args + i) + s) = 0;
-		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3] || buf[aux3] == '\t')))
+		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3]) || buf[aux3] == '\t'))
 			aux3++;
 	}
 	*paux = aux3;
