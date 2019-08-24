@@ -1,6 +1,6 @@
 #include "holberton.h"
 #include <stdio.h>
-#define MAX 1024
+#define MAX 500
 int look(char *fun)
 {
 	int pos = 0, flag = 0, i = 0;
@@ -23,6 +23,18 @@ int look(char *fun)
 	}
 	return ((flag == 0) ? EXT: BUILT);
 }
+char *currentpath(void)
+{
+	int g = 0;
+	char *py =_calloc(MAX, MAX);
+	getcwd(py, MAX);
+	for (; py[g]; g++)
+		;
+	py[g] = '/';
+	g++;
+	py[g] = 0;
+	return (py);
+}
 char **getdir(void)
 {
 	int sp = 0, i = 0, l = 0, aux = 0, j = 0, flag = 1;
@@ -30,9 +42,9 @@ char **getdir(void)
 	char *path;
 	char *var = "PATH";
 	char **dir = NULL;
-
-	path = _calloc(1024, sizeof(char));
-	getvar(var, path);
+	path = _getenvvar(var);
+	//path = _calloc(1024, sizeof(char));
+	//getvar(var, path);
 	if (path[0] == 0)
 		return (NULL);
 	for (; path[i]; i++)
@@ -48,21 +60,19 @@ char **getdir(void)
 	{
 		if (path[0] == ':' && flag)
 		{
-			int g = 0;
-			char *py =_calloc(MAX, MAX);
-			getcwd(py, MAX);
-			for (; py[g]; g++)
-				;
-			py[g] = '/';
-			g++;
-			py[g] = 0;
-			dir[0] = py;
+			dir[0] = currentpath();
 			i++, j++;
 			flag = 0;
 		}
 		aux = j;
 		for (l = 0 ; j < 1024 && path[j] && path[j] != ':'; j++, l++)
 		        ;
+		if (l == 0)
+		{
+			dir[i] = currentpath();
+			j++;
+			continue;
+		}
 		j++;
 		dir[i] = _calloc(sizeof(char), (l + 2));
 		for (p = 0; path[aux] && aux < 1024 && path[aux] != ':'; aux++, p++)
