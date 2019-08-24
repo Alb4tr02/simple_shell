@@ -26,9 +26,33 @@ char **getrealenv(void)
 	}
 	return (cpyenv);
 }
+char *_getenvvar(char *varname)
+{
+	char **env = NULL;
+	int pos = 0, l = 0, l1 = 0, pe = 0, flag = 0;
+	char *var = NULL;
+	env = _setenv("PATH", NULL);
+	pos =  buscar(env, varname);
+	if (pos == -1)
+		return (NULL);
+	for (; env[pos][l]; l++)
+	{
+		if (flag)
+			l1++;
+		if (!flag && env[pos][l] == '=')
+		{
+			pe = l;
+			flag = 1;
+		}
+	}
+	var = _calloc(l1 + 1, sizeof(char));
+	for (l1 = 0, pe = pe + 1; env[pos][pe]; l1++, pe++)
+		var[l1] = env[pos][pe];
+	return (var);
+}
 int buscar(char **environ, char *varname)
 {
-	int i = 0, j = 0, flag = 1, aux = 0;
+	int i = 0, j = 0, flag = 1;
 	while (environ[i])
 	{
 		if (varname[0] == environ[i][0] )
@@ -76,7 +100,7 @@ char **_setenv(char *varname, char *valor)
 	}
 	return (env);
 }
-int main(void)
+/*int main(void)
 {
 	int pos = 0;
 	char **py = NULL;
@@ -95,4 +119,4 @@ int main(void)
 	getrealenv();
 	getrealenv();
 	return (0);
-}
+	}*/

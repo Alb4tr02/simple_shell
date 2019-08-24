@@ -57,7 +57,8 @@ int main (void)
 		if(cnt == 0 && buf[0] == 0)
 		{
 			write(STDIN_FILENO, &sl, 1);
-			exit(0);
+			free(buf);
+			salir(NULL);
 		}
 		if (flag)
 			write(STDIN_FILENO, &sl, 1);
