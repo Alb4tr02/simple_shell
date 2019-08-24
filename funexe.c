@@ -33,7 +33,7 @@ void _extern(command_t *h)
 {
 
 	int status = 0, pid = 0;
-
+	char **env = _setenv("PATH", NULL);
 	if (!h->args)
 	{
 		printf("no sirve esta mierda\n");
@@ -42,7 +42,7 @@ void _extern(command_t *h)
 	pid = fork();
 	if (pid == 0)
 	{
-		status = execve(*h->args, h->args, NULL);
+		status = execve(*h->args, h->args, env);
 		if (status == -1)
 			salir(h);
 	}
@@ -97,11 +97,18 @@ void _built(command_t *h)
 int salir(command_t *h)
 {
 	command_t *cpy = NULL;
+	char **env = NULL;
+	int i = 0;
 	while (h)
 	{
 		cpy = h->next;
 		freecommand(h);
 		h = cpy;
 	}
+	env = _setenv("PATH", NULL);
+	for (; env[i]; i++)
+		free(env[i]);
+	free(env[i]);
+	free(env);
 	exit (0);
 }

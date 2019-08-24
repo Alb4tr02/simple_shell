@@ -2,7 +2,7 @@
 #define READING 1
 #include "holberton.h"
 #include <stdio.h>
-
+#include <signal.h>
 /**
  * _getline - function that gets a line from the stdin.
  * @pos: pointer to the actual buffer position.
@@ -22,6 +22,25 @@ char *_getline(ssize_t *pos, char *pathname)
 	else
 		fd = open(pathname, O_RDONLY);
 	buf = _calloc(size, size);
+/*	if (pathname == NULL)
+	{
+		int cnt = 0;
+		char c;
+		while(read(STDIN_FILENO, &c, 1) == 1 && cnt < (int)size)
+		{
+			if (c == 4 && cnt == 0)
+				exit(0);
+			if(c == '\n')
+			{
+				buf[cnt - 1] = 0;
+				return (buf);
+			}
+
+			buf[cnt] = c;
+			*pos = *pos + 1;
+			cnt++;
+		}
+		}*/
 	buf[size -1] = 0;
 	buf[0] = 0;
 	cpy = buf;
@@ -32,14 +51,38 @@ char *_getline(ssize_t *pos, char *pathname)
 			return (NULL);
 		n = read(fd, buf, MAX);
 		*pos += n;
+		//printf("pos = %d\n", (int)*pos);
+		if (buf[0] == 0)
+			break;
 		if (n == -1)
 		{
 			free(buf);
 			return (NULL);
 		}
-		if (n != MAX)
+		//printf("buf = %d\n", buf[*pos -1]);
+		if (n != MAX && buf[*pos - 1] == '\n')
 			break;
-		else if (n == MAX)
+		else
+		{
+			buf += n;
+			int cnt = 0;
+			char c;
+			while(read(STDIN_FILENO, &c, 1) == 1 && cnt < (int)size)
+			{
+				if (c == 4 && cnt == 0)
+					exit(0);
+				if(c == '\n')
+				{
+					buf[cnt - 1] = '\n';
+					return (buf);
+				}
+
+				buf[cnt] = c;
+				*pos = *pos + 1;
+				cnt++;
+			}
+		}
+		if (n == MAX)
 		{
 			if (buf[*pos - 1] == 10)
 				break;

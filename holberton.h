@@ -37,7 +37,12 @@ typedef struct builtins
 	char *built;
 	int (*f)(command_t *h);
 } builtin;
-
+char  *getvaderdir(void);
+int chtopreviousdir(void);
+char *_getenvvar(char *varname);
+char **_setenv(char *varname, char *valor);
+int buscar(char **environ, char *varname);
+char **getrealenv(void);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void *_calloc(unsigned int nmemb, unsigned int size);
 char *_getline(ssize_t *pos, char *pathname);
