@@ -35,7 +35,10 @@ void _extern(command_t *h)
 	int status = 0, pid = 0;
 
 	if (!h->args)
+	{
 		printf("no sirve esta mierda\n");
+		return;
+	}
 	pid = fork();
 	if (pid == 0)
 	{

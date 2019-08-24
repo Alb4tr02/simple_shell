@@ -59,4 +59,5 @@ int _history(command_t *h);
 int _env(command_t *h);
 int _help(command_t *h);
 int _cd(command_t *h);
+void handle_signal(int s);
 #endif

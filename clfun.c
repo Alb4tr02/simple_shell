@@ -6,6 +6,7 @@ int look(char *fun)
 	int pos = 0, flag = 0, i = 0;
 	char *current = NULL;
 	char *built[] =  {"history", "exit", "env", "help", "cd", NULL};
+
 	while (built[i])
 	{
 		current = built[i];
@@ -13,7 +14,7 @@ int look(char *fun)
 		{
 			if (current[pos] == fun[pos])
 			{
-				if (current[pos + 1] == 0 && fun[pos +1] == 0)
+				if (current[pos + 1] == 0 && fun[pos + 1] == 0)
 					return (BUILT);
 			}
 			else
@@ -21,14 +22,14 @@ int look(char *fun)
 		}
 		i++;
 	}
-	return ((flag == 0) ? EXT: BUILT);
+	return ((flag == 0) ? EXT : BUILT);
 }
 char **getdir(void)
 {
-	int sp = 0, i = 0, l = 0, aux = 0, j = 0, flag = 1;
-	int p = 0;
+	int sp = 0, i = 0, l = 0, aux = 0, j = 0, flag = 1, p = 0, g = 0;
 	char *path;
 	char *var = "PATH";
+	char *py = NULL;
 	char **dir = NULL;
 
 	path = _calloc(1024, sizeof(char));
@@ -43,13 +44,15 @@ char **getdir(void)
 	if (sp == 0)
 		return (dir);
 	dir = _calloc((sp + 1), sizeof(void *));
+	if (dir == NULL)
+		return (NULL);
 	dir[sp] = NULL;
 	for (i = 0; i < sp; i++)
 	{
 		if (path[0] == ':' && flag)
 		{
-			int g = 0;
-			char *py =_calloc(MAX, MAX);
+			g = 0;
+			py = _calloc(MAX, MAX);
 			getcwd(py, MAX);
 			for (; py[g]; g++)
 				;
@@ -62,9 +65,11 @@ char **getdir(void)
 		}
 		aux = j;
 		for (l = 0 ; j < 1024 && path[j] && path[j] != ':'; j++, l++)
-		        ;
+			;
 		j++;
 		dir[i] = _calloc(sizeof(char), (l + 2));
+		if (dir[i] == NULL)
+			return NULL;
 		for (p = 0; path[aux] && aux < 1024 && path[aux] != ':'; aux++, p++)
 			*(dir[i] + p) = path[aux];
 		*(dir[i] + p) = '/';
@@ -116,6 +121,8 @@ int  clfun(char **arg)
 		for (l = 0; crtdir[l]; l++)
 			;
 		aux = _calloc(sizeof(char), (la + l + 1));
+		if (aux == NULL)
+			return (0);
 		for (l = 0; crtdir[l]; l++)
 			aux[l] = crtdir[l];
 		for (la = 0; com[la]; la++, l++)
