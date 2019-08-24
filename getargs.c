@@ -103,7 +103,7 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 		for (j = 0; j < s; j++, aux2++)
 			*(*(args + i) + j) = buf[aux2];
 		*(*(args + i) + s) = 0;
-		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3] || buf[aux3] == '\t')))
+		while (buf[aux3] && (buf[aux3] == ' ' || istoken(buf[aux3]) || buf[aux3] == '\t'))
 			aux3++;
 	}
 	*paux = aux3;
