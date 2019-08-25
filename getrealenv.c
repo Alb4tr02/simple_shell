@@ -100,9 +100,9 @@ int buscar(char **environ, char *varname)
 char **_setenv(char *varname, char *valor)
 {
 	static char **env;
+	static char **cpyenv;
 	static int flag = 1;
-	int pos = 0, l1 = 0, l2 = 0;
-	char *newvar = NULL;
+	int i = 0;
 
 	if (flag)
 	{
@@ -124,8 +124,19 @@ char **_setenv(char *varname, char *valor)
 			newvar[l1] = valor[l2];
 		newvar[l1] = 0;
 		pos = buscar(env, varname);
+		if (pos == -1)
+		{
+			for (; env[i]; i++)
+				;
+			cpyenv = _calloc(i + 2, sizeof(char *));
+			cpyenv[i + 1] = NULL;
+			for (i = 0; env[i]; i++)
+				cpyenv[i] = env[i];
+			cpyenv[i] = newvar;
+			free(env);
+			env = cpyenv;
+			return (env); }
 		free(env[pos]);
-		env[pos] = newvar;
-	}
+		env[pos] = newvar; }
 	return (env);
 }
