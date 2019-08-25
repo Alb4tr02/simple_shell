@@ -41,6 +41,8 @@ typedef struct builtins
 /* Array of pointers to environment strings*/
 extern char **environ;
 
+int _setenviron(command_t *h);
+int _unsetenv(command_t *h);
 char  *getvaderdir(void);
 int chtopreviousdir(void);
 char *_getenvvar(char *varname);

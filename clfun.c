@@ -44,7 +44,7 @@ char **getdir(void)
 	char *var = "PATH";
 	char **dir = NULL;
 	path = _getenvvar(var);
-	if (path[0] == 0)
+	if (!path || path[0] == 0)
 		return (NULL);
 	for (; path[i]; i++)
 		if (path[i] == ':')

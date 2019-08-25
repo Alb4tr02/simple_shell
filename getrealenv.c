@@ -45,7 +45,7 @@ char *_getenvvar(char *varname)
 	int pos = 0, l = 0, l1 = 0, pe = 0, flag = 0;
 	char *var = NULL;
 
-	env = _setenv("PATH", NULL);
+	env = _setenv(NULL, NULL);
 	pos =  buscar(env, varname);
 	if (pos == -1)
 		return (NULL);
@@ -91,6 +91,7 @@ int buscar(char **environ, char *varname)
 	}
 	return (-1);
 }
+
 /**
  * _setenv - get environment variable.
  * @varname: name of the variable
@@ -111,7 +112,7 @@ char **_setenv(char *varname, char *valor)
 		env = getrealenv();
 		flag = 0;
 	}
-	if (valor)
+	if (varname && valor)
 	{
 		while (varname[l1])
 			l1++;
@@ -140,5 +141,14 @@ char **_setenv(char *varname, char *valor)
 			return (env); }
 		free(env[pos]);
 		env[pos] = newvar; }
+	if (varname && !valor)
+	{
+		pos = buscar(env, varname);
+		free(env[pos]);
+		for (; env[pos + 1]; pos++)
+			env[pos] = env[pos + 1];
+		env[pos] = NULL;
+		free(env[pos + 1]);
+	}
 	return (env);
 }
