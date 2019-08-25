@@ -115,23 +115,3 @@ char **_setenv(char *varname, char *valor)
 	}
 	return (env);
 }
-/*int main(void)
-{
-	int pos = 0;
-	char **py = NULL;
-	py = getrealenv();
-	printf("%s\n", py[0]);
-	printf("%s\n", py[1]);
-	printf("%s\n", py[2]);
-	printf("%s\n", py[3]);
-	py = _setenv("PATH", NULL);
-	pos = buscar(py, "PATH");
-	printf("%s\n", py[pos]);
-	py = _setenv("PATH", "tony:v");
-	printf("%s\n", py[pos]);
-	getrealenv();
-	getrealenv();
-	getrealenv();
-	getrealenv();
-	return (0);
-	}*/
