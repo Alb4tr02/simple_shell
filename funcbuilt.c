@@ -35,8 +35,8 @@ int _env(command_t *h)
 	{
 		for(l = 0; env[i][l]; l++)
 			;
-		write(STDIN_FILENO, env[i], l);
-		write(STDIN_FILENO, &sl, 1);
+		write(1, env[i], l);
+		write(1, &sl, 1);
 		i++;
 	}
 	return (0);
@@ -104,8 +104,8 @@ int chtopreviousdir(void)
 		_setenv("OLDPWD", pwd);
 		for(; oldpwd[l]; l++)
 			;
-		write(STDIN_FILENO, oldpwd, l);
-		write(STDIN_FILENO, &sl, 1);
+		write(1, oldpwd, l);
+		write(1, &sl, 1);
 		free(pwd);
 		free(oldpwd);
 		return (0);
@@ -295,9 +295,17 @@ int _cd(command_t *h)
 {
 	char **args = NULL;
 	char *path = NULL;
+	char *home = NULL;
+
 	args = h->args;
 	path = args[1];
-	if (path[0] == '-' && path[1] == 0)
+	if (path == NULL)
+	{
+		home = _getenvvar("HOME");
+		absolutepath(home);
+		free(home);
+	}
+	else if (path[0] == '-' && path[1] == 0)
 		chtopreviousdir();
 	else if (path[0] == '.' && path[1] == '.' && path[2] == 0)
 		darthVader();
