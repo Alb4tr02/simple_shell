@@ -171,7 +171,6 @@ int chtopreviousdir(void)
 *
 * Return: return 0
 */
-=======
 int darthVader()
 {
 	char *newpwd = NULL;
@@ -348,7 +347,6 @@ int absolutepath(char *path)
 		printf("Error\n");
 		return (-1);
 	}
-	//printf("ruta: %s\n", cp ypath);
 	return (0);
 }
 int _cd(command_t *h)

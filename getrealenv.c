@@ -103,6 +103,8 @@ char **_setenv(char *varname, char *valor)
 	static char **cpyenv;
 	static int flag = 1;
 	int i = 0;
+	int pos = 0, l1 = 0, l2 = 0;
+	char *newvar = NULL;
 
 	if (flag)
 	{
