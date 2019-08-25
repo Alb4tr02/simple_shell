@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include "holberton.h"
-extern char **environ;
+
+/**
+ * getrealenv - get real env.
+ *
+ * Return: pointer to real env.
+ *
+ */
 char **getrealenv(void)
 {
 	static int flag = 1;
 	static char **cpyenv;
-	int i = 0, l = 0, j =0;
+	int i = 0, l = 0, j = 0;
+
 	if (flag)
 	{
 		while (environ[i])
@@ -26,11 +33,18 @@ char **getrealenv(void)
 	}
 	return (cpyenv);
 }
+/**
+*_getenvvar - get environment variable.
+* @varname: name of the variable
+*
+* Return: pointer to environment variable.
+*/
 char *_getenvvar(char *varname)
 {
 	char **env = NULL;
 	int pos = 0, l = 0, l1 = 0, pe = 0, flag = 0;
 	char *var = NULL;
+
 	env = _setenv("PATH", NULL);
 	pos =  buscar(env, varname);
 	if (pos == -1)
@@ -50,12 +64,21 @@ char *_getenvvar(char *varname)
 		var[l1] = env[pos][pe];
 	return (var);
 }
+
+/**
+* buscar - get environment variable.
+* @environ: enviorn
+* @varname: name of the variable
+*
+* Return: position of the variable or -1 if it does not exist
+*/
 int buscar(char **environ, char *varname)
 {
 	int i = 0, j = 0, flag = 1;
+
 	while (environ[i])
 	{
-		if (varname[0] == environ[i][0] )
+		if (varname[0] == environ[i][0])
 		{
 			flag = 1, j = 0;
 			for (; varname[j]; j++)
@@ -68,18 +91,24 @@ int buscar(char **environ, char *varname)
 	}
 	return (-1);
 }
-
+/**
+ * _setenv - get environment variable.
+ * @varname: name of the variable
+ * @valor: valor
+ * Return: pointer to env
+ */
 char **_setenv(char *varname, char *valor)
 {
-	static char **env = NULL;
+	static char **env;
 	static int flag = 1;
+	int pos = 0, l1 = 0, l2 = 0;
+	char *newvar = NULL;
+
 	if (flag)
 	{
 		env = getrealenv();
 		flag = 0;
 	}
-	int pos = 0, l1 = 0, l2 = 0;
-	char *newvar = NULL;
 	if (valor)
 	{
 		while (varname[l1])
@@ -100,23 +129,3 @@ char **_setenv(char *varname, char *valor)
 	}
 	return (env);
 }
-/*int main(void)
-{
-	int pos = 0;
-	char **py = NULL;
-	py = getrealenv();
-	printf("%s\n", py[0]);
-	printf("%s\n", py[1]);
-	printf("%s\n", py[2]);
-	printf("%s\n", py[3]);
-	py = _setenv("PATH", NULL);
-	pos = buscar(py, "PATH");
-	printf("%s\n", py[pos]);
-	py = _setenv("PATH", "tony:v");
-	printf("%s\n", py[pos]);
-	getrealenv();
-	getrealenv();
-	getrealenv();
-	getrealenv();
-	return (0);
-	}*/

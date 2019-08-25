@@ -4,12 +4,11 @@
 #include <sys/wait.h>
 #include <dirent.h>
 #define MAX 500
-extern char **environ;
 
 /**
-* funexc - call execvp or buitin functions.
+* _history - show history of commands.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+
 * Return: no return
 */
 int _history(command_t *h)
@@ -20,21 +19,22 @@ int _history(command_t *h)
 }
 
 /**
-* funexc - call execvp or buitin functions.
+* _env - show all environment variables.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+*
 * Return: no return
 */
 int _env(command_t *h)
 {
-	(void)h;
 	char **env = NULL;
 	int i = 0, l = 0;
 	char sl = '\n';
+
+	(void)h;
 	env = _setenv("PATH", NULL);
 	while (env[i])
 	{
-		for(l = 0; env[i][l]; l++)
+		for (l = 0; env[i][l]; l++)
 			;
 		write(STDIN_FILENO, env[i], l);
 		write(STDIN_FILENO, &sl, 1);
@@ -44,9 +44,9 @@ int _env(command_t *h)
 }
 
 /**
-* funexc - call execvp or buitin functions.
+* _help - show help document of some functions.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+*
 * Return: no return
 */
 int _help(command_t *h)
@@ -54,7 +54,8 @@ int _help(command_t *h)
 	char **argseach = NULL;
 	int i = 0, j = 0, entero = 0, g, k;
 	char *args[] = {"cd", "env", "history", "exit", "alias", NULL};
-	char *filenames[] = {"h_cd.txt", "h_env.txt", "h_history.txt", "h_exit.txt", "h_alias.txt", NULL};
+	char *filenames[] = {"h_cd.txt", "h_env.txt", "h_history.txt",
+			     "h_exit.txt", "h_alias.txt", NULL};
 	char *buffer = NULL;
 	char *buf = NULL;
 	ssize_t a = 0;
@@ -64,11 +65,8 @@ int _help(command_t *h)
 	buffer = malloc(1024);
 	if (buffer == NULL)
 		return (0);
-	if(argseach[1][0] == 0)
-	{
-		printf ("escribe un segundo argumento por favor");
+	if (argseach[1][0] == 0)
 		return (0);
-	}
 	while (args[i] != NULL)
 	{
 		for (j = 0; args[i][j] != '\0'; j++)
@@ -98,13 +96,13 @@ int _help(command_t *h)
 		}
 		i++;
 	}
+	free(buffer);
 	return (0);
 }
 
 /**
-* funexc - call execvp or buitin functions.
-* @h: node tha has the builtin command
-* @copy: copy of head of linked list
+* getvaderdir - get variable directory.
+*
 * Return: no return
 */
 char  *getvaderdir(void)
@@ -113,6 +111,7 @@ char  *getvaderdir(void)
 	char **env = NULL;
 	char *pwd = NULL;
 	char *newpwd = NULL;
+
 	env = _setenv("PATH", NULL);
 	pos = buscar(env, "PWD");
 	pwd = env[pos];
@@ -124,11 +123,18 @@ char  *getvaderdir(void)
 		newpwd[l] = pwd[l];
 	return (newpwd);
 }
+
+/**
+* chtopreviousdir - previous directory.
+*
+* Return: no return
+*/
 int chtopreviousdir(void)
 {
 	char *oldpwd = NULL;
 	char *pwd = NULL;
 	DIR *dir = NULL;
+
 	oldpwd = _getenvvar("OLDPWD");
 	pwd = _getenvvar("PWD");
 	if (!oldpwd)
@@ -154,21 +160,21 @@ int chtopreviousdir(void)
 	}
 	return (-1);
 }
+
+/**
+* _cd - change directory.
+* @h: head of the linked list
+*
+* Return: no return
+*/
 int _cd(command_t *h)
 {
 	char **args = NULL;
 	char *path = NULL;
+
 	args = h->args;
 	path = args[1];
 	if (path[0] == '-' && path[1] == 0)
 		chtopreviousdir();
-	/*else if (path[0] == '.' && path[1] == '.' && path[2] == 0)
-		darthVader();
-	else if (path[0] == '.' && path[1] == 0)
-		lukeSkywalker();
-	else if (path[0] == '/')
-		absolutepath(path);
-	else
-	relativepath(path);*/
 	return (0);
 }

@@ -17,30 +17,14 @@ char *_getline(ssize_t *pos, char *pathname)
 	size_t size = MAX, aux = 0;
 	char *buf = NULL;
 	int flag = 1;
+	int cnt = 0;
+	char c;
+
 	if (pathname == NULL)
 		fd = STDIN_FILENO, size = 100;
 	else
 		fd = open(pathname, O_RDONLY);
 	buf = _calloc(size, size);
-/*	if (pathname == NULL)
-	{
-		int cnt = 0;
-		char c;
-		while(read(STDIN_FILENO, &c, 1) == 1 && cnt < (int)size)
-		{
-			if (c == 4 && cnt == 0)
-				exit(0);
-			if(c == '\n')
-			{
-				buf[cnt - 1] = 0;
-				return (buf);
-			}
-
-			buf[cnt] = c;
-			*pos = *pos + 1;
-			cnt++;
-		}
-		}*/
 	buf[size -1] = 0;
 	buf[0] = 0;
 	cpy = buf;
@@ -51,7 +35,6 @@ char *_getline(ssize_t *pos, char *pathname)
 			return (NULL);
 		n = read(fd, buf, MAX);
 		*pos += n;
-		//printf("pos = %d\n", (int)*pos);
 		if (buf[0] == 0)
 			break;
 		if (n == -1)
@@ -59,14 +42,11 @@ char *_getline(ssize_t *pos, char *pathname)
 			free(buf);
 			return (NULL);
 		}
-		//printf("buf = %d\n", buf[*pos -1]);
 		if (n != MAX && buf[*pos - 1] == '\n')
 			break;
 		else
 		{
 			buf += n;
-			int cnt = 0;
-			char c;
 			while(read(STDIN_FILENO, &c, 1) == 1 && cnt < (int)size)
 			{
 				if (c == 4 && cnt == 0)

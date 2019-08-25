@@ -5,6 +5,7 @@
 
 /**
  * funexc - call execvp or buitin functions.
+ * @h: pointer to the head of the linked list
  *
  * Return: no return
  */
@@ -12,7 +13,7 @@ void funexc(command_t *h)
 {
 	command_t *copy = NULL;
 
-	while(h)
+	while (h)
 	{
 		copy = h;
 		if (h->id == 0)
@@ -25,7 +26,8 @@ void funexc(command_t *h)
 }
 
 /**
- * funexc - call execvp or buitin functions.
+ * _extern - call execvp or buitin functions.
+ * @h: pointer to the head of the linked list
  *
  * Return: no return
  */
@@ -34,6 +36,7 @@ void _extern(command_t *h)
 
 	int status = 0, pid = 0;
 	char **env = _setenv("PATH", NULL);
+
 	if (!h->args)
 	{
 		printf("no sirve esta mierda\n");
@@ -52,16 +55,17 @@ void _extern(command_t *h)
 
 
 /**
-* funexc - call execvp or buitin functions.
+* _built - call different builtins.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+*
 * Return: no return
 */
 void _built(command_t *h)
 {
 	int j = 0, entero = 0, i = 0;
 	char **argseach = NULL;
-	builtin commandsbuilt[] =  {{"history", _history}, {"exit", salir}, {"env", _env},{"help", _help}, {"cd", _cd}, {NULL}};
+	builtin commandsbuilt[] =  {{"history", _history}, {"exit", salir},
+				    {"env", _env}, {"help", _help}, {"cd", _cd}, {NULL}};
 
 	entero = 0;
 	i = 0;
@@ -89,9 +93,9 @@ void _built(command_t *h)
 }
 
 /**
-* funexc - call execvp or buitin functions.
-* @h: node tha has the builtin command
-* @copy: copy of head of linked list
+* salir - exit from the function.
+* @h: copy of head of linked list
+*
 * Return: no return
 */
 int salir(command_t *h)
@@ -99,6 +103,7 @@ int salir(command_t *h)
 	command_t *cpy = NULL;
 	char **env = NULL;
 	int i = 0;
+
 	while (h)
 	{
 		cpy = h->next;
@@ -110,5 +115,5 @@ int salir(command_t *h)
 		free(env[i]);
 	free(env[i]);
 	free(env);
-	exit (0);
+	exit(0);
 }

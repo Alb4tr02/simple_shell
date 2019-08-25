@@ -44,8 +44,6 @@ char **getdir(void)
 	char *var = "PATH";
 	char **dir = NULL;
 	path = _getenvvar(var);
-	//path = _calloc(1024, sizeof(char));
-	//getvar(var, path);
 	if (path[0] == 0)
 		return (NULL);
 	for (; path[i]; i++)
