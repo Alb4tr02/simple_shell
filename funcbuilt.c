@@ -41,6 +41,10 @@ int _env(command_t *h)
 	}
 	return (0);
 }
+int sentenv(void)
+{
+	return (0);
+}
 
 /**
 * funexc - call execvp or buitin functions.
