@@ -30,7 +30,7 @@ int _env(command_t *h)
 	char **env = NULL;
 	int i = 0, l = 0;
 	char sl = '\n';
-	env = _setenv("PATH", NULL);
+	env = _setenv(NULL, NULL);
 	while (env[i])
 	{
 		for(l = 0; env[i][l]; l++)
@@ -41,11 +41,48 @@ int _env(command_t *h)
 	}
 	return (0);
 }
-int sentenv(void)
+int _setenviron(command_t *h)
 {
+	char **args = NULL;
+	int i = 0;
+	args = h->args;
+	for (; args[i]; i++)
+		;
+	if (i != 3)
+	{
+		printf("Error\n");
+		return (-1);
+	}
+	_setenv(args[1], args[2]);
 	return (0);
 }
-
+int _unsetenv(command_t *h)
+{
+	char **args = NULL;
+	char *var = NULL;
+	int i = 0;
+	args = h->args;
+	for (; args[i]; i++)
+		;
+	if (i != 2)
+	{
+		printf("Error\n");
+		return (-1);
+	}
+	var = _getenvvar(args[1]);
+	if (var)
+	{
+		_setenv(args[1], NULL);
+		free(var);
+		return (0);
+	}
+	else
+	{
+		printf("Error\n");
+		return (-1);
+	}
+	return (-1);
+}
 /**
 * funexc - call execvp or buitin functions.
 * @h: node tha has the builtin command

@@ -33,7 +33,7 @@ void _extern(command_t *h)
 {
 
 	int status = 0, pid = 0;
-	char **env = _setenv("PATH", NULL);
+	char **env = _setenv(NULL, NULL);
 	if (!h->args)
 		printf("no sirve esta mierda\n");
 	pid = fork();
@@ -58,7 +58,10 @@ void _built(command_t *h)
 {
 	int j = 0, entero = 0, i = 0;
 	char **argseach = NULL;
-	builtin commandsbuilt[] =  {{"history", _history}, {"exit", salir}, {"env", _env},{"help", _help}, {"cd", _cd}, {NULL}};
+	builtin commandsbuilt[] =  {{"history", _history}, {"exit", salir},
+				    {"env", _env}, {"help", _help},
+				    {"cd", _cd}, {"setenv", _setenviron},
+				    {"unsetenv", _unsetenv}, {NULL}};
 
 	entero = 0;
 	i = 0;
@@ -102,7 +105,7 @@ int salir(command_t *h)
 		freecommand(h);
 		h = cpy;
 	}
-	env = _setenv("PATH", NULL);
+	env = _setenv(NULL, NULL);
 	for (; env[i]; i++)
 		free(env[i]);
 	free(env[i]);

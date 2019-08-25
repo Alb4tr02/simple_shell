@@ -37,6 +37,8 @@ typedef struct builtins
 	char *built;
 	int (*f)(command_t *h);
 } builtin;
+int _setenviron(command_t *h);
+int _unsetenv(command_t *h);
 char  *getvaderdir(void);
 int chtopreviousdir(void);
 char *_getenvvar(char *varname);

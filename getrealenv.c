@@ -31,7 +31,7 @@ char *_getenvvar(char *varname)
 	char **env = NULL;
 	int pos = 0, l = 0, l1 = 0, pe = 0, flag = 0;
 	char *var = NULL;
-	env = _setenv("PATH", NULL);
+	env = _setenv(NULL, NULL);
 	pos =  buscar(env, varname);
 	if (pos == -1)
 		return (NULL);
@@ -68,7 +68,6 @@ int buscar(char **environ, char *varname)
 	}
 	return (-1);
 }
-
 char **_setenv(char *varname, char *valor)
 {
 	static char **env = NULL;
@@ -82,7 +81,7 @@ char **_setenv(char *varname, char *valor)
 	}
 	int pos = 0, l1 = 0, l2 = 0;
 	char *newvar = NULL;
-	if (valor)
+	if (varname && valor)
 	{
 		while (varname[l1])
 			l1++;
@@ -113,25 +112,14 @@ char **_setenv(char *varname, char *valor)
 		free(env[pos]);
 		env[pos] = newvar;
 	}
+	if (varname && !valor)
+	{
+		pos = buscar(env, varname);
+		free(env[pos]);
+		for (; env[pos + 1]; pos++)
+			env[pos] = env[pos + 1];
+		env[pos] = NULL;
+		free(env[pos + 1]);
+	}
 	return (env);
 }
-/*int main(void)
-{
-	int pos = 0;
-	char **py = NULL;
-	py = getrealenv();
-	printf("%s\n", py[0]);
-	printf("%s\n", py[1]);
-	printf("%s\n", py[2]);
-	printf("%s\n", py[3]);
-	py = _setenv("PATH", NULL);
-	pos = buscar(py, "PATH");
-	printf("%s\n", py[pos]);
-	py = _setenv("PATH", "tony:v");
-	printf("%s\n", py[pos]);
-	getrealenv();
-	getrealenv();
-	getrealenv();
-	getrealenv();
-	return (0);
-	}*/
