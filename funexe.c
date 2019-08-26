@@ -61,7 +61,8 @@ void _built(command_t *h)
 	builtin commandsbuilt[] =  {{"history", _history}, {"exit", salir},
 				    {"env", _env}, {"help", _help},
 				    {"cd", _cd}, {"setenv", _setenviron},
-				    {"unsetenv", _unsetenv}, {NULL}};
+				    {"unsetenv", _unsetenv}, {"alias", _alias},
+				    {NULL}};
 
 	entero = 0;
 	i = 0;
@@ -98,6 +99,8 @@ int salir(command_t *h)
 {
 	command_t *cpy = NULL;
 	char **env = NULL;
+	alias *al = NULL;
+	alias *ali = NULL;
 	int i = 0;
 	while (h)
 	{
@@ -110,5 +113,15 @@ int salir(command_t *h)
 		free(env[i]);
 	free(env[i]);
 	free(env);
+	al = setalias(NULL);
+	ali = al;
+	while (al)
+	{
+		free(al->name);
+		free(al->value);
+		ali = al->next;
+		free(al);
+		al = ali;
+	}
 	exit (0);
 }

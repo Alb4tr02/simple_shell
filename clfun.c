@@ -113,7 +113,7 @@ int  clfun(char **arg)
 	dir = getdir();
 	if (dir == NULL)
 	{
-		return (look(*arg));
+		return (res);
 	}
 	for (; com[la]; la++)
 		;

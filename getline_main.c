@@ -67,6 +67,7 @@ int main (void)
 			free (buf);
 			continue;
 		}
+		buffer_filter(&buf, p);
 		h = _getargs(buf, p);
 		free(buf);
 		if (!h)
