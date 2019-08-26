@@ -41,8 +41,40 @@ typedef struct builtins
 /* Array of pointers to environment strings*/
 extern char **environ;
 
+/**
+* struct builtins - type of builtins
+*
+* @built: command
+* @f: the function assoiated
+*/
+typedef struct aliases
+{
+	char *name;
+	char *value;
+	struct aliases *next;
+} alias;
+int have_alias(char *buf, int i);
+void buffer_filter(char **buffer, ssize_t *p);
+void _replacealias(alias *ali, char *newbuf, int *pos);
+alias *_isalias(char *buf, int *i);
+void _ignorecomments(char *buf, int *i);
+void _replacevar(char *buf, char *newbuf, int *i, int *pos);
+int _isespcialchr(char c);
+int istoken(char c);
+void print_all_alias(void);
+int print_one_alias(char *name);
+int _strcmp(char *s1, char *s2);
+alias *setalias(char **tokens);
+alias *buscar_alias(alias *head, char *name);
+int _have_value(char *arg);
+char **token_alias(char *alias);
+int _quote_end(char *s1);
+char *_concat(char **args, int *pos,int size);
+int _alias(command_t *h);
+alias *add_alias(alias **head, char *name, char *value);
 int _setenviron(command_t *h);
 int _unsetenv(command_t *h);
+int _strlen(char *str);
 char  *getvaderdir(void);
 int chtopreviousdir(void);
 char *_getenvvar(char *varname);
