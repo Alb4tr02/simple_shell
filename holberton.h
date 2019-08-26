@@ -71,4 +71,8 @@ int _env(command_t *h);
 int _help(command_t *h);
 int _cd(command_t *h);
 void handle_signal(int s);
+int numdirectories(char *path);
+int _strlen2(char *s);
+char *currentpath(void);
+char *dirandcommand(char *crtdir, char *aux, char *com);
 #endif
