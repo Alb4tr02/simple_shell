@@ -21,6 +21,7 @@ void freecommand(command_t *h)
 		free(args[i]);
 		i++;
 	}
+	free(h->name);
 	free(args[i]);
 	free(args);
 	free(h);
@@ -31,7 +32,7 @@ void freecommand(command_t *h)
 *
 * Return: o if success.
 */
-int main (void)
+int main (int argc, char **argv)
 {
 	ssize_t a = 0;
 	ssize_t *p = &a;
@@ -41,7 +42,7 @@ int main (void)
 	char sl = '\n';
 	char *buf = NULL;
 	int flag = 1;
-
+	(void)argc;
 	while (1)
 	{
 	inicio:
@@ -86,7 +87,7 @@ int main (void)
 			continue;
 		}
 		buffer_filter(&buf, p);
-		h = _getargs(buf, p);
+		h = _getargs(buf, p, argv[0]);
 		free(buf);
 		if (!h)
 			return (0);

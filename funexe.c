@@ -2,7 +2,33 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
+void imprimir_error(command_t *h)
+{
+	int l1 = 0;
+	char *sp = ": ";
+	char *n = NULL;
+	char *cont = NULL;
+	char *com = NULL;
+	char *msg = ": not found";
+	char sl = '\n';
+	int a = 2;
+	com = h->args[0];
+	cont = print_number(h->cont);
+	n = h->name;
+	l1 = _strlen(n);
+	write(1, n, l1);
+	write(1, sp, 2);
+	l1 = _strlen(cont);
+	write(1, cont, l1);
+	write(1, sp, 2);
+	l1 = _strlen(com);
+	write(1, com, l1);
+	l1 = _strlen(msg);
+	write(1, msg, l1);
+	write(1, &sl, 1);
+	free(cont);
+	setstatus(&a);
+}
 /**
  * funexc - call execvp or buitin functions.
  * @h: pointer to the head of the linked list
@@ -12,16 +38,21 @@
 void funexc(command_t *h)
 {
 	command_t *copy = NULL;
-
+	static int cont;
+	cont++;
 	while (h)
 	{
+		h->cont = cont;
 		copy = h;
+		if (h->id == -1)
+			imprimir_error(h);
 		if (h->id == 0)
 			_extern(h);
 		else
 			_built(h);
 		h = h->next;
 		freecommand(copy);
+
 	}
 }
 
@@ -35,6 +66,8 @@ void _extern(command_t *h)
 {
 
 	int status = 0, pid = 0;
+	int ex = 0;
+	int f = 2;
 	char **env = _setenv(NULL, NULL);
 
 	if (!h->args)
@@ -44,7 +77,12 @@ void _extern(command_t *h)
 	{
 		status = execve(*h->args, h->args, env);
 		if (status == -1)
+		{
+			setstatus(&f);
 			salir(h);
+		}
+		else
+			setstatus(&ex);
 	}
 	else
 		wait(NULL);

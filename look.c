@@ -1,7 +1,13 @@
  #include "holberton.h"
  #include <stdio.h>
  #define MAX 500
-
+int setstatus(int *stat)
+{
+	static int status;
+	if (stat)
+		status = *stat;
+	return (status);
+}
 /**
  * look - search for a builtin.
  * @fun: command to compare with builtins

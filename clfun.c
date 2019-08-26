@@ -87,7 +87,26 @@ int _strlen2(char *s)
 	}
 	return (i);
 }
+int current_dir(char **arg)
+{
+	char *py = NULL;
+	int pos = 0, i = 0, fd = 0;
+	py = currentpath();
+	pos = _strlen2(py);
+	for (; arg[0][i]; i++)
+		py[pos + i] = arg[0][i];
+	fd = open(py, O_RDONLY);
+	if (fd == -1)
+	{
+		free(py);
+		return (-1);
+	}
+	free(arg[0]);
+	arg[0] = py;
+	close(fd);
+	return (0);
 
+}
 /**
  * clfun - sort out command.
  * @arg: command with arguments
@@ -105,11 +124,15 @@ int  clfun(char **arg)
 	if (res == BUILT)
 		return (BUILT);
 	com = *arg;
+	if (arg[0][0] == '.' && arg[0][1])
+		return (current_dir(arg));
 	if (*(*(arg + 0) + 0) == '/')
 		return (0);
 	dir = getdir();
 	if (dir == NULL)
-		return (look(*arg));
+		return (res);
+	for (; com[la]; la++)
+		;
 	la = _strlen2(com);
 	la++;
 	while (dir[i])

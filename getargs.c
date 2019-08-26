@@ -18,20 +18,30 @@ int istoken(char c)
 	}
 	return (0);
 }
-
+char *crear_name(char  *name)
+{
+	int l = 0;
+	char *newname;
+	l = _strlen(name);
+	newname = _calloc(l, sizeof(char));
+	for (l = 0; name[l]; l++)
+		newname[l] = name[l];
+	return (newname);
+}
 /**
  * _getargs  - create a linked list that contains all arguments.
  * @buf: buffer with the string
  * @pos: pointer tu the actual buffer position
  * Return: a pointer to the linked list
  */
-command_t *_getargs(char *buf, ssize_t *pos)
+command_t *_getargs(char *buf, ssize_t *pos, char *name)
 {
 	ssize_t p = 0;
 	unsigned int flag = 0;
 	int sp = 0, id = 0, aux = 0;
 	command_t *head = NULL;
 	char **args = NULL;
+	char *n = NULL;
 	int *paux = &aux;
 
 	head = NULL;
@@ -39,11 +49,13 @@ command_t *_getargs(char *buf, ssize_t *pos)
 	{
 		sp = 0;
 		flag = 1;
+		n = crear_name(name);
 		while (buf[p] == ' ' || buf[p] == '\t')
 			p++, aux++;
 		while (p <= *pos)
 		{
-			if (p == *pos && buf[p] != ' ' && buf[p] != '\t' && !istoken(buf[p]))
+			if (p == *pos && buf[p] != ' ' && buf[p] != '\t'
+			    && !istoken(buf[p]))
 				sp++;
 			if (buf[p] == ' ' || istoken(buf[p]) || buf[p] == '\t')
 			{
@@ -64,7 +76,7 @@ command_t *_getargs(char *buf, ssize_t *pos)
 			p++;
 		args = fill_nodes(buf, sp, pos, paux);
 		id = clfun(&args[0]);
-		add_node(&head, args, id);
+		add_node(&head, args, id, 0, n);
 	}
 	return (head);
 }
@@ -91,7 +103,8 @@ char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux)
 	for (i = 0; sp > 0; sp--, i++)
 	{
 		aux2 = aux3;
-		for (s = 0; buf[aux3] != ' ' && buf[aux3] != '\t' && !istoken(buf[aux3])
+		for (s = 0; buf[aux3] != ' ' && buf[aux3] != '\t'
+			     && !istoken(buf[aux3])
 			     && aux3 <= *pos; aux3++, s++)
 			;
 		args[i] = malloc(sizeof(char) * (s + 1));
