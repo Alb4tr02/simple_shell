@@ -3,9 +3,10 @@
  * add_node - adds a new node at the beginning of a list_t list.
  * @head: the list of elements
  * @args: string to be stored
+ * @id: value of the atributte ide (extern or builtin)
  * Return: direction of the new node
  */
-command_t *add_node(command_t **head, char **args, int id)
+command_t *add_node(command_t **head, char **args, int id, int cont, char *name)
 {
 	int flag = 1;
 	command_t *p = *head;
@@ -18,6 +19,8 @@ command_t *add_node(command_t **head, char **args, int id)
 				return (NULL);
 			new->args = args;
 			new->id = id;
+			new->cont = cont;
+			new->name = name;
 			new->next = NULL;
 			if (!p)
 			{

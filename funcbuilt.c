@@ -4,11 +4,11 @@
 #include <sys/wait.h>
 #include <dirent.h>
 #define MAX 500
-extern char **environ;
+
 /**
-* funexc - call execvp or buitin functions.
+* _history - show history of commands.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+
 * Return: no return
 */
 int _history(command_t *h)
@@ -19,21 +19,22 @@ int _history(command_t *h)
 }
 
 /**
-* funexc - call execvp or buitin functions.
+* _env - show all environment variables.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+*
 * Return: no return
 */
 int _env(command_t *h)
 {
-	(void)h;
 	char **env = NULL;
 	int i = 0, l = 0;
 	char sl = '\n';
+
+	(void)h;
 	env = _setenv(NULL, NULL);
 	while (env[i])
 	{
-		for(l = 0; env[i][l]; l++)
+		for (l = 0; env[i][l]; l++)
 			;
 		write(1, env[i], l);
 		write(1, &sl, 1);
@@ -84,29 +85,73 @@ int _unsetenv(command_t *h)
 	return (-1);
 }
 /**
-* funexc - call execvp or buitin functions.
+* _help - show help document of some functions.
 * @h: node tha has the builtin command
-* @copy: copy of head of linked list
+*
 * Return: no return
 */
 int _help(command_t *h)
 {
-	(void)h;
-	printf("función help\n");
+	char **argseach = NULL;
+	int i = 0, j = 0, entero = 0, g, k;
+	char *args[] = {"cd", "env", "history", "exit", "alias", NULL};
+	char *filenames[] = {"h_cd.txt", "h_env.txt", "h_history.txt",
+			     "h_exit.txt", "h_alias.txt", NULL};
+	char *buffer = NULL;
+	char *buf = NULL;
+	ssize_t a = 0;
+	ssize_t *p = &a;
+
+	argseach = h->args;
+	buffer = malloc(1024);
+	if (buffer == NULL)
+		return (0);
+	if (argseach[1][0] == 0)
+		return (0);
+	while (args[i] != NULL)
+	{
+		for (j = 0; args[i][j] != '\0'; j++)
+		{
+			if (argseach[1][j] - args[i][j] != 0)
+			{
+				entero = argseach[1][j] - args[i][j];
+				break;
+			}
+		}
+		if (entero == 0)
+		{
+			for (j = 0; filenames[i][j] != 0; j++)
+				;
+			getcwd(buffer, 1024);
+			for (g = 0; buffer[g]; g++)
+				;
+			buffer[g] = '/';
+			g++;
+			for (k = 0; k < j; k++)
+			{
+				buffer[g] = filenames[i][k];
+				g++;
+			}
+			buf = _getline(p, buffer);
+			printf("%s\n", buf);
+		}
+		i++;
+	}
+	free(buffer);
 	return (0);
 }
 
 /**
- * funexc - call execvp or buitin functions.
- * @h: node tha has the builtin command
- * @copy: copy of head of linked list
- * Return: no return
- */
+* getvaderdir - get variable directory.
+*
+* Return: no return
+*/
 char  *getvaderdir(void)
 {
 	int l = 0, i = 0;
 	char *pwd = NULL;
 	char *newpwd = NULL;
+
 	pwd = _getenvvar("PWD");
 	for (; pwd[l]; l++)
 		if (pwd[l] == '/')
@@ -117,6 +162,12 @@ char  *getvaderdir(void)
 	free(pwd);
 	return (newpwd);
 }
+
+/**
+* chtopreviousdir - previous directory.
+*
+* Return: no return
+*/
 int chtopreviousdir(void)
 {
 	char *oldpwd = NULL;
@@ -124,6 +175,7 @@ int chtopreviousdir(void)
 	DIR *dir = NULL;
 	int l = 0;
 	char sl = '\n';
+
 	oldpwd = _getenvvar("OLDPWD");
 	pwd = _getenvvar("PWD");
 	if (!oldpwd)
@@ -153,6 +205,12 @@ int chtopreviousdir(void)
 	}
 	return (-1);
 }
+
+/**
+* darthCader - change directory father.
+*
+* Return: return 0
+*/
 int darthVader()
 {
 	char *newpwd = NULL;
@@ -329,7 +387,6 @@ int absolutepath(char *path)
 		printf("Error\n");
 		return (-1);
 	}
-	//printf("ruta: %s\n", cp ypath);
 	return (0);
 }
 int _cd(command_t *h)

@@ -53,7 +53,19 @@ void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 	int cb = *i, j = 0;
 	cb++;
 	if (buf[cb] == '$' || buf[cb] == '?')
-		name[0] = buf[cb];
+	{
+		int a = setstatus(NULL);
+		char *stat = print_number(a);
+		int j = 0;
+		for (; stat[j]; j++, *pos = *pos + 1)
+			newbuf[*pos] = stat[j];
+		*pos = *pos + 1;
+		free(stat);
+		cb++;
+		*i = cb;
+		free(name);
+		return;
+	}
 	else
 	{
 		for (; !_isespecialchr(buf[cb]); cb++)

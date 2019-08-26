@@ -3,6 +3,14 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
+
+/**
+ * freecommand - free linked list.
+ * @h: head node of the linked list.
+ *
+ * Return: pointer to the new adress of data.
+ */
 void freecommand(command_t *h)
 {
         int i = 0;
@@ -13,27 +21,38 @@ void freecommand(command_t *h)
 		free(args[i]);
 		i++;
 	}
+	free(h->name);
 	free(args[i]);
 	free(args);
 	free(h);
 }
-int main (void)
+
+/**
+* main - void.
+*
+* Return: o if success.
+*/
+int main (int argc, char **argv)
 {
 	ssize_t a = 0;
 	ssize_t *p = &a;
-	//char *buf = NULL;
 	command_t *h = NULL;
+	size_t cnt = 0;
+	char c;
+	char sl = '\n';
+	char *buf = NULL;
+	int flag = 1;
+	(void)argc;
 	while (1)
 	{
 	inicio:
 		a = 0;
+		signal(SIGINT, handle_signal);
 		prompt();
-		//buf = _getline(p, NULL);
-		size_t cnt = 0;
-		char c;
-		char sl = '\n';
-		char *buf = _calloc(500, 1);
-		int flag = 1;
+		cnt = 0;
+		sl = '\n';
+		buf = _calloc(500, 1);
+		flag = 1;
 		while(read(STDIN_FILENO, &c, 1) == 1)
 		{
 			if (c == 4 && cnt == 0)
@@ -68,7 +87,7 @@ int main (void)
 			continue;
 		}
 		buffer_filter(&buf, p);
-		h = _getargs(buf, p);
+		h = _getargs(buf, p, argv[0]);
 		free(buf);
 		if (!h)
 			return (0);

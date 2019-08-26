@@ -23,6 +23,8 @@ typedef struct command_s
 {
 	char **args;
 	int id;
+	int cont;
+	char *name;
 	struct command_s *next;
 } command_t;
 
@@ -38,6 +40,7 @@ typedef struct builtins
 	int (*f)(command_t *h);
 } builtin;
 
+
 /**
 * struct builtins - type of builtins
 *
@@ -50,6 +53,9 @@ typedef struct aliases
 	char *value;
 	struct aliases *next;
 } alias;
+int setstatus(int *stat);
+char *print_number(int n);
+char *crear_name(char  *name);
 int have_alias(char *buf, int i);
 void buffer_filter(char **buffer, ssize_t *p);
 void _replacealias(alias *ali, char *newbuf, int *pos);
@@ -69,6 +75,11 @@ int _quote_end(char *s1);
 char *_concat(char **args, int *pos,int size);
 int _alias(command_t *h);
 alias *add_alias(alias **head, char *name, char *value);
+
+/* Array of pointers to environment strings*/
+extern char **environ;
+
+
 int _setenviron(command_t *h);
 int _unsetenv(command_t *h);
 int _strlen(char *str);
@@ -81,8 +92,8 @@ char **getrealenv(void);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void *_calloc(unsigned int nmemb, unsigned int size);
 char *_getline(ssize_t *pos, char *pathname);
-command_t *add_node(command_t **head, char **args, int id);
-command_t *_getargs(char *buf, ssize_t *pos);
+command_t *add_node(command_t **head, char **args, int id, int cont, char *n);
+command_t *_getargs(char *buf, ssize_t *pos, char *name);
 char **fill_nodes(char *buf, int sp, ssize_t *pos, int *paux);
 int clfun(char **arg);
 int look(char *fun);
@@ -99,4 +110,9 @@ int _history(command_t *h);
 int _env(command_t *h);
 int _help(command_t *h);
 int _cd(command_t *h);
+void handle_signal(int s);
+int numdirectories(char *path);
+int _strlen2(char *s);
+char *currentpath(void);
+char *dirandcommand(char *crtdir, char *aux, char *com);
 #endif

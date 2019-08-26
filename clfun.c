@@ -1,40 +1,12 @@
 #include "holberton.h"
 #include <stdio.h>
 #define MAX 500
-int look(char *fun)
-{
-	int pos = 0, flag = 0, i = 0;
-	char *current = NULL;
-	char *built[] =  {"history", "exit", "env", "help", "cd", NULL};
-	while (built[i])
-	{
-		current = built[i];
-		for (pos = 0; current[pos] && fun[pos]; pos++)
-		{
-			if (current[pos] == fun[pos])
-			{
-				if (current[pos + 1] == 0 && fun[pos +1] == 0)
-					return (BUILT);
-			}
-			else
-				break;
-		}
-		i++;
-	}
-	return ((flag == 0) ? EXT: BUILT);
-}
-char *currentpath(void)
-{
-	int g = 0;
-	char *py =_calloc(MAX, MAX);
-	getcwd(py, MAX);
-	for (; py[g]; g++)
-		;
-	py[g] = '/';
-	g++;
-	py[g] = 0;
-	return (py);
-}
+
+/**
+ * getdir - Entry point
+ *
+ * Return: doble pointer to directories of the PATH
+ */
 char **getdir(void)
 {
 	int sp = 0, i = 0, l = 0, aux = 0, j = 0, flag = 1;
@@ -42,14 +14,11 @@ char **getdir(void)
 	char *path;
 	char *var = "PATH";
 	char **dir = NULL;
+
 	path = _getenvvar(var);
 	if (!path || path[0] == 0)
 		return (NULL);
-	for (; path[i]; i++)
-		if (path[i] == ':')
-			sp++;
-	if (path[0] != 0)
-		sp++;
+	sp = numdirectories(path);
 	if (sp == 0)
 		return (dir);
 	dir = _calloc((sp + 1), sizeof(void *));
@@ -60,17 +29,15 @@ char **getdir(void)
 		{
 			dir[0] = currentpath();
 			i++, j++;
-			flag = 0;
-		}
+			flag = 0; }
 		aux = j;
 		for (l = 0 ; j < 1024 && path[j] && path[j] != ':'; j++, l++)
-		        ;
+			;
 		if (l == 0)
 		{
 			dir[i] = currentpath();
 			j++;
-			continue;
-		}
+			continue; }
 		j++;
 		dir[i] = _calloc(sizeof(char), (l + 2));
 		for (p = 0; path[aux] && aux < 1024 && path[aux] != ':'; aux++, p++)
@@ -79,11 +46,18 @@ char **getdir(void)
 		p++;
 		*(dir[i] + p) = 0;
 		aux++;
-		j = aux;
-	}
+		j = aux; }
 	free(path);
 	return (dir);
 }
+
+/**
+ * freedir - verfy operators.
+ * @dir: array of arrays with directories
+ * @arg:array with argumens
+ *
+ * Return: no returns
+ */
 void freedir(char **dir, char *arg)
 {
 	int l = 0;
@@ -95,21 +69,65 @@ void freedir(char **dir, char *arg)
 	free(dir[l]);
 	free(dir);
 }
+
+/**
+ * _strlen - Entry point
+ *@s: pointer the string we want to now length
+ *
+ * Return: 0
+ */
+int _strlen2(char *s)
+{
+	int i;
+
+	i = 0;
+	while (*(s + i) != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+int current_dir(char **arg)
+{
+	char *py = NULL;
+	int pos = 0, i = 0, fd = 0;
+	py = currentpath();
+	pos = _strlen2(py);
+	for (; arg[0][i]; i++)
+		py[pos + i] = arg[0][i];
+	fd = open(py, O_RDONLY);
+	if (fd == -1)
+	{
+		free(py);
+		return (-1);
+	}
+	free(arg[0]);
+	arg[0] = py;
+	close(fd);
+	return (0);
+
+}
+/**
+ * clfun - sort out command.
+ * @arg: command with arguments
+ *
+ * Return: 1 if is built in or 0 if its external function
+ */
 int  clfun(char **arg)
 {
-	char *com = NULL;
+	char *com = NULL, *crtdir = NULL, *aux = NULL;
 	char **dir = NULL;
-	char *crtdir = NULL;
-	char *aux = NULL;
 	unsigned int i = 0, l = 0, la = 0;
-	int res, fd  = 0;
-	int found = 1;
+	int res, fd = 0, found = 1;
+
 	res = look(*arg);
 	if (res == BUILT)
 		return (BUILT);
 	com = *arg;
+	if (arg[0][0] == '.' && arg[0][1])
+		return (current_dir(arg));
 	if (*(*(arg + 0) + 0) == '/')
-		return (EXT);
+		return (0);
 	dir = getdir();
 	if (dir == NULL)
 	{
@@ -117,18 +135,16 @@ int  clfun(char **arg)
 	}
 	for (; com[la]; la++)
 		;
+	la = _strlen2(com);
 	la++;
 	while (dir[i])
 	{
 		crtdir = dir[i];
-		for (l = 0; crtdir[l]; l++)
-			;
+		l = _strlen2(crtdir);
 		aux = _calloc(sizeof(char), (la + l + 1));
-		for (l = 0; crtdir[l]; l++)
-			aux[l] = crtdir[l];
-		for (la = 0; com[la]; la++, l++)
-			aux[l] = com[la];
-		aux[l] = 0;
+		if (aux == NULL)
+			return (0);
+		aux = dirandcommand(crtdir, aux, com);
 		fd = open(aux, O_RDONLY);
 		if (fd != -1)
 		{
@@ -136,15 +152,34 @@ int  clfun(char **arg)
 			*arg = aux;
 			found = 0;
 			close(fd);
-			break;
-		}
+			break; }
 		i++;
 		free(aux);
 	}
 	if (found)
 	{
 		freedir(dir, NULL);
-		res = -1;
-	}
+		res = -1; }
 	return (res);
+}
+
+/**
+ * dirandcommand - add command to the directory of the path.
+ * @crtdir: each directory
+ * @aux: pointer to the filename
+ * @com: command and arguments
+ *
+ * Return: pointer to the etotal path of the directory
+ */
+char *dirandcommand(char *crtdir, char *aux, char *com)
+{
+
+	int l, la;
+
+	for (l = 0; crtdir[l]; l++)
+		aux[l] = crtdir[l];
+	for (la = 0; com[la]; la++, l++)
+		aux[l] = com[la];
+	aux[l] = 0;
+	return (aux);
 }
