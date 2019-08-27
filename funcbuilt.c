@@ -146,6 +146,8 @@ int _help(command_t *h)
 		buf = _getline(p, pathandfile);
 		longbuf = _strlen(buf);
 		write(1, buf, longbuf);
+		free(pathandfile);
+		free(buf);
 		return (0);
 	}
 	if (argseach[1][0] == 0)
