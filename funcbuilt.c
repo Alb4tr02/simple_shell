@@ -100,26 +100,49 @@ int _unsetenv(command_t *h)
 *
 * Return: no return
 */
+
+char *getpath(void)
+{
+
+	static int flag = 0;
+	static char *path;
+
+	if (!flag)
+	{
+		path = _calloc(500,1);
+		if (path == NULL)
+			return (0);
+		path = getcwd(path, 500);
+		flag = 1;
+	}
+	return (path);
+}
+
 int _help(command_t *h)
 {
 	char **argseach = NULL;
-	int i = 0, j = 0, entero = 0, g, k;
-	char *args[] = {"cd", "env", "history", "exit", "alias", NULL};
+	int i = 0, j = 0, entero = 0, g, k, longbuf = 0, l;
+	char *args[] = {"cd", "env", "history", "exit", "alias", "help", "setenv",
+			"unsetenv", NULL};
 	char *filenames[] = {"h_cd.txt", "h_env.txt", "h_history.txt",
-			     "h_exit.txt", "h_alias.txt", NULL};
-	char *buffer = NULL;
+			     "h_exit.txt", "h_alias.txt", "h_help.txt",
+			     "h_setenv.txt", "h_unsetenv.txt", NULL};
 	char *buf = NULL;
 	ssize_t a = 0;
 	ssize_t *p = &a;
+	char *pathandfile = NULL;
+	char *buffer = NULL;
 
 	argseach = h->args;
-	buffer = malloc(1024);
-	if (buffer == NULL)
-		return (0);
+	pathandfile = _calloc(500, 1);
+	buffer = getpath();
+	for (l = 0; buffer[l]; l++)
+		pathandfile[l] = buffer[l];
 	if (argseach[1][0] == 0)
 		return (0);
 	while (args[i] != NULL)
 	{
+		entero = 0;
 		for (j = 0; args[i][j] != '\0'; j++)
 		{
 			if (argseach[1][j] - args[i][j] != 0)
@@ -132,24 +155,26 @@ int _help(command_t *h)
 		{
 			for (j = 0; filenames[i][j] != 0; j++)
 				;
-			getcwd(buffer, 1024);
 			for (g = 0; buffer[g]; g++)
 				;
-			buffer[g] = '/';
+			pathandfile[g] = '/';
 			g++;
 			for (k = 0; k < j; k++)
 			{
-				buffer[g] = filenames[i][k];
+				pathandfile[g] = filenames[i][k];
 				g++;
 			}
-			buf = _getline(p, buffer);
-			printf("%s\n", buf);
+			buf = _getline(p, pathandfile);
+			longbuf = _strlen(buf);
+			write(1, buf, longbuf);
+			free(pathandfile);
+			free(buf);
 		}
 		i++;
 	}
-	free(buffer);
 	return (0);
 }
+
 
 /**
 * getvaderdir - get variable directory.

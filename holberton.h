@@ -128,4 +128,5 @@ void imprimir_error_setenv(command_t *h);
 void imprimir_errores_history(command_t *h);
 void imprimir_errores_help(command_t *h);
 void imprimir_errores_cd(command_t *h);
+char *getpath(void);
 #endif
