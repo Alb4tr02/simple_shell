@@ -118,7 +118,7 @@ char **_setenv(char *varname, char *valor)
 			l1++;
 		while (valor[l2])
 			l2++;
-		newvar = _calloc(l1 + l2 + 2, sizeof(char));
+		newvar = _calloc(l1 + l2 + 4, sizeof(char));
 		for (l1 = 0; varname[l1]; l1++)
 			newvar[l1] = varname[l1];
 		newvar[l1] = '=';
