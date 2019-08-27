@@ -64,6 +64,9 @@ alias *setalias(char **tokens)
 {
 	static alias *head;
 	char *name = NULL, *value = NULL;
+	alias *res = NULL;
+	static int flag = 1;
+
 	if (!tokens)
 		return (head);
 	else
@@ -71,8 +74,6 @@ alias *setalias(char **tokens)
 		name = tokens[0];
 		value = tokens[1];
 	}
-	alias *res = NULL;
-	static int flag = 1;
 	if (flag && !value)
 		return (head);
 	if (name && !value)
@@ -117,9 +118,9 @@ int _have_value(char *arg)
 char **token_alias(char *alias)
 {
 	char **tokens = NULL;
-	tokens = _calloc(2, sizeof(char *));
 	int i = 0, pos = 0, l = 0, lv = 0;
 
+	tokens = _calloc(2, sizeof(char *));
 	for (; alias[pos]; pos++)
 		if (alias[pos] == '=')
 			break;
