@@ -119,6 +119,8 @@ char **_setenv(char *varname, char *valor)
 		while (valor[l2])
 			l2++;
 		newvar = _calloc(l1 + l2 + 2, sizeof(char));
+		if (!newvar)
+			printf("error paila");
 		for (l1 = 0; varname[l1]; l1++)
 			newvar[l1] = varname[l1];
 		newvar[l1] = '=';

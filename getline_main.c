@@ -42,6 +42,8 @@ int main (int argc, char **argv)
 	char sl = '\n';
 	char *buf = NULL;
 	int flag = 1;
+
+	getpath();
 	(void)argc;
 	while (1)
 	{

@@ -41,6 +41,7 @@ int search_file_env(command_t *h)
 
 	filename = h->args;
 	n = stat(filename[1], &buf);
+	printf("%d", n);
 	if (n == -1)
 		imprimir_error_env(h);
          return (0);

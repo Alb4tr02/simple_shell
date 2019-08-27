@@ -96,7 +96,7 @@ alias *_isalias(char *buf, int *i)
 	char *name = NULL;
 	if (cb != 0 && !_isespecialchr(buf[(cb - 1)]))
 		return (NULL);
-	name = _calloc(60, 1);
+	name = _calloc(500, 1);
 	for (; !_isespecialchr(buf[cb]); cb++)
 		;
 	for (; (j + *i) < cb; j++)

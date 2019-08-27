@@ -143,7 +143,9 @@ int salir(command_t *h)
 	alias *al = NULL;
 	alias *ali = NULL;
 	int i = 0;
+	char *buffer = NULL;
 
+	buffer = getpath();
 	while (h)
 	{
 		cpy = h->next;
@@ -165,5 +167,6 @@ int salir(command_t *h)
 		free(al);
 		al = ali;
 	}
+	free(buffer);
 	exit (0);
 }

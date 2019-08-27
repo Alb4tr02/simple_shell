@@ -18,7 +18,7 @@ int look(char *fun)
 {
 	int pos = 0, flag = 0, i = 0;
 	char *current = NULL;
-	char *built[] =  {"history", "exit", "env", "help", "cd", NULL};
+	char *built[] =  {"history", "exit", "env", "help", "cd", "setenv", "unsetenv", NULL};
 
 	while (built[i])
 	{
