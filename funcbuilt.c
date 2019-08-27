@@ -130,14 +130,24 @@ int _help(command_t *h)
 	char *buf = NULL;
 	ssize_t a = 0;
 	ssize_t *p = &a;
-	char *pathandfile = NULL;
-	char *buffer = NULL;
+	char *pathandfile = NULL, *buffer = NULL, *filejusthelp = "justhelp.txt";
 
 	argseach = h->args;
 	pathandfile = _calloc(500, 1);
 	buffer = getpath();
 	for (l = 0; buffer[l]; l++)
 		pathandfile[l] = buffer[l];
+	if (argseach[1] == NULL)
+	{
+       		pathandfile[l] = '/';
+		l++;
+		for (k = 0; k < 12; k++, l++)
+			pathandfile[l] = filejusthelp[k];
+		buf = _getline(p, pathandfile);
+		longbuf = _strlen(buf);
+		write(1, buf, longbuf);
+		return (0);
+	}
 	if (argseach[1][0] == 0)
 		return (0);
 	while (args[i] != NULL)
@@ -159,11 +169,8 @@ int _help(command_t *h)
 				;
 			pathandfile[g] = '/';
 			g++;
-			for (k = 0; k < j; k++)
-			{
+			for (k = 0; k < j; k++, g++)
 				pathandfile[g] = filenames[i][k];
-				g++;
-			}
 			buf = _getline(p, pathandfile);
 			longbuf = _strlen(buf);
 			write(1, buf, longbuf);
