@@ -211,7 +211,7 @@ int _alias(command_t *h)
 {
 	char **args = NULL;
 	char **tokens = NULL;
-	char *aux = NULL;
+	/*char *aux = NULL;*/
 	int pos = 1, i = 0;
 	args = h->args;
 	for  (; args[i]; i++)
@@ -225,7 +225,9 @@ int _alias(command_t *h)
 	{
 		if (_have_value(args[pos]))
 		{
-			if (_quote_end(args[pos]))
+			tokens = token_alias(args[pos]);
+			setalias(tokens);
+			/*if (_quote_end(args[pos]))
 			{
 				tokens = token_alias(args[pos]);
 				setalias(tokens);
@@ -242,7 +244,7 @@ int _alias(command_t *h)
 				}
 				else
 					continue;
-			}
+			}*/
 			free(tokens);
 		}
 		else

@@ -61,8 +61,6 @@ void funexc(command_t *h)
 			_built(h);
 		h = h->next;
 		freecommand(copy);
-		//cont++;
-
 	}
 }
 
