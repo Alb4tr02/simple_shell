@@ -181,5 +181,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	exit(254);
+	exit(0);
 }
