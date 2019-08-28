@@ -17,7 +17,15 @@ char **getdir(void)
 
 	path = _getenvvar(var);
 	if (!path || path[0] == 0)
+	{
+		if (!path)
+		{
+			dir = _calloc(2, sizeof(void *));
+			dir[1] = NULL;
+			dir[2] = currentpath();
+		}
 		return (NULL);
+	}
 	sp = numdirectories(path);
 	if (sp == 0)
 		return (dir);
