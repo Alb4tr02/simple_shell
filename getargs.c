@@ -45,7 +45,7 @@ command_t *_getargs(char *buf, ssize_t *pos, char *name)
 	int *paux = &aux;
 
 	head = NULL;
-	while (p <= *pos)
+	while (p + 1 < *pos)
 	{
 		sp = 0;
 		flag = 1;

@@ -1,6 +1,29 @@
  #include "holberton.h"
  #include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
  #define MAX 500
+int setpid(int *pid)
+{
+	static int _pid;
+	static int flag;
+
+	if (!pid && !flag)
+	{
+		_pid = fork();
+		if (_pid == 0)
+		{
+			exit(0);
+		}
+		else
+		{
+			wait(NULL);
+			_pid = _pid - 1;
+		}
+		flag = 1;
+	}
+	return (_pid);
+}
 int setstatus(int *stat)
 {
 	static int status;
@@ -18,7 +41,8 @@ int look(char *fun)
 {
 	int pos = 0, flag = 0, i = 0;
 	char *current = NULL;
-	char *built[] =  {"history", "exit", "env", "help", "cd", "setenv", "unsetenv", NULL};
+	char *built[] =  {"history", "exit", "env", "help", "cd",
+			  "setenv", "unsetenv", "alias", NULL};
 
 	while (built[i])
 	{
