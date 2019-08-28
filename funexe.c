@@ -136,7 +136,21 @@ void _built(command_t *h)
 	if (entero == 0 && argseach[0][j] != '\0')
 		entero = argseach[0][j] - commandsbuilt[i].built[j];
 }
-
+void print_err_exit(command_t *h)
+{
+	char *err = h->name;
+	char *sp = ": ";
+	char *err1 = ": exit: Illegal number: ";
+	char *num = print_number(h->cont);
+	char sl = 10;
+	write(1, err, _strlen(err));
+	write(1, sp, _strlen(sp));
+	write(1, num, _strlen(num));
+	write(1, err1, _strlen(err1));
+	write(1, h->args[1], _strlen(h->args[1]));
+	write(1, &sl, 1);
+	free(num);
+}
 /**
 * salir - exit from the function.
 * @h: copy of head of linked list
@@ -148,14 +162,22 @@ int salir(command_t *h)
 	command_t *cpy = NULL;
 	char **env = NULL;
 	alias *al = NULL, *ali = NULL;
-	int i = 0;
+	int i = 0,  er = 2, res = 0;
 	char *buffer = NULL;
 
-	/*if (h->args[1] != NULL)
+	if (h->args[1] != NULL)
 	{
 		res = _atoi(h->args[1]);
-		res = (res < 0) ? res * -1 : res;
-		}*/
+		if (res == -1)
+		{
+			print_err_exit(h);
+			setstatus(&er);
+			return (-1);
+		}
+		if (res < 0)
+			res = 2;
+		setstatus(&res);
+	}
 	buffer = getpath();
 	while (h)
 	{
