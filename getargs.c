@@ -8,9 +8,10 @@
  */
 int istoken(char c)
 {
-        int i = 0;
-        char tokens[] = {'&', '|', '\0', ';', '\n',  -1};
-        while (tokens[i] != -1)
+	int i = 0;
+	char tokens[] = {'&', '|', '\0', ';', '\n',  -1};
+
+	while (tokens[i] != -1)
 	{
 		if (tokens[i] == c)
 			return (1);
@@ -18,10 +19,18 @@ int istoken(char c)
 	}
 	return (0);
 }
+
+/**
+ * crear_name - copy argv[0] to display in errors
+ * @name: pointer to name of command
+ *
+ * Return: pointer to command name
+ */
 char *crear_name(char  *name)
 {
 	int l = 0;
 	char *newname;
+
 	l = _strlen(name);
 	newname = _calloc(l, sizeof(char));
 	for (l = 0; name[l]; l++)
@@ -32,6 +41,7 @@ char *crear_name(char  *name)
  * _getargs  - create a linked list that contains all arguments.
  * @buf: buffer with the string
  * @pos: pointer tu the actual buffer position
+ * @name: pointer to name of commands
  * Return: a pointer to the linked list
  */
 command_t *_getargs(char *buf, ssize_t *pos, char *name)
@@ -61,14 +71,12 @@ command_t *_getargs(char *buf, ssize_t *pos, char *name)
 			{
 				if (flag)
 					sp++;
-				flag = 0;
-			}
+				flag = 0; }
 			else
 				flag = 1;
 			if (istoken(buf[p]))
 				break;
-			p++;
-		}
+			p++; }
 		if (p != 0 && sp == 0)
 			sp++;
 		p++;
@@ -76,8 +84,7 @@ command_t *_getargs(char *buf, ssize_t *pos, char *name)
 			p++;
 		args = fill_nodes(buf, sp, pos, paux);
 		id = clfun(&args[0]);
-		add_node(&head, args, id, 0, n);
-	}
+		add_node(&head, args, id, 0, n); }
 	return (head);
 }
 

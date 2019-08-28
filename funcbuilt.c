@@ -52,6 +52,13 @@ int _env(command_t *h)
 	}
 	return (0);
 }
+
+/**
+ * _setenviron - set environ.
+ * @h: node tha has the builtin command
+ *
+ * Return: o if succes or -1
+ */
 int _setenviron(command_t *h)
 {
 	char **args = NULL;
@@ -67,6 +74,13 @@ int _setenviron(command_t *h)
 	_setenv(args[1], args[2]);
 	return (0);
 }
+
+/**
+ * _unsetenv - unset variable.
+ * @h: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int _unsetenv(command_t *h)
 {
 	char **args = NULL;
@@ -95,8 +109,7 @@ int _unsetenv(command_t *h)
 	return (-1);
 }
 /**
-* _help - show help document of some functions.
-* @h: node tha has the builtin command
+* getpath - get current path
 *
 * Return: no return
 */
@@ -118,6 +131,12 @@ char *getpath(void)
 	return (path);
 }
 
+/**
+ * _help - show help document of some functions.
+ * @h: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int _help(command_t *h)
 {
 	char **argseach = NULL;
@@ -208,7 +227,7 @@ char  *getvaderdir(void)
 }
 
 /**
-* chtopreviousdir - previous directory.
+* chtopreviousdir - give previous directory.
 *
 * Return: no return
 */
@@ -278,10 +297,24 @@ int darthVader()
 	free(newpwd);
 	return (0);
 }
+
+/**
+ * lukeskywalker - return 0.
+ *
+ * Return: no return
+ */
 int lukeSkywalker(void)
 {
 	return (0);
 }
+
+/**
+ * aerodots - filter (.. /).
+ * @path: pointer to path
+ * @pos: position in buffer to verify if it is . . and /
+ * @size: size of buffer
+ * Return: 0 or 1
+ */
 int aredots(char *path, int pos, int size)
 {
 	if (path[pos] && path[pos + 1] && path[pos + 2])
@@ -299,6 +332,13 @@ int aredots(char *path, int pos, int size)
 	}
 	return (0);
 }
+
+/**
+ * nexdir - give next dire after .. /.
+ * @filter: pointer to buffer
+ * @i: position before directory
+ * Return: position of the next dir or -1
+ */
 int nextdir(char *filter, int i)
 {
 	if (!filter[i])
@@ -309,6 +349,13 @@ int nextdir(char *filter, int i)
 			return(i);
 	return (-1);
 }
+
+/**
+ * filtro1 - delete extra /.
+ * @path: pointer to path
+ *
+ * Return: no return
+ */
 char *filtro1(char *path)
 {
 	char *filter = NULL;
@@ -335,6 +382,13 @@ char *filtro1(char *path)
 	}
 	return (filter);
 }
+
+/**
+ * filtro2 - if we have two points after directory .
+ * @filter: pointer to the buffer
+ *
+ * Return: pointer to the copy path
+ */
 char *filtro2(char *filter)
 {
 	char *cpypath = NULL;

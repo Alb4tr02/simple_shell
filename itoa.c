@@ -4,8 +4,8 @@
  * print_number - This only check if the character is a digit
  * @n:  is the number of times the character should be printed
  *
+ * Return: pointer to the string
  */
-
 char *print_number(int n)
 {
 	unsigned int t;
@@ -15,6 +15,7 @@ char *print_number(int n)
 	unsigned int mns = 45;
 	char *res = _calloc(30, 1);
 	int cnt = 0;
+
 	t = 0;
 	aux =  n > 0 ? n : n * (-1);
 	aux2 = 10;

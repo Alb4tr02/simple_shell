@@ -93,6 +93,31 @@ int buscar(char **environ, char *varname)
 }
 
 /**
+ * notfoundvar - copy the variable in the last position of env
+ * @env: pointer to env
+ * @cpyenv: pointer to env copy
+ * @newvar: pointer to new var to set
+ *
+ * Return: doble pointer to env
+ */
+
+char **notfoundvar(char **env, char **cpyenv, char *newvar)
+{
+	int i;
+
+	for (i = 0; env[i]; i++)
+		;
+	cpyenv = _calloc(i + 2, sizeof(char *));
+	cpyenv[i + 1] = NULL;
+	for (i = 0; env[i]; i++)
+		cpyenv[i] = env[i];
+	cpyenv[i] = newvar;
+	free(env);
+	env = cpyenv;
+	return (env);
+}
+
+/**
  * _setenv - get environment variable.
  * @varname: name of the variable
  * @valor: valor
@@ -100,18 +125,15 @@ int buscar(char **environ, char *varname)
  */
 char **_setenv(char *varname, char *valor)
 {
-	static char **env;
-	static char **cpyenv;
+	static char **env, **cpyenv;
 	static int flag = 1;
-	int i = 0;
 	int pos = 0, l1 = 0, l2 = 0;
 	char *newvar = NULL;
 
 	if (flag)
 	{
 		env = getrealenv();
-		flag = 0;
-	}
+		flag = 0; }
 	if (varname && valor)
 	{
 		while (varname[l1])
@@ -119,8 +141,6 @@ char **_setenv(char *varname, char *valor)
 		while (valor[l2])
 			l2++;
 		newvar = _calloc(l1 + l2 + 2, sizeof(char));
-		if (!newvar)
-			printf("error paila");
 		for (l1 = 0; varname[l1]; l1++)
 			newvar[l1] = varname[l1];
 		newvar[l1] = '=';
@@ -131,15 +151,7 @@ char **_setenv(char *varname, char *valor)
 		pos = buscar(env, varname);
 		if (pos == -1)
 		{
-			for (; env[i]; i++)
-				;
-			cpyenv = _calloc(i + 2, sizeof(char *));
-			cpyenv[i + 1] = NULL;
-			for (i = 0; env[i]; i++)
-				cpyenv[i] = env[i];
-			cpyenv[i] = newvar;
-			free(env);
-			env = cpyenv;
+			env = notfoundvar(env, cpyenv, newvar);
 			return (env); }
 		free(env[pos]);
 		env[pos] = newvar; }
@@ -150,7 +162,6 @@ char **_setenv(char *varname, char *valor)
 		for (; env[pos + 1]; pos++)
 			env[pos] = env[pos + 1];
 		env[pos] = NULL;
-		free(env[pos + 1]);
-	}
+		free(env[pos + 1]); }
 	return (env);
 }

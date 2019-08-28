@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+
+/**
+ * imprimir_error - print error when command not found.
+ * @h: node tha has the builtin command
+ *
+ * Return: no return
+ */
 void imprimir_error(command_t *h)
 {
 	int l1 = 0;
@@ -12,6 +19,7 @@ void imprimir_error(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
@@ -39,6 +47,7 @@ void funexc(command_t *h)
 {
 	command_t *copy = NULL;
 	static int cont;
+
 	cont++;
 	while (h)
 	{
@@ -168,5 +177,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	exit (0);
+	exit(0);
 }

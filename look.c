@@ -1,9 +1,17 @@
  #include "holberton.h"
  #include <stdio.h>
  #define MAX 500
+
+/**
+ * setstatus - set status.
+ * @stat: pointer to status
+ *
+ * Return: number of status
+ */
 int setstatus(int *stat)
 {
 	static int status;
+
 	if (stat)
 		status = *stat;
 	return (status);
@@ -18,7 +26,8 @@ int look(char *fun)
 {
 	int pos = 0, flag = 0, i = 0;
 	char *current = NULL;
-	char *built[] =  {"history", "exit", "env", "help", "cd", "setenv", "unsetenv", NULL};
+	char *built[] =  {"history", "exit", "env", "help", "cd", "setenv",
+			  "unsetenv", NULL};
 
 	while (built[i])
 	{
