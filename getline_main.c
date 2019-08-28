@@ -78,7 +78,6 @@ int main (int argc, char **argv)
 			a++;
 		}
 		a++;
-	getarg:
 		if(cnt == 0 && buf[0] == 0)
 		{
 			write(STDIN_FILENO, &sl, 1);
@@ -92,6 +91,7 @@ int main (int argc, char **argv)
 			free (buf);
 			continue;
 		}
+	getarg:
 		buffer_filter(&buf, p);
 		h = _getargs(buf, p, argv[0]);
 		free(buf);
