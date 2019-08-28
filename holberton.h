@@ -139,6 +139,4 @@ void print_error_alias(char *name);
 int justhelp(char *pathandfile, int l, char *filejusthelp);
 int setstatus(int *stat);
 int _isespecialchr(char c);
-void justaline(char *sl, char *buf);
-void justaline2(char c, size_t cnt, char *f, int *flag);
 #endif

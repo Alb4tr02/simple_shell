@@ -57,34 +57,43 @@ inicio:
 		signal(SIGINT, handle_signal);
 		prompt();
 		cnt = 0;
+		sl = '\n';
 		buf = _calloc(4096 * 2, 1);
 		flag = 1;
-		while (read(STDIN_FILENO, &c, 1) == 1)
+		while(read(STDIN_FILENO, &c, 1) == 1)
 		{
 			if (c == 4 && cnt == 0)
 				break;
 			if (c == '\n' && cnt == 0)
 			{
 				free(buf);
-				goto inicio; }
-			if (c == '\n' && cnt != 0)
+				goto inicio;
+			}
+			if(c == '\n' && cnt != 0)
 			{
-				justaline2(c, cnt, buf, &flag);
+				buf[cnt] = 0;
+				flag = 0;
 				break;
 			}
+
 			buf[cnt++] = c;
 			a++;
 		}
 		a++;
-		if (cnt == 0 && buf[0] == 0)
-			justaline(&sl, buf);
+		if(cnt == 0 && buf[0] == 0)
+		{
+			write(STDIN_FILENO, &sl, 1);
+			free(buf);
+			salir(NULL);
+		}
 		if (flag)
 			write(STDIN_FILENO, &sl, 1);
 		if (buf[0] == '\n')
 		{
-			free(buf);
+			free (buf);
 			continue;
 		}
+
 getarg:
 		buffer_filter(&buf, p);
 		h = _getargs(buf, p, argv[0]);
@@ -94,18 +103,4 @@ getarg:
 		funexc(h);
 	}
 	return (0);
-}
-
-void justaline(char *sl, char *buf)
-{
-	write(STDIN_FILENO, &sl, 1);
-	free(buf);
-	salir(NULL);
-}
-
-void justaline2(char c, size_t cnt, char *buf, int *flag)
-{
-	(void)c;
-	buf[cnt] = 0;
-	*flag = 0;
 }
