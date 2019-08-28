@@ -149,13 +149,15 @@ int salir(command_t *h)
 {
 	command_t *cpy = NULL;
 	char **env = NULL;
-	alias *al = NULL;
-	alias *ali = NULL;
-	int i = 0;
+	alias *al = NULL, *ali = NULL;
+	int i = 0, res = 0;
 	char *buffer = NULL;
-	int res = EXIT_SUCCESS;
+
 	if (h->args[1] != NULL)
+	{
 		res = _atoi(h->args[1]);
+		res = (res < 0) ? res * -1 : res;
+	}
 	buffer = getpath();
 	while (h)
 	{
