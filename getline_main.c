@@ -52,7 +52,7 @@ int main (int argc, char **argv)
 		signal(SIGINT, handle_signal);
 		prompt();
 		cnt = 0;
-		buf = _calloc(500, 1);
+		buf = _calloc(4096, 1);
 		flag = 1;
 		while(read(STDIN_FILENO, &c, 1) == 1)
 		{
