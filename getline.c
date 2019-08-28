@@ -24,7 +24,7 @@ char *_getline(ssize_t *pos, char *pathname)
 		fd = STDIN_FILENO, size = 100;
 	else
 		fd = open(pathname, O_RDONLY);
-	buf = _calloc(size, size);
+	buf = _calloc(size * 4, size);
 	buf[size -1] = 0;
 	buf[0] = 0;
 	cpy = buf;
