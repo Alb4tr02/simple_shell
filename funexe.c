@@ -48,9 +48,10 @@ void funexc(command_t *h)
 	command_t *copy = NULL;
 	static int cont;
 
-	cont++;
+	/*cont++;*/
 	while (h)
 	{
+		cont++;
 		h->cont = cont;
 		copy = h;
 		if (h->id == -1)
@@ -128,8 +129,10 @@ void _built(command_t *h)
 
 		}
 		if (entero == 0)
+		{
 			commandsbuilt[i].f(h);
-
+			return;
+		}
 		i++;
 	}
 	if (entero == 0 && argseach[0][j] != '\0')

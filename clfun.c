@@ -17,15 +17,7 @@ char **getdir(void)
 
 	path = _getenvvar(var);
 	if (!path || path[0] == 0)
-	{
-		if (!path)
-		{
-			dir = _calloc(2, sizeof(void *));
-			dir[1] = NULL;
-			dir[2] = currentpath();
-		}
 		return (NULL);
-	}
 	sp = numdirectories(path);
 	if (sp == 0)
 		return (dir);
@@ -138,7 +130,7 @@ int  clfun(char **arg)
 		return (0);
 	dir = getdir();
 	if (dir == NULL)
-		return (res);
+		return (-1);
 	for (; com[la]; la++)
 		;
 	la = _strlen2(com);
