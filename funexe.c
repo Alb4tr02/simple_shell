@@ -171,7 +171,6 @@ int salir(command_t *h)
 		if (res == -1)
 		{
 			print_err_exit(h);
-			setstatus(&er);
 			return (-1);
 		}
 		if (res < 0)
