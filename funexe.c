@@ -76,7 +76,6 @@ void _extern(command_t *h)
 
 	int status = 0, pid = 0;
 	int ex = 0;
-	int f = 2;
 	char **env = _setenv(NULL, NULL);
 
 	if (!h->args)
@@ -86,15 +85,14 @@ void _extern(command_t *h)
 	{
 		status = execve(*h->args, h->args, env);
 		if (status == -1)
-		{
-			setstatus(&f);
 			salir(h);
-		}
-		else
-			setstatus(&ex);
 	}
 	else
-		wait(NULL);
+	{
+		wait(&ex);
+		ex = ex % 255;
+		setstatus(&ex);
+	}
 }
 
 
@@ -181,5 +179,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	exit(0);
+	exit(setstatus(NULL));
 }

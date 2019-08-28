@@ -38,8 +38,7 @@ int main (int argc, char **argv)
 	ssize_t *p = &a;
 	command_t *h = NULL;
 	size_t cnt = 0;
-	char c;
-	char sl = '\n';
+	char c, sl = '\n';
 	char *buf = NULL;
 	int flag = 1;
 
@@ -52,7 +51,6 @@ int main (int argc, char **argv)
 		signal(SIGINT, handle_signal);
 		prompt();
 		cnt = 0;
-		sl = '\n';
 		buf = _calloc(500, 1);
 		flag = 1;
 		while(read(STDIN_FILENO, &c, 1) == 1)
@@ -70,7 +68,6 @@ int main (int argc, char **argv)
 				flag = 0;
 				break;
 			}
-
 			buf[cnt++] = c;
 			a++;
 		}
@@ -92,7 +89,7 @@ int main (int argc, char **argv)
 		h = _getargs(buf, p, argv[0]);
 		free(buf);
 		if (!h)
-			return (0);
+		 	return (0);
 		funexc(h);
 	}
 	return (0);
