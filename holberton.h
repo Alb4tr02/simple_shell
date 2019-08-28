@@ -134,4 +134,5 @@ void imprimir_errores_cd(command_t *h);
 char *getpath(void);
 char **notfoundvar(char **env, char **cpyenv, char *newvar);
 int nextdir(char *filter, int i);
+void printhelp_text(char **filenames, int *posi, char *pathandfile);
 #endif

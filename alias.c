@@ -1,5 +1,13 @@
 #include "holberton.h"
 #include <stdio.h>
+
+/**
+ * add_alias - add alias.
+ * @head: node tha has the builtin command
+ * @name: name
+ * @value: value
+ * Return: no return
+ */
 alias *add_alias(alias **head, char *name, char *value)
 {
 	int flag = 1;
@@ -37,6 +45,13 @@ alias *add_alias(alias **head, char *name, char *value)
 	} while (flag);
 	return (new);
 }
+
+/**
+ * _strcmp - compare string.
+ * @s1: string 1
+ * @s2: string 1
+ * Return: no return
+ */
 int _strcmp(char *s1, char *s2)
 {
 	int i = 0, j = 0;
@@ -47,6 +62,13 @@ int _strcmp(char *s1, char *s2)
 		return (1);
 	return (0);
 }
+/**
+ * buscar_alias - buscar alias
+ * @head: head
+ * @name: name
+ *
+ * Return: no return
+ */
 alias *buscar_alias(alias *head, char *name)
 {
 	char *cpyname = NULL;
@@ -60,6 +82,13 @@ alias *buscar_alias(alias *head, char *name)
 	}
 	return (NULL);
 }
+
+/**
+ * setalias - set alias.
+ * @tokens: node tha has the builtin command
+ *
+ * Return: no return
+ */
 alias *setalias(char **tokens)
 {
 	static alias *head;
@@ -92,6 +121,13 @@ alias *setalias(char **tokens)
 	}
 	return (NULL);
 }
+
+/**
+ * _strlen - longitud string.
+ * @str: pointer to string
+ *
+ * Return: size
+ */
 int _strlen(char *str)
 {
 	int i = 0;
@@ -103,6 +139,13 @@ int _strlen(char *str)
 	}
 	return (-1);
 }
+
+/**
+ * _have_value - valueof alias.
+ * @arg: pointer to arg
+ *
+ * Return: 0 or-1
+ */
 int _have_value(char *arg)
 {
 	int i = 0;
@@ -115,6 +158,13 @@ int _have_value(char *arg)
 	}
 	return (-1);
 }
+
+/**
+ * print_error_alias - show help document of some functions.
+ * @name: node tha has the builtin command
+ *
+ * Return: no return
+ */
 void print_error_alias(char *name)
 {
 	char *err = "alias: ";
@@ -132,7 +182,12 @@ void print_error_alias(char *name)
 	return;
 }
 
-
+/**
+ * token_alias - show help document of some functions.
+ * @alias: node tha has the builtin command
+ *
+ * Return: no return
+ */
 char **token_alias(char *alias)
 {
 	char **tokens = NULL;
@@ -162,6 +217,13 @@ char **token_alias(char *alias)
 		tokens[1][i] = alias[pos + i];
 	return (tokens);
 }
+
+/**
+ * _quote_end - show help document of some functions.
+ * @s1: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int _quote_end(char *s1)
 {
 	int i = 0;
@@ -170,6 +232,14 @@ int _quote_end(char *s1)
 			return (1);
 	return (0);
 }
+
+/**
+ * _concat - show help document of some functions.
+ * @args: node tha has the builtin command
+ * @pos: position
+ * @size: size
+ * Return: no return
+ */
 char *_concat(char **args, int *pos,int size)
 {
 	char *aux = NULL;
@@ -195,6 +265,13 @@ char *_concat(char **args, int *pos,int size)
 	*pos = cnt + 1;
 	return (aux);
 }
+
+/**
+ * print_one_alias - show help document of some functions.
+ * @name: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int print_one_alias(char *name)
 {
 	alias *aux = NULL;
@@ -208,6 +285,12 @@ int print_one_alias(char *name)
 	print_error_alias(name);
 	return (-1);
 }
+
+/**
+ * print_all_alias - show help document of some functions.
+ *
+ * Return: no return
+ */
 void print_all_alias(void)
 {
 	alias *aux = NULL;
@@ -218,6 +301,13 @@ void print_all_alias(void)
 		aux = aux->next;
 	}
 }
+
+/**
+ * _alias - show help document of some functions.
+ * @h: node tha has the builtin command
+ *
+ * Return: 0 or -1
+ */
 int _alias(command_t *h)
 {
 	char **args = NULL, **tokens = NULL;

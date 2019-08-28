@@ -18,12 +18,12 @@
 char *getpath(void)
 {
 
-	static int flag = 0;
+	static int flag;
 	static char *path;
 
 	if (!flag)
 	{
-		path = _calloc(500,1);
+		path = _calloc(500, 1);
 		if (path == NULL)
 			return (0);
 		path = getcwd(path, 500);
@@ -33,7 +33,7 @@ char *getpath(void)
 }
 
 /**
- * lukeskywalker - return 0.
+ * lukeSkywalker - return 0.
  *
  * Return: no return
  */
@@ -43,7 +43,7 @@ int lukeSkywalker(void)
 }
 
 /**
- * aerodots - filter (.. /).
+ * aredots - filter (.. /).
  * @path: pointer to path
  * @pos: position in buffer to verify if it is . . and /
  * @size: size of buffer
@@ -77,6 +77,7 @@ char *filtro1(char *path)
 {
 	char *filter = NULL;
 	int j = 0, seek = 0, i = 0;
+
 	for (; path[j]; j++)
 		;
 	filter = _calloc(j + 1, sizeof(char));
@@ -110,6 +111,7 @@ char *filtro2(char *filter)
 {
 	char *cpypath = NULL;
 	int j = 0, pos = 0, i = 0, cnt = 0;
+
 	for (; filter[j]; j++)
 		;
 	cpypath = _calloc(j + 1, sizeof(char));

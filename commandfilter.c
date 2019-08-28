@@ -48,12 +48,14 @@ int have_alias(char *buf, int i)
 }
 int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 {
-	(void)buf;
-	(void)i;
 	int a = setstatus(NULL);
 	char *stat = print_number(a);
 	int j = 0;
 	int p;
+
+	(void)buf;
+	(void)i;
+	a = setstatus(NULL);
 	p = *pos;
 	for (; stat[j]; j++, p = p + 1)
 		newbuf[p] = stat[j];
@@ -63,14 +65,14 @@ int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 }
 int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 {
-	(void)buf;
-	(void)i;
 	int a = setpid(NULL);
 	char *stat = print_number(a);
 	int j = 0;
 	int p;
-	p = *pos;
 
+	(void)buf;
+	(void)i;
+	p = *pos;
 	for (; stat[j]; j++, p++)
 		newbuf[p] = stat[j];
 	p++;

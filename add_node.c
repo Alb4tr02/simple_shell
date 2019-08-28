@@ -4,9 +4,13 @@
  * @head: the list of elements
  * @args: string to be stored
  * @id: value of the atributte ide (extern or builtin)
+ * @cont: cont
+ * @name: name
+ *
  * Return: direction of the new node
  */
-command_t *add_node(command_t **head, char **args, int id, int cont, char *name)
+command_t *add_node(command_t **head, char **args, int id,
+		    int cont, char *name)
 {
 	int flag = 1;
 	command_t *p = *head;

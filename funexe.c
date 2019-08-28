@@ -89,10 +89,7 @@ void _extern(command_t *h)
 			salir(h);
 	}
 	else
-	{
-		//setpid(&pid);
 		wait(&ex);
-	}
 	ex = ex % 255;
 	setstatus(&ex);
 

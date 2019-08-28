@@ -64,7 +64,7 @@ int chtopreviousdir(void)
 		closedir(dir);
 		chdir(oldpwd);
 		_setenv("OLDPWD", pwd);
-		for(; oldpwd[l]; l++)
+		for (; oldpwd[l]; l++)
 			;
 		write(1, oldpwd, l);
 		write(1, &sl, 1);
@@ -76,15 +76,16 @@ int chtopreviousdir(void)
 }
 
 /**
- * darthCader - change directory father.
+ * darthVader - change directory father.
  *
  * Return: return 0
  */
-int darthVader()
+int darthVader(void)
 {
 	char *newpwd = NULL;
 	char *pwd = NULL;
 	DIR *dir = NULL;
+
 	pwd = _getenvvar("PWD");
 	newpwd = getvaderdir();
 	dir = opendir(newpwd);
@@ -93,7 +94,7 @@ int darthVader()
 		printf("Error :'v \n");
 		free(pwd);
 		free(newpwd);
-		return(-1);
+		return (-1);
 	}
 	closedir(dir);
 	chdir(newpwd);
@@ -105,7 +106,7 @@ int darthVader()
 }
 
 /**
- * nexdir - give next dire after .. /.
+ * nextdir - give next dire after .. /.
  * @filter: pointer to buffer
  * @i: position before directory
  * Return: position of the next dir or -1
@@ -117,6 +118,27 @@ int nextdir(char *filter, int i)
 	i++;
 	for (; filter[i]; i++)
 		if (filter[i] == '/')
-			return(i);
+			return (i);
 	return (-1);
+}
+
+/**
+ * dirandcommand - add command to the directory of the path.
+ * @crtdir: each directory
+ * @aux: pointer to the filename
+ * @com: command and arguments
+ *
+ * Return: pointer to the etotal path of the directory
+ */
+char *dirandcommand(char *crtdir, char *aux, char *com)
+{
+
+	int l, la;
+
+	for (l = 0; crtdir[l]; l++)
+		aux[l] = crtdir[l];
+	for (la = 0; com[la]; la++, l++)
+		aux[l] = com[la];
+	aux[l] = 0;
+	return (aux);
 }
