@@ -7,6 +7,7 @@
  *
  * Return: no return
  */
+
 int _quote_end(char *s1)
 {
 	int i = 0;
@@ -59,15 +60,23 @@ char *_concat(char **args, int *pos, int size)
 int print_one_alias(char *name)
 {
 	alias *aux = NULL;
+	char *err = "alias: ";
+	char *err1 = " not found\n";
+	char eq = '=', sl = 10;
 
 	aux = setalias(NULL);
 	aux = buscar_alias(aux, name);
 	if (aux)
 	{
-		printf("%s=%s\n", aux->name, aux->value);
+		write(1, aux->name, _strlen(aux->name));
+		write(1, &eq, 1);
+		write(1, aux->value, _strlen(aux->value));
+		write(1, &sl, 1);
 		return (0);
 	}
-	print_error_alias(name);
+	write(1, err, _strlen(err));
+	write(1, name, _strlen(name));
+	write(1, err1, _strlen(err1));
 	return (-1);
 }
 
@@ -79,11 +88,15 @@ int print_one_alias(char *name)
 void print_all_alias(void)
 {
 	alias *aux = NULL;
-
+	char sl = 10, eq = '=';
 	aux = setalias(NULL);
+
 	while (aux)
 	{
-		printf("%s=%s\n", aux->name, aux->value);
+		write(1, aux->name, _strlen(aux->name));
+		write(1, &eq, 1);
+		write(1, aux->value, _strlen(aux->value));
+		write(1, &sl, 1);
 		aux = aux->next;
 	}
 }
@@ -96,8 +109,9 @@ void print_all_alias(void)
  */
 int _alias(command_t *h)
 {
-	char **args = NULL, **tokens = NULL;
-	char *aux = NULL;
+	char **args = NULL;
+	char **tokens = NULL;
+        /*char *aux = NULL;*/
 	int pos = 1, i = 0;
 
 	args = h->args;
@@ -112,7 +126,9 @@ int _alias(command_t *h)
 	{
 		if (_have_value(args[pos]))
 		{
-			if (_quote_end(args[pos]))
+			tokens = token_alias(args[pos]);
+			setalias(tokens);
+			/*if (_quote_end(args[pos]))
 			{
 				tokens = token_alias(args[pos]);
 				setalias(tokens);
@@ -127,8 +143,9 @@ int _alias(command_t *h)
 					setalias(tokens);
 					free(tokens);
 				}
-				continue;
-			}
+				else
+					continue;
+			}*/
 			free(tokens);
 		}
 		else

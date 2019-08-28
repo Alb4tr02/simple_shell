@@ -79,7 +79,7 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
  */
 void buffer_filter(char **buffer, ssize_t *p)
 {
-	char *newbuf = _calloc(500, 1);
+	char *newbuf = _calloc(4096 * 2, 1);
 	alias *ali = NULL;
 	char *buf = *buffer;
 	int pos = 0, i = 0, cpy = 0;
@@ -91,7 +91,9 @@ void buffer_filter(char **buffer, ssize_t *p)
 			_ignorecomments(buf, &i);
 			continue;
 		}
-		if (buf[i] == '$')
+		if (buf[i] == '$' && buf[i + 1] != ' '&& buf[i + 1] != '\t'
+		    && buf[i + 1] != 0 && buf[i + 1] != '\n'
+		    && buf[i + 1] != ';' )
 		{
 			_replacevar(buf, newbuf, &i, &pos);
 			continue;

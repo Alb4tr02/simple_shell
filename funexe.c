@@ -24,16 +24,16 @@ void imprimir_error(command_t *h)
 	cont = print_number(h->cont);
 	n = h->name;
 	l1 = _strlen(n);
-	write(1, n, l1);
-	write(1, sp, 2);
+	write(STDERR_FILENO, n, l1);
+	write(STDERR_FILENO, sp, 2);
 	l1 = _strlen(cont);
-	write(1, cont, l1);
-	write(1, sp, 2);
+	write(STDERR_FILENO, cont, l1);
+	write(STDERR_FILENO, sp, 2);
 	l1 = _strlen(com);
-	write(1, com, l1);
+	write(STDERR_FILENO, com, l1);
 	l1 = _strlen(msg);
-	write(1, msg, l1);
-	write(1, &sl, 1);
+	write(STDERR_FILENO, msg, l1);
+	write(STDERR_FILENO, &sl, 1);
 	free(cont);
 	setstatus(&a);
 }
@@ -48,9 +48,10 @@ void funexc(command_t *h)
 	command_t *copy = NULL;
 	static int cont;
 
-	cont++;
+	/*cont++;*/
 	while (h)
 	{
+		cont++;
 		h->cont = cont;
 		copy = h;
 		if (h->id == -1)
@@ -61,7 +62,6 @@ void funexc(command_t *h)
 			_built(h);
 		h = h->next;
 		freecommand(copy);
-
 	}
 }
 
@@ -92,9 +92,7 @@ void _extern(command_t *h)
 		wait(&ex);
 	ex = ex % 255;
 	setstatus(&ex);
-
 }
-
 
 /**
 * _built - call different builtins.
@@ -129,14 +127,30 @@ void _built(command_t *h)
 
 		}
 		if (entero == 0)
+		{
 			commandsbuilt[i].f(h);
-
+			return;
+		}
 		i++;
 	}
 	if (entero == 0 && argseach[0][j] != '\0')
 		entero = argseach[0][j] - commandsbuilt[i].built[j];
 }
-
+void print_err_exit(command_t *h)
+{
+	char *err = h->name;
+	char *sp = ": ";
+	char *err1 = ": exit: Illegal number: ";
+	char *num = print_number(h->cont);
+	char sl = 10;
+	write(STDERR_FILENO, err, _strlen(err));
+	write(STDERR_FILENO, sp, _strlen(sp));
+	write(STDERR_FILENO, num, _strlen(num));
+	write(STDERR_FILENO, err1, _strlen(err1));
+	write(STDERR_FILENO, h->args[1], _strlen(h->args[1]));
+	write(STDERR_FILENO, &sl, 1);
+	free(num);
+}
 /**
 * salir - exit from the function.
 * @h: copy of head of linked list
@@ -147,11 +161,27 @@ int salir(command_t *h)
 {
 	command_t *cpy = NULL;
 	char **env = NULL;
-	alias *al = NULL;
-	alias *ali = NULL;
-	int i = 0;
+	alias *al = NULL, *ali = NULL;
+	int i = 0;/*, res = 0;*/
 	char *buffer = NULL;
 
+	/*if (h)
+	{
+		if  (h->args[1] != NULL)
+		{
+			res = _atoi(h->args[1]);
+			if (res == -1)
+			{
+				print_err_exit(h);
+				return (-1);
+			}
+		}
+		if (res < 0)
+			res = 2;
+		else
+			res = res % 255;
+		setstatus(&res);
+	}*/
 	buffer = getpath();
 	while (h)
 	{
@@ -175,5 +205,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	exit(0);
+	exit(setstatus(NULL));
 }

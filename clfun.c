@@ -31,7 +31,7 @@ char **getdir(void)
 			i++, j++;
 			flag = 0; }
 		aux = j;
-		for (l = 0 ; j < 1024 && path[j] && path[j] != ':'; j++, l++)
+		for (l = 0 ; path[j] && path[j] != ':'; j++, l++)
 			;
 		if (l == 0)
 		{
@@ -138,7 +138,7 @@ int  clfun(char **arg)
 		return (0);
 	dir = getdir();
 	if (dir == NULL)
-		return (res);
+		return (-1);
 	for (; com[la]; la++)
 		;
 	while (dir[i])

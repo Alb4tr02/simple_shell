@@ -49,7 +49,7 @@ char *clpath(char *path)
  */
 int absolutepath(char *path)
 {
-	DIR *dir = NULL;
+	/*DIR *dir = NULL;*/
 	char *pwd = NULL;
 	char *cpypath = NULL;
 	char *root = "/";
@@ -64,11 +64,11 @@ int absolutepath(char *path)
 		cpypath = root;
 		flag = 0;
 	}
-	dir = opendir(cpypath);
-	if (dir)
+	/*dir = opendir(cpypath);*/
+	if (chdir(cpypath) != -1)
 	{
-		closedir(dir);
-		chdir(cpypath);
+		/*closedir(dir);*/
+		  /*chdir(cpypath);*/
 		_setenv("PWD", cpypath);
 		_setenv("OLDPWD", pwd);
 		free(pwd);
@@ -81,7 +81,6 @@ int absolutepath(char *path)
 		free(pwd);
 		if (flag)
 			free(cpypath);
-		printf("Error\n");
 		return (-1);
 	}
 	return (0);
@@ -101,7 +100,7 @@ int _cd(command_t *h)
 
 	args = h->args;
 	path = args[1];
-	if (path == NULL)
+	if (path == NULL || path[0] == '~')
 	{
 		home = _getenvvar("HOME");
 		absolutepath(home);
