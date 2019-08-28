@@ -91,9 +91,9 @@ void buffer_filter(char **buffer, ssize_t *p)
 			_ignorecomments(buf, &i);
 			continue;
 		}
-		if (buf[i] == '$' && buf[i + 1] != ' '&& buf[i + 1] != '\t'
+		if (buf[i] == '$' && buf[i + 1] != ' ' && buf[i + 1] != '\t'
 		    && buf[i + 1] != 0 && buf[i + 1] != '\n'
-		    && buf[i + 1] != ';' )
+		    && buf[i + 1] != ';')
 		{
 			_replacevar(buf, newbuf, &i, &pos);
 			continue;

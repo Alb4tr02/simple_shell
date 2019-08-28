@@ -89,6 +89,7 @@ void print_all_alias(void)
 {
 	alias *aux = NULL;
 	char sl = 10, eq = '=';
+
 	aux = setalias(NULL);
 
 	while (aux)
@@ -111,7 +112,6 @@ int _alias(command_t *h)
 {
 	char **args = NULL;
 	char **tokens = NULL;
-        /*char *aux = NULL;*/
 	int pos = 1, i = 0;
 
 	args = h->args;
@@ -128,24 +128,6 @@ int _alias(command_t *h)
 		{
 			tokens = token_alias(args[pos]);
 			setalias(tokens);
-			/*if (_quote_end(args[pos]))
-			{
-				tokens = token_alias(args[pos]);
-				setalias(tokens);
-			}
-			else
-			{
-				aux = _concat(args, &pos, i);
-				if (aux)
-				{
-					tokens = token_alias(aux);
-					free(aux);
-					setalias(tokens);
-					free(tokens);
-				}
-				else
-					continue;
-			}*/
 			free(tokens);
 		}
 		else

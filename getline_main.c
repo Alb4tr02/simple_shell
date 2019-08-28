@@ -82,15 +82,15 @@ inicio:
 			write(STDIN_FILENO, &sl, 1);
 		if (buf[0] == '\n')
 		{
-			free (buf);
+			free(buf);
 			continue;
 		}
-	getarg:
+getarg:
 		buffer_filter(&buf, p);
 		h = _getargs(buf, p, argv[0]);
 		free(buf);
 		if (!h)
-		 	return (0);
+			return (0);
 		funexc(h);
 	}
 	return (0);
