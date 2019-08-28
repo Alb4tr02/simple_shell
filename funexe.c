@@ -48,7 +48,7 @@ void funexc(command_t *h)
 	command_t *copy = NULL;
 	static int cont;
 
-	cont++;
+	/*cont++;*/
 	while (h)
 	{
 		h->cont = cont;
@@ -61,6 +61,7 @@ void funexc(command_t *h)
 			_built(h);
 		h = h->next;
 		freecommand(copy);
+		cont++;
 
 	}
 }
