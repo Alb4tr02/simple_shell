@@ -1,5 +1,5 @@
 #include "holberton.h"
-#include <stdio.h>
+
 alias *add_alias(alias **head, char *name, char *value)
 {
 	int flag = 1;
