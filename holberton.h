@@ -52,6 +52,9 @@ typedef struct aliases
 	char *value;
 	struct aliases *next;
 } alias;
+int replace_stat(char *buf, char *newbuf, int *i, int *pos);
+int replace_pid(char *buf, char *newbuf, int *i, int *pos);
+int setpid(int *pid);
 int setstatus(int *stat);
 char *print_number(int n);
 char *crear_name(char  *name);

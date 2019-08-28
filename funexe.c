@@ -55,7 +55,7 @@ void funexc(command_t *h)
 		copy = h;
 		if (h->id == -1)
 			imprimir_error(h);
-		if (h->id == 0)
+		else if (h->id == 0)
 			_extern(h);
 		else
 			_built(h);
@@ -76,25 +76,26 @@ void _extern(command_t *h)
 
 	int status = 0, pid = 0;
 	int ex = 0;
-	int f = 2;
 	char **env = _setenv(NULL, NULL);
 
 	if (!h->args)
 		printf("no sirve esta mierda\n");
 	pid = fork();
+
 	if (pid == 0)
 	{
 		status = execve(*h->args, h->args, env);
 		if (status == -1)
-		{
-			setstatus(&f);
 			salir(h);
-		}
-		else
-			setstatus(&ex);
 	}
 	else
-		wait(NULL);
+	{
+		//setpid(&pid);
+		wait(&ex);
+	}
+	ex = ex % 255;
+	setstatus(&ex);
+
 }
 
 

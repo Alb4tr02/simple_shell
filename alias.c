@@ -115,6 +115,24 @@ int _have_value(char *arg)
 	}
 	return (-1);
 }
+void print_error_alias(char *name)
+{
+	char *err = "alias: ";
+	char *err1 = " not found";
+	int l = 0,  st = 127, sl = 10;;
+
+	l = _strlen(err);
+	write(1, err, l);
+	l = _strlen(name);
+	write(1, name, l);
+	l = _strlen(err1);
+	write(1, err1, l);
+	write(1, &sl, 1);
+	setstatus(&st);
+	return;
+}
+
+
 char **token_alias(char *alias)
 {
 	char **tokens = NULL;
@@ -126,7 +144,12 @@ char **token_alias(char *alias)
 			break;
 	if (pos == 0)
 	{
-			return (NULL);
+		tokens[0] = _calloc(2, 1);
+		tokens[0][0] = '=';
+		tokens[1] = _calloc(3, 1);
+		tokens[1][0] = 39;
+		tokens[1][1] = 39;
+		return (tokens);
 	}
 	l = _strlen(alias);
 	lv = l - 2 - pos;
@@ -182,7 +205,7 @@ int print_one_alias(char *name)
 		printf("%s=%s\n", aux->name, aux->value);
 		return (0);
 	}
-	printf("Error no se encuntra\n");
+	print_error_alias(name);
 	return (-1);
 }
 void print_all_alias(void)
@@ -197,8 +220,7 @@ void print_all_alias(void)
 }
 int _alias(command_t *h)
 {
-	char **args = NULL;
-	char **tokens = NULL;
+	char **args = NULL, **tokens = NULL;
 	char *aux = NULL;
 	int pos = 1, i = 0;
 	args = h->args;
@@ -228,8 +250,6 @@ int _alias(command_t *h)
 					setalias(tokens);
 					free(tokens);
 				}
-				else
-					printf("Error de quotes\n");
 				continue;
 			}
 			free(tokens);
