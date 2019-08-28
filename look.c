@@ -41,8 +41,8 @@ int setpid(int *pid)
 int setstatus(int *stat)
 {
 	static int status;
-	int setstatus(int *stat);
 
+	int setstatus(int *stat);
 	if (stat)
 		status = *stat;
 	return (status);
