@@ -40,12 +40,17 @@ int main (int argc, char **argv)
 	size_t cnt = 0;
 	char c, sl = '\n';
 	char *buf = NULL;
-	int flag = 1;
+	int flag = 1, flag1 = 1;
 
 	getpath();
 	setpid(NULL);
-	(void)argc;
-	while (1)
+	if (argc > 1)
+	{
+		buf = _getline(&a, argv[1]);
+		flag1 = 0;
+		goto getarg;
+	}
+	while (flag1)
 	{
 	inicio:
 		a = 0;
@@ -73,6 +78,7 @@ int main (int argc, char **argv)
 			a++;
 		}
 		a++;
+	getarg:
 		if(cnt == 0 && buf[0] == 0)
 		{
 			write(STDIN_FILENO, &sl, 1);
