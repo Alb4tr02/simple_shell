@@ -5,7 +5,7 @@
 int _isespecialchr(char c)
 {
 	int i = 0;
-        char tokens[] = {'&', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
+        char tokens[] = { '$', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
         while (tokens[i] != -1)
 	{
                 if (tokens[i] == c)
@@ -176,7 +176,8 @@ void buffer_filter(char **buffer, ssize_t *p)
 			_ignorecomments(buf, &i);
 			continue;
 		}
-		if (buf[i] == '$')
+		if (buf[i] == '$' && buf[i + 1] != ' '&& buf[i + 1] != '\t'
+		    && buf[i + 1] != 0 && buf[i + 1] != '\n' )
 		{
 			_replacevar(buf, newbuf, &i, &pos);
 			continue;
