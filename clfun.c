@@ -31,7 +31,7 @@ char **getdir(void)
 			i++, j++;
 			flag = 0; }
 		aux = j;
-		for (l = 0 ; j < 1024 && path[j] && path[j] != ':'; j++, l++)
+		for (l = 0 ; path[j] && path[j] != ':'; j++, l++)
 			;
 		if (l == 0)
 		{
