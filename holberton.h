@@ -136,4 +136,7 @@ char **notfoundvar(char **env, char **cpyenv, char *newvar);
 int nextdir(char *filter, int i);
 void printhelp_text(char **filenames, int *posi, char *pathandfile);
 void print_error_alias(char *name);
+int justhelp(char *pathandfile, int l, char *filejusthelp);
+int setstatus(int *stat);
+int _isespecialchr(char c);
 #endif
