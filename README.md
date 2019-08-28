@@ -35,7 +35,7 @@ add_node.c  funcbuilt.c  getline_main.c  hsh			 prompt.c
 back.xc     funexe.c	   getrealenv.c	   look.c				 signal.c
 ```
 
-## Command Execution
+##  Execution
 
 
 To invoke the simple_shell, you need to write the next command: 
@@ -57,6 +57,8 @@ actenv.xc   back.xc	cpyenv.c								    funcbuilt.c				                  getline
 >:v 
 ```
 ## Command Execution
+
+## Exit status
 
 hsh returns Zero for success and differnt Zero for failure
 
