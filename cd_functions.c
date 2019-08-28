@@ -65,7 +65,6 @@ int absolutepath(char *path)
 		free(pwd);
 		if (flag)
 			free(cpypath);
-		printf("Error\n");
 		return (-1);
 	}
 	return (0);
@@ -78,7 +77,7 @@ int _cd(command_t *h)
 
 	args = h->args;
 	path = args[1];
-	if (path == NULL)
+	if (path == NULL || path[0] == '~')
 	{
 		home = _getenvvar("HOME");
 		absolutepath(home);
@@ -92,7 +91,7 @@ int _cd(command_t *h)
 		lukeSkywalker();
 	else
 		absolutepath(path);
-/*else
-  relativepath(path);*/
+	/*else
+	  relativepath(path);*/
 	return (0);
 }
