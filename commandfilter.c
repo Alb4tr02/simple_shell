@@ -1,4 +1,7 @@
 #include "holberton.h"
+#include <sys/types.h>
+#include <sys/wait.h>
+
 int _isespecialchr(char c)
 {
 	int i = 0;
@@ -46,24 +49,53 @@ int have_alias(char *buf, int i)
 	}
 	return (flag);
 }
+int replace_stat(char *buf, char *newbuf, int *i, int *pos)
+{
+	int a, j, p;
+	char *stat;
+
+	(void)buf;
+	(void)i;
+	a = 0, j = 0;
+	stat = print_number(a);
+	p = *pos;
+	a = setstatus(NULL);
+	for (; stat[j]; j++, p = p + 1)
+		newbuf[p] = stat[j];
+	p = p + 1;
+	free(stat);
+	return (p);
+}
+int replace_pid(char *buf, char *newbuf, int *i, int *pos)
+{
+	int a = setpid(NULL);
+	char *stat = print_number(a);
+	int j = 0;
+	int p;
+	p = *pos;
+	(void)buf;
+	(void)i;
+	for (; stat[j]; j++, p++)
+		newbuf[p] = stat[j];
+	p++;
+	free(stat);
+	return (p);
+}
 void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 {
 	char *name = _calloc(60, 1);
 	char *value = NULL;
-	int cb = *i, j = 0;
+	int cb = *i, j = 0, p = 0;
 	cb++;
 	if (buf[cb] == '$' || buf[cb] == '?')
 	{
-		int a = setstatus(NULL);
-		char *stat = print_number(a);
-		int j = 0;
-		for (; stat[j]; j++, *pos = *pos + 1)
-			newbuf[*pos] = stat[j];
-		*pos = *pos + 1;
-		free(stat);
+		if (buf[cb] == '$')
+			p = replace_pid(buf, newbuf, i, pos);
+		else
+			p = replace_stat(buf, newbuf, i, pos);
 		cb++;
 		*i = cb;
-		free(name);
+		*pos = p - 1;
 		return;
 	}
 	else
@@ -155,6 +187,7 @@ void buffer_filter(char **buffer, ssize_t *p)
 			}
 			i = cpy;
 		}
+		i = cpy;
 		newbuf[pos] = buf[i];
 		i++, pos++;
 	}

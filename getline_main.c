@@ -43,6 +43,7 @@ int main (int argc, char **argv)
 	int flag = 1;
 
 	getpath();
+	setpid(NULL);
 	(void)argc;
 	while (1)
 	{
