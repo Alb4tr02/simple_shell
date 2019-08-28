@@ -126,8 +126,7 @@ char **token_alias(char *alias)
 			break;
 	if (pos == 0)
 	{
-		printf("Error\n alias alguna mierda. :v");
-		return (NULL);
+			return (NULL);
 	}
 	l = _strlen(alias);
 	lv = l - 2 - pos;
