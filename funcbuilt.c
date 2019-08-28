@@ -85,13 +85,14 @@ int _unsetenv(command_t *h)
 {
 	char **args = NULL;
 	char *var = NULL;
+	char *err = "Error\n";
 	int i = 0;
 	args = h->args;
 	for (; args[i]; i++)
 		;
 	if (i != 2)
 	{
-		printf("Error\n");
+		write(1, err, _strlen(err));
 		return (-1);
 	}
 	var = _getenvvar(args[1]);
@@ -103,7 +104,7 @@ int _unsetenv(command_t *h)
 	}
 	else
 	{
-		printf("Error\n");
+		write(1, err, _strlen(err));
 		return (-1);
 	}
 	return (-1);
@@ -223,6 +224,8 @@ char  *getvaderdir(void)
 	for (l = 0; pwd[l] && l < i; l++)
 		newpwd[l] = pwd[l];
 	free(pwd);
+	if (newpwd[0] == 0)
+		newpwd[0] = '/';
 	return (newpwd);
 }
 
@@ -235,28 +238,28 @@ int chtopreviousdir(void)
 {
 	char *oldpwd = NULL;
 	char *pwd = NULL;
-	DIR *dir = NULL;
+	char *home = NULL;
 	int l = 0;
+	char *err = "Error\n";
 	char sl = '\n';
 
 	oldpwd = _getenvvar("OLDPWD");
 	pwd = _getenvvar("PWD");
 	if (!oldpwd)
 	{
-		printf("OLDPWD not set error");
+		home = _getenvvar("HOME");
+		absolutepath(home);
+		free(home);
 		free(pwd);
 		return (-1);
 	}
 	else
 	{
-		dir = opendir(oldpwd);
-		if (dir == NULL)
+		if (chdir(oldpwd) == -1)
 		{
-			printf("ERROR\n");
+			write(1, err, _strlen(err));
 			return (-1);
 		}
-		closedir(dir);
-		chdir(oldpwd);
 		_setenv("OLDPWD", pwd);
 		for(; oldpwd[l]; l++)
 			;
@@ -278,19 +281,19 @@ int darthVader()
 {
 	char *newpwd = NULL;
 	char *pwd = NULL;
-	DIR *dir = NULL;
+	char *err = "./hsh: cd: ";
+	char *err2 = ": No such file or directory\n";
 	pwd = _getenvvar("PWD");
 	newpwd = getvaderdir();
-	dir = opendir(newpwd);
-	if (dir == NULL)
+	if (chdir(newpwd) == -1)
 	{
-		printf("Error :'v \n");
+		write(1, err, _strlen(err));
+		write(1, newpwd, _strlen(newpwd));
+		write(1, err2, _strlen(err2));
 		free(pwd);
 		free(newpwd);
 		return(-1);
 	}
-	closedir(dir);
-	chdir(newpwd);
 	_setenv("PWD", newpwd);
 	_setenv("OLDPWD", pwd);
 	free(pwd);

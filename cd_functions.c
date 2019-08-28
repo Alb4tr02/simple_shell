@@ -34,7 +34,7 @@ char *clpath(char *path)
 }
 int absolutepath(char *path)
 {
-	DIR *dir = NULL;
+	/*DIR *dir = NULL;*/
 	char *pwd = NULL;
 	char *cpypath = NULL;
 	char *root = "/";
@@ -48,11 +48,11 @@ int absolutepath(char *path)
 		cpypath = root;
 		flag = 0;
 	}
-	dir = opendir(cpypath);
-	if (dir)
+	/*dir = opendir(cpypath);*/
+	if (chdir(cpypath) != -1)
 	{
-		closedir(dir);
-		chdir(cpypath);
+		/*closedir(dir);*/
+		  /*chdir(cpypath);*/
 		_setenv("PWD", cpypath);
 		_setenv("OLDPWD", pwd);
 		free(pwd);
