@@ -5,8 +5,8 @@
 #define MAX 500
 
 /**
- * setstatus - set status.
- * @stat: pointer to status
+ * setpid - set status.
+ * @pid: pointer to status
  *
  * Return: number of status
  */
@@ -32,6 +32,12 @@ int setpid(int *pid)
 	return (_pid);
 }
 
+/**
+ * setstatus - show help document of some functions.
+ * @stat: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int setstatus(int *stat)
 {
 	static int status;

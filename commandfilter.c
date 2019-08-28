@@ -1,132 +1,32 @@
 #include "holberton.h"
-int _isespecialchr(char c)
-{
-	int i = 0;
-	char tokens[] = {'&', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
 
-	while (tokens[i] != -1)
-	{
-		if (tokens[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-int have_alias(char *buf, int i)
-{
-	int st = i - 1;
-	int end = i;
-	int cnt = 0, flag = 0;
-	char *al = "alias";
-
-	if (st < 0)
-		return (0);
-	while (st >= 0)
-	{
-		if (buf[st] == '\n' || buf[st] == 0
-		   || buf[st] == ';' || buf[st] == '&'
-			|| buf[st] == '|')
-			break;
-		st--;
-	}
-	if (st < 0)
-		st++;
-	for (; st <= end; st++)
-	{
-		if (buf[st] == 'a')
-		{
-			for (cnt = 0; al[cnt]; cnt++, st++)
-			{
-				if (al[cnt] != buf[st])
-					break;
-				if (!al[cnt + 1] && (buf[st + 1] == ' ' ||
-							buf[st + 1] == '\t'
-							|| buf[st + 1] == '$'))
-					flag = 1;
-			}
-		}
-	}
-	return (flag);
-}
-int replace_stat(char *buf, char *newbuf, int *i, int *pos)
-{
-	int a = setstatus(NULL);
-	char *stat = print_number(a);
-	int j = 0;
-	int p;
-
-	(void)buf;
-	(void)i;
-	a = setstatus(NULL);
-	p = *pos;
-	for (; stat[j]; j++, p = p + 1)
-		newbuf[p] = stat[j];
-	p = p + 1;
-	free(stat);
-	return (p);
-}
-int replace_pid(char *buf, char *newbuf, int *i, int *pos)
-{
-	int a = setpid(NULL);
-	char *stat = print_number(a);
-	int j = 0;
-	int p;
-
-	(void)buf;
-	(void)i;
-	p = *pos;
-	for (; stat[j]; j++, p++)
-		newbuf[p] = stat[j];
-	p++;
-	free(stat);
-	return (p);
-}
-void _replacevar(char *buf, char *newbuf, int *i, int *pos)
-{
-	char *name = _calloc(60, 1);
-	char *value = NULL;
-	int cb = *i, j = 0, p = 0;
-
-	cb++;
-	if (buf[cb] == '$' || buf[cb] == '?')
-	{
-		if (buf[cb] == '$')
-			p = replace_pid(buf, newbuf, i, pos);
-		else
-			p = replace_stat(buf, newbuf, i, pos);
-		cb++;
-		*i = cb;
-		*pos = p - 1;
-		return;
-	}
-	else
-	{
-		for (; !_isespecialchr(buf[cb]); cb++)
-			;
-		for (; (j + 1 + *i) < cb; j++)
-			name[j] = buf[j + *i + 1];
-	}
-	value = _getenvvar(name);
-	if (value)
-	{
-		for (j = 0; value[j]; j++, *pos = *pos + 1)
-			newbuf[*pos] = value[j];
-		free(value);
-	}
-	free(name);
-	*i = cb;
-}
+/**
+ * _ignorecomments - ignorecomments.
+ * @buf: node tha has the builtin command
+ * @i: integer
+ *
+ * Return: no return
+ */
 void _ignorecomments(char *buf, int *i)
 {
-	while(buf[*i] != 0 && buf[*i] != '\n')
+	while (buf[*i] != 0 && buf[*i] != '\n')
 		*i = *i + 1;
 	*i = *i + 1;
 }
+
+/**
+ * _isalias - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @i: integer
+ *
+ * Return: no return
+ */
 alias *_isalias(char *buf, int *i)
 {
 	alias *ali =  NULL;
 	int cb = *i, j = 0;
 	char *name = NULL;
+
 	if (cb != 0 && !_isespecialchr(buf[(cb - 1)]))
 		return (NULL);
 	name = _calloc(500, 1);
@@ -144,10 +44,20 @@ alias *_isalias(char *buf, int *i)
 	}
 	return (NULL);
 }
+
+/**
+ * _replacealias - show help document of some functions.
+ * @ali: node tha has the builtin command
+ * @newbuf: new buffer
+ * @pos: size all line
+ *
+ * Return: no return
+ */
 void _replacealias(alias *ali, char *newbuf, int *pos)
 {
 	int i = 0;
 	char *value = NULL;
+
 	value = ali->value;
 	while (value[i])
 	{
@@ -159,12 +69,21 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
 		i++;
 	}
 }
+
+/**
+ * buffer_filter - show help document of some functions.
+ * @buffer: node tha has the builtin command
+ * @p: p
+ *
+ * Return: no return
+ */
 void buffer_filter(char **buffer, ssize_t *p)
 {
 	char *newbuf = _calloc(500, 1);
 	alias *ali = NULL;
 	char *buf = *buffer;
 	int pos = 0, i = 0, cpy = 0;
+
 	while (i <= *p)
 	{
 		if (buf[i] == '#')
