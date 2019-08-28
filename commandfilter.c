@@ -165,7 +165,7 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
 }
 void buffer_filter(char **buffer, ssize_t *p)
 {
-	char *newbuf = _calloc(4096, 1);
+	char *newbuf = _calloc(4096 * 2, 1);
 	alias *ali = NULL;
 	char *buf = *buffer;
 	int pos = 0, i = 0, cpy = 0;
