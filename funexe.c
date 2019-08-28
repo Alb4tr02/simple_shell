@@ -162,16 +162,19 @@ int salir(command_t *h)
 	command_t *cpy = NULL;
 	char **env = NULL;
 	alias *al = NULL, *ali = NULL;
-	int i = 0,  er = 2, res = 0;
+	int i = 0, res = 0;
 	char *buffer = NULL;
 
-	if (h && h->args[1] != NULL)
+	if (h)
 	{
-		res = _atoi(h->args[1]);
-		if (res == -1)
+		if  (h->args[1] != NULL)
 		{
-			print_err_exit(h);
-			return (-1);
+			res = _atoi(h->args[1]);
+			if (res == -1)
+			{
+				print_err_exit(h);
+				return (-1);
+			}
 		}
 		if (res < 0)
 			res = 2;
