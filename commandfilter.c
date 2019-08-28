@@ -9,8 +9,10 @@
  */
 void _ignorecomments(char *buf, int *i)
 {
-	while (buf[*i] != 0 && buf[*i] != '\n')
-		*i = *i + 1;
+  while (buf[*i] != 0 && buf[*i] != '\n')
+  {
+	  	*i = *i + 1;
+  }
 	*i = *i + 1;
 }
 
@@ -88,8 +90,17 @@ void buffer_filter(char **buffer, ssize_t *p)
 	{
 		if (buf[i] == '#')
 		{
-			_ignorecomments(buf, &i);
-			continue;
+			if (i == 0)
+			{
+				_ignorecomments(buf, &i);
+				continue;
+			}
+			else if (buf[i - 1] == ' ' || buf[i - 1] == '\t' ||
+				 buf[i - 1] == ';')
+			{
+				_ignorecomments(buf, &i);
+				continue;
+			}
 		}
 		if (buf[i] == '$' && buf[i + 1] != ' ' && buf[i + 1] != '\t'
 		    && buf[i + 1] != 0 && buf[i + 1] != '\n'
