@@ -1,0 +1,5 @@
+int unsetenv(const char *name);
+
+The unsetenv() function deletes the variable name from the
+       environment.  If name does not exist in the environment, then the
+       function succeeds, and the environment is unchanged.
