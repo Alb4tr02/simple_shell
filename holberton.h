@@ -52,6 +52,7 @@ typedef struct aliases
 	char *value;
 	struct aliases *next;
 } alias;
+int _atoi(char *s);
 int setstatus(int *stat);
 char *print_number(int n);
 char *crear_name(char  *name);

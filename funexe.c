@@ -153,7 +153,9 @@ int salir(command_t *h)
 	alias *ali = NULL;
 	int i = 0;
 	char *buffer = NULL;
-
+	int res = EXIT_SUCCESS;
+	if (h->args[1] != NULL)
+		res = _atoi(h->args[1]);
 	buffer = getpath();
 	while (h)
 	{
@@ -177,5 +179,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	exit(EXIT_SUCCESS);
+	exit(res % 255);
 }
