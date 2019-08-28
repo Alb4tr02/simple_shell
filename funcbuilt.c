@@ -93,7 +93,7 @@ int _unsetenv(command_t *h)
 		;
 	if (i != 2)
 	{
-		write(1, err, _strlen(err));
+		write(STDERR_FILENO, err, _strlen(err));
 		return (-1);
 	}
 	var = _getenvvar(args[1]);
@@ -105,7 +105,7 @@ int _unsetenv(command_t *h)
 	}
 	else
 	{
-		write(1, err, _strlen(err));
+		write(STDERR_FILENO, err, _strlen(err));
 		return (-1);
 	}
 	return (-1);
