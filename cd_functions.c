@@ -5,12 +5,20 @@
 #include <dirent.h>
 #define MAX 500
 
+
+/**
+ * clpath - compare string.
+ * @path: string 1
+ *
+ * Return: pointer to clpath
+ */
 char *clpath(char *path)
 {
 	int j = 0, i = 0;
 	char *cpypath = NULL;
 	char *filter = NULL;
 	char *aux = NULL;
+
 	for (; path[j]; j++)
 		;
 	filter = filtro1(path);
@@ -32,6 +40,13 @@ char *clpath(char *path)
 	free(filter);
 	return (cpypath);
 }
+
+/**
+ * absolutepath - compare string.
+ * @path: string 1
+ *
+ * Return: 0 or -1
+ */
 int absolutepath(char *path)
 {
 	DIR *dir = NULL;
@@ -39,6 +54,7 @@ int absolutepath(char *path)
 	char *cpypath = NULL;
 	char *root = "/";
 	int flag = 1;
+
 	pwd = _getenvvar("PWD");
 	cpypath = clpath(path);
 	if (cpypath[0] == '/' && cpypath[1] == '.' && cpypath[2] == '.'
@@ -70,6 +86,13 @@ int absolutepath(char *path)
 	}
 	return (0);
 }
+
+/**
+ * _cd - compare string.
+ * @h: string 1
+ *
+ * Return: 0 or 1
+ */
 int _cd(command_t *h)
 {
 	char **args = NULL;
@@ -92,7 +115,5 @@ int _cd(command_t *h)
 		lukeSkywalker();
 	else
 		absolutepath(path);
-/*else
-  relativepath(path);*/
 	return (0);
 }
