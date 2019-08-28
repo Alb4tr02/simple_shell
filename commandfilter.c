@@ -117,6 +117,11 @@ void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 }
 void _ignorecomments(char *buf, int *i)
 {
+	if (*i != 0)
+	{
+		if (buf[*i - 1] != ' ' && buf[*i - 1] != '\t')
+			return;
+	}
 	while(buf[*i] != 0 && buf[*i] != '\n')
 		*i = *i + 1;
 	*i = *i + 1;
