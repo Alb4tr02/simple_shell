@@ -178,6 +178,7 @@ int salir(command_t *h)
 		}
 		if (res < 0)
 			res = 2;
+		res = res % 255;
 		setstatus(&res);
 	}
 	buffer = getpath();
