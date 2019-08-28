@@ -150,7 +150,7 @@ int salir(command_t *h)
 	command_t *cpy = NULL;
 	char **env = NULL;
 	alias *al = NULL, *ali = NULL;
-	int i = 0, res = 0;
+	int i = 0;
 	char *buffer = NULL;
 
 	/*if (h->args[1] != NULL)
@@ -181,5 +181,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	exit(res % 255);
+	exit(254);
 }
