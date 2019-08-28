@@ -162,10 +162,10 @@ int salir(command_t *h)
 	command_t *cpy = NULL;
 	char **env = NULL;
 	alias *al = NULL, *ali = NULL;
-	int i = 0, res = 0;
+	int i = 0;/*, res = 0;*/
 	char *buffer = NULL;
 
-	if (h)
+	/*if (h)
 	{
 		if  (h->args[1] != NULL)
 		{
@@ -178,9 +178,10 @@ int salir(command_t *h)
 		}
 		if (res < 0)
 			res = 2;
-		res = res % 255;
+		else
+			res = res % 255;
 		setstatus(&res);
-	}
+	}*/
 	buffer = getpath();
 	while (h)
 	{
