@@ -63,13 +63,14 @@ int _setenviron(command_t *h)
 {
 	char **args = NULL;
 	char *err = "ERROR\n";
-	int i = 0;
+	int i = 0, er = 2;
 	args = h->args;
 	for (; args[i]; i++)
 		;
 	if (i != 3)
 	{
 		write(STDERR_FILENO, err, _strlen(err));
+		setstatus(&er);
 		return (-1);
 	}
 	_setenv(args[1], args[2]);
@@ -288,9 +289,9 @@ int darthVader()
 	newpwd = getvaderdir();
 	if (chdir(newpwd) == -1)
 	{
-		write(1, err, _strlen(err));
-		write(1, newpwd, _strlen(newpwd));
-		write(1, err2, _strlen(err2));
+		write(STDERR_FILENO, err, _strlen(err));
+		write(STDERR_FILENO, newpwd, _strlen(newpwd));
+		write(STDERR_FILENO, err2, _strlen(err2));
 		free(pwd);
 		free(newpwd);
 		return(-1);
