@@ -68,7 +68,7 @@ int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 }
 int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 {
-	int a = setpid(NULL);
+	int a = getpid();
 	char *stat = print_number(a);
 	int j = 0;
 	int p;

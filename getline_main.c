@@ -43,7 +43,6 @@ int main (int argc, char **argv)
 	int flag = 1, flag1 = 1;
 
 	getpath();
-	setpid(NULL);
 	if (argc > 1)
 	{
 		buf = _getline(&a, argv[1]);
