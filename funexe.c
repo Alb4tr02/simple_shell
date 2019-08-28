@@ -24,16 +24,16 @@ void imprimir_error(command_t *h)
 	cont = print_number(h->cont);
 	n = h->name;
 	l1 = _strlen(n);
-	write(1, n, l1);
-	write(1, sp, 2);
+	write(STDERR_FILENO, n, l1);
+	write(STDERR_FILENO, sp, 2);
 	l1 = _strlen(cont);
-	write(1, cont, l1);
-	write(1, sp, 2);
+	write(STDERR_FILENO, cont, l1);
+	write(STDERR_FILENO, sp, 2);
 	l1 = _strlen(com);
-	write(1, com, l1);
+	write(STDERR_FILENO, com, l1);
 	l1 = _strlen(msg);
-	write(1, msg, l1);
-	write(1, &sl, 1);
+	write(STDERR_FILENO, msg, l1);
+	write(STDERR_FILENO, &sl, 1);
 	free(cont);
 	setstatus(&a);
 }
@@ -145,12 +145,12 @@ void print_err_exit(command_t *h)
 	char *err1 = ": exit: Illegal number: ";
 	char *num = print_number(h->cont);
 	char sl = 10;
-	write(1, err, _strlen(err));
-	write(1, sp, _strlen(sp));
-	write(1, num, _strlen(num));
-	write(1, err1, _strlen(err1));
-	write(1, h->args[1], _strlen(h->args[1]));
-	write(1, &sl, 1);
+	write(STDERR_FILENO, err, _strlen(err));
+	write(STDERR_FILENO, sp, _strlen(sp));
+	write(STDERR_FILENO, num, _strlen(num));
+	write(STDERR_FILENO, err1, _strlen(err1));
+	write(STDERR_FILENO, h->args[1], _strlen(h->args[1]));
+	write(STDERR_FILENO, &sl, 1);
 	free(num);
 }
 /**
