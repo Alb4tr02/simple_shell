@@ -3,6 +3,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+/**
+ * add_node - adds a new node at the beginning of a list_t list.
+ * @head: the list of elements
+ * @args: string to be stored
+ * @id: value of the atributte ide (extern or builtin)
+ * Return: direction of the new node
+ */
 void imprimir_errores_history(command_t *h)
 {
 	int l1 = 0;
@@ -13,6 +20,7 @@ void imprimir_errores_history(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
@@ -30,7 +38,13 @@ void imprimir_errores_history(command_t *h)
 	free(cont);
 	setstatus(&a);
 }
-
+/**
+ * add_node - adds a new node at the beginning of a list_t list.
+ * @head: the list of elements
+ * @args: string to be stored
+ * @id: value of the atributte ide (extern or builtin)
+ * Return: direction of the new node
+ */
 void imprimir_errores_help(command_t *h)
 {
 	int l1 = 0;
@@ -41,6 +55,7 @@ void imprimir_errores_help(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
@@ -58,7 +73,12 @@ void imprimir_errores_help(command_t *h)
 	free(cont);
 	setstatus(&a);
 }
-
+/**
+ * imprimir_errores_cd - adds a new node at the beginning of a list_t list
+ * @h: pointer to head of the linked list
+ *
+ * return : no return
+ */
 void imprimir_errores_cd(command_t *h)
 {
 	int l1 = 0;
@@ -69,6 +89,7 @@ void imprimir_errores_cd(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
