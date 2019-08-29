@@ -4,7 +4,7 @@
 #include <sys/wait.h>
 
 /**
- * imprimir_errores_history - adds a new node at the beginning of a list_t list.
+ * imprimir_errores_history - print errors history.
  * @h: the list of elements
  *
  * Return: no return
