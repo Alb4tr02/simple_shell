@@ -22,6 +22,13 @@ int _isespecialchr(char c)
 	return (0);
 }
 
+/**
+ * have_alias - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @i: int
+ *
+ * Return: no return
+ */
 int have_alias(char *buf, int i)
 {
 	int st = i - 1;
@@ -58,6 +65,16 @@ int have_alias(char *buf, int i)
 	}
 	return (flag);
 }
+
+/**
+ * replace_stat - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @newbuf: newbuf
+ * @i: int
+ * @pos: pos size
+ *
+ * Return: no return
+ */
 int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 {
 	int a, j, p;
