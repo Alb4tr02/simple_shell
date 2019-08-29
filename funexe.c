@@ -4,40 +4,6 @@
 #include <sys/wait.h>
 
 /**
- * imprimir_error - print error when command not found.
- * @h: node tha has the builtin command
- *
- * Return: no return
- */
-void imprimir_error(command_t *h)
-{
-	int l1 = 0;
-	char *sp = ": ";
-	char *n = NULL;
-	char *cont = NULL;
-	char *com = NULL;
-	char *msg = ": not found";
-	char sl = '\n';
-	int a = 2;
-
-	com = h->args[0];
-	cont = print_number(h->cont);
-	n = h->name;
-	l1 = _strlen(n);
-	write(STDERR_FILENO, n, l1);
-	write(STDERR_FILENO, sp, 2);
-	l1 = _strlen(cont);
-	write(STDERR_FILENO, cont, l1);
-	write(STDERR_FILENO, sp, 2);
-	l1 = _strlen(com);
-	write(STDERR_FILENO, com, l1);
-	l1 = _strlen(msg);
-	write(STDERR_FILENO, msg, l1);
-	write(STDERR_FILENO, &sl, 1);
-	free(cont);
-	setstatus(&a);
-}
-/**
  * funexc - call execvp or buitin functions.
  * @h: pointer to the head of the linked list
  *
@@ -48,7 +14,6 @@ void funexc(command_t *h)
 	command_t *copy = NULL;
 	static int cont;
 
-	/*cont++;*/
 	while (h)
 	{
 		cont++;
@@ -145,6 +110,7 @@ void print_err_exit(command_t *h)
 	char *err1 = ": exit: Illegal number: ";
 	char *num = print_number(h->cont);
 	char sl = 10;
+
 	write(STDERR_FILENO, err, _strlen(err));
 	write(STDERR_FILENO, sp, _strlen(sp));
 	write(STDERR_FILENO, num, _strlen(num));
@@ -154,10 +120,10 @@ void print_err_exit(command_t *h)
 	free(num);
 }
 /**
-* salir - exit from the function.
-* @h: copy of head of linked list
+ * salir - exit from the function.
+ * @h: copy of head of linked list
 *
-* Return: no return
+ * Return: no return
 */
 int salir(command_t *h)
 {
@@ -167,23 +133,6 @@ int salir(command_t *h)
 	int i = 0;/*, res = 0;*/
 	char *buffer = NULL;
 
-	/*if (h)
-	{
-		if  (h->args[1] != NULL)
-		{
-			res = _atoi(h->args[1]);
-			if (res == -1)
-			{
-				print_err_exit(h);
-				return (-1);
-			}
-		}
-		if (res < 0)
-			res = 2;
-		else
-			res = res % 255;
-		setstatus(&res);
-	}*/
 	buffer = getpath();
 	while (h)
 	{

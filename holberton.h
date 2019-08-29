@@ -132,4 +132,5 @@ void imprimir_errores_help(command_t *h);
 void imprimir_errores_cd(command_t *h);
 char *getpath(void);
 char **notfoundvar(char **env, char **cpyenv, char *newvar);
+void imprimir_error(command_t *h);
 #endif
