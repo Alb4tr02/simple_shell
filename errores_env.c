@@ -44,7 +44,7 @@ int search_file_env(command_t *h)
 	printf("%d", n);
 	if (n == -1)
 		imprimir_error_env(h);
-         return (0);
+	return (0);
 }
 
 void imprimir_error_setenv(command_t *h)
@@ -58,16 +58,16 @@ void imprimir_error_setenv(command_t *h)
 	int a = 1;
 
 	com = h->args[0];
-        variable = h->args[1];
-        l1 = _strlen(com);
-        write(1, com, l1);
-        write(1, sp, 2);
-        l1 = _strlen(variable);
-        write(1, variable, l1);
-        l1 = _strlen(msg);
-        write(1, msg, l1);
-        write(1, &sl, 1);
-        setstatus(&a);
+	variable = h->args[1];
+	l1 = _strlen(com);
+	write(1, com, l1);
+	write(1, sp, 2);
+	l1 = _strlen(variable);
+	write(1, variable, l1);
+	l1 = _strlen(msg);
+	write(1, msg, l1);
+	write(1, &sl, 1);
+	setstatus(&a);
 }
 
 void imprimir_error_unsetenv(command_t *h)
@@ -81,14 +81,14 @@ void imprimir_error_unsetenv(command_t *h)
 	int a = 1;
 
 	com = h->args[0];
-        variable = h->args[1];
-        l1 = _strlen(com);
-        write(1, com, l1);
-        write(1, sp, 2);
-        l1 = _strlen(variable);
-        write(1, variable, l1);
-        l1 = _strlen(msg);
-        write(1, msg, l1);
-        write(1, &sl, 1);
-        setstatus(&a);
+	variable = h->args[1];
+	l1 = _strlen(com);
+	write(1, com, l1);
+	write(1, sp, 2);
+	l1 = _strlen(variable);
+	write(1, variable, l1);
+	l1 = _strlen(msg);
+	write(1, msg, l1);
+	write(1, &sl, 1);
+	setstatus(&a);
 }
