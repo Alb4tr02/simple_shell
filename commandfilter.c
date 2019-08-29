@@ -189,6 +189,14 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
 		i++;
 	}
 }
+
+/**
+ * buffer_filter - show help document of some functions.
+ * @buffer: node tha has the builtin command
+ * @p: p
+ *
+ * Return: no return
+ */
 void buffer_filter(char **buffer, ssize_t *p)
 {
 	char *newbuf = _calloc(4096 * 2, 1);
