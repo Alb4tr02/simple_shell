@@ -119,6 +119,13 @@ void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 	free(name);
 	*i = cb;
 }
+/**
+ * _ignorecomments - ignorecomments.
+ * @buf: node tha has the builtin command
+ * @i: integer
+ *
+ * Return: no return
+ */
 void _ignorecomments(char *buf, int *i)
 {
 	while (buf[*i] != 0 && buf[*i] != '\n')
