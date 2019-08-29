@@ -15,6 +15,7 @@ int _isespecialchr(char c)
 	}
 	return (0);
 }
+
 int have_alias(char *buf, int i)
 {
 	int st = i - 1;
@@ -132,6 +133,14 @@ void _ignorecomments(char *buf, int *i)
 		*i = *i + 1;
 	*i = *i + 1;
 }
+
+/**
+ * _isalias - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @i: integer
+ *
+ * Return: no return
+ */
 alias *_isalias(char *buf, int *i)
 {
 	alias *ali =  NULL;
