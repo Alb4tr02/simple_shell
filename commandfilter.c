@@ -2,6 +2,12 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+/**
+ * _isespecialchr - show help document of some functions.
+ * @c: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int _isespecialchr(char c)
 {
 	int i = 0;
