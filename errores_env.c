@@ -59,11 +59,10 @@ int search_file_env(command_t *h)
 }
 
 /**
- * imprimir_error_setenv - print error setenv 
- * @head: the list of elements
- * @args: string to be stored
- * @id: value of the atributte ide (extern or builtin)
- * Return: direction of the new node
+ * imprimir_error_setenv - print error setenv
+ * @h: the list of elements
+ *
+ * Return: no return
  */
 void imprimir_error_setenv(command_t *h)
 {
