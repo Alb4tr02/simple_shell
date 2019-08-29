@@ -121,13 +121,7 @@ void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 }
 void _ignorecomments(char *buf, int *i)
 {
-	/*if (*i != 0)
-	{
-		if (buf[*i - 1] != ' ' && buf[*i - 1] != '\t')
-			*i = *i + 1;
-			return;
-	}*/
-	while(buf[*i] != 0 && buf[*i] != '\n')
+	while (buf[*i] != 0 && buf[*i] != '\n')
 		*i = *i + 1;
 	*i = *i + 1;
 }
@@ -136,6 +130,7 @@ alias *_isalias(char *buf, int *i)
 	alias *ali =  NULL;
 	int cb = *i, j = 0;
 	char *name = NULL;
+
 	if (cb != 0 && !_isespecialchr(buf[(cb - 1)]))
 		return (NULL);
 	name = _calloc(500, 1);
@@ -157,6 +152,7 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
 {
 	int i = 0;
 	char *value = NULL;
+
 	value = ali->value;
 	while (value[i])
 	{
@@ -174,6 +170,7 @@ void buffer_filter(char **buffer, ssize_t *p)
 	alias *ali = NULL;
 	char *buf = *buffer;
 	int pos = 0, i = 0, cpy = 0;
+
 	while (i <= *p)
 	{
 		if (buf[i] == '#')
@@ -190,9 +187,9 @@ void buffer_filter(char **buffer, ssize_t *p)
 				continue;
 			}
 		}
-		if (buf[i] == '$' && buf[i + 1] != ' '&& buf[i + 1] != '\t'
+		if (buf[i] == '$' && buf[i + 1] != ' ' && buf[i + 1] != '\t'
 		    && buf[i + 1] != 0 && buf[i + 1] != '\n'
-		    && buf[i + 1] != ';' )
+		    && buf[i + 1] != ';')
 		{
 			_replacevar(buf, newbuf, &i, &pos);
 			continue;
