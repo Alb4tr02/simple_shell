@@ -37,7 +37,12 @@ void imprimir_error_env(command_t *h)
 	write(1, &sl, 1);
 	setstatus(&a);
 }
-
+/**
+ * search_file_env - search file name.
+ * @h: the list of elements
+ *
+ * Return: o or -1 if it fails
+ */
 int search_file_env(command_t *h)
 {
 
@@ -53,6 +58,13 @@ int search_file_env(command_t *h)
 	return (0);
 }
 
+/**
+ * imprimir_error_setenv - print error setenv 
+ * @head: the list of elements
+ * @args: string to be stored
+ * @id: value of the atributte ide (extern or builtin)
+ * Return: direction of the new node
+ */
 void imprimir_error_setenv(command_t *h)
 {
 	int l1 = 0;
