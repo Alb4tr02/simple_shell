@@ -118,6 +118,16 @@ int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 	free(stat);
 	return (p);
 }
+
+/**
+ * _replacevar - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @newbuf: newbuf
+ * @i: int i
+ * @pos: pos position
+ *
+ * Return: no return
+ */
 void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 {
 	char *name = _calloc(60, 1);
