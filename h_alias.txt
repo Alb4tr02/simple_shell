@@ -1,6 +1,6 @@
 alias: alias [-p] [name[=value] ... ]
 
-    `alias' with no arguments or with the -p option prints the list
+   `alias' with no arguments or with the -p option prints the list
     of aliases in the form alias NAME=VALUE on standard output.
 
     Otherwise, an alias is defined for each NAME whose VALUE is given.
