@@ -38,11 +38,10 @@ void imprimir_errores_history(command_t *h)
 	setstatus(&a);
 }
 /**
- * add_node - adds a new node at the beginning of a list_t list.
- * @head: the list of elements
- * @args: string to be stored
- * @id: value of the atributte ide (extern or builtin)
- * Return: direction of the new node
+ * imprimir_errores_help - print errors help
+ * @h: the list of elements
+ *
+ * Return: no return
  */
 void imprimir_errores_help(command_t *h)
 {
