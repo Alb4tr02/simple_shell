@@ -74,6 +74,7 @@ int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 	char *stat = print_number(a);
 	int j = 0;
 	int p;
+
 	p = *pos;
 	(void)buf;
 	(void)i;
@@ -88,6 +89,7 @@ void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 	char *name = _calloc(60, 1);
 	char *value = NULL;
 	int cb = *i, j = 0, p = 0;
+
 	cb++;
 	if (buf[cb] == '$' || buf[cb] == '?')
 	{
