@@ -92,6 +92,16 @@ int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 	free(stat);
 	return (p);
 }
+
+/**
+ * replace_pid - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @newbuf: newbuffer
+ * @i: int i
+ * @pos: pos position
+ *
+ * Return: no return
+ */
 int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 {
 	int a = getpid();
