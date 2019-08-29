@@ -6,6 +6,7 @@ int _isespecialchr(char c)
 {
 	int i = 0;
 	char tokens[] = { '$', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
+
 	while (tokens[i] != -1)
 	{
 		if (tokens[i] == c)
@@ -20,11 +21,12 @@ int have_alias(char *buf, int i)
 	int end = i;
 	int cnt = 0, flag = 0;
 	char *al = "alias";
+
 	if (st < 0)
 		return (0);
 	while (st >= 0)
 	{
-		if(buf[st] == '\n' || buf[st] == 0
+		if (buf[st] == '\n' || buf[st] == 0
 		   || buf[st] == ';' || buf[st] == '&'
 			|| buf[st] == '|')
 			break;
@@ -32,7 +34,7 @@ int have_alias(char *buf, int i)
 	}
 	if (st < 0)
 		st++;
-	for(; st <= end; st++)
+	for (; st <= end; st++)
 	{
 		if (buf[st] == 'a')
 		{
