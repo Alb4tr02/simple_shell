@@ -1,5 +1,5 @@
-int unsetenv(const char *name);
+unsetenv: unsetenv [VAR]
 
-The unsetenv() function deletes the variable name from the
-       environment.  If name does not exist in the environment, then the
-       function succeeds, and the environment is unchanged.
+The unsetenv() function deletes the variable name from the environment.
+       
+If name does not exist in the environment, then the function succeeds, and the environment is unchanged.
