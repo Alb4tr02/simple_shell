@@ -9,6 +9,12 @@
 #include <dirent.h>
 #define MAX 500
 
+/**
+ * imprimir_error_env - print errors env builtin.
+ * @h: the list of elements
+ *
+ * Return: direction of the new node
+ */
 void imprimir_error_env(command_t *h)
 {
 	int l1 = 0;
