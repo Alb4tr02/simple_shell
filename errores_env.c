@@ -87,6 +87,12 @@ void imprimir_error_setenv(command_t *h)
 	setstatus(&a);
 }
 
+/**
+ * imprimir_error_unsetenv - print unsetenv errors
+ * @h: pointer ti the head of the linked list
+ *
+ * Return: no return
+ */
 void imprimir_error_unsetenv(command_t *h)
 {
 	int l1 = 0;
