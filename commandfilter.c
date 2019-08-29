@@ -164,6 +164,15 @@ alias *_isalias(char *buf, int *i)
 	}
 	return (NULL);
 }
+
+/**
+ * _replacealias - show help document of some functions.
+ * @ali: node tha has the builtin command
+ * @newbuf: new buffer
+ * @pos: size all line
+ *
+ * Return: no return
+ */
 void _replacealias(alias *ali, char *newbuf, int *pos)
 {
 	int i = 0;
