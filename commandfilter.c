@@ -2,29 +2,45 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+/**
+ * _isespecialchr - show help document of some functions.
+ * @c: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int _isespecialchr(char c)
 {
 	int i = 0;
-        char tokens[] = { '$', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
-        while (tokens[i] != -1)
+	char tokens[] = { '$', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
+
+	while (tokens[i] != -1)
 	{
-                if (tokens[i] == c)
-                        return (1);
+		if (tokens[i] == c)
+			return (1);
 		i++;
 	}
-        return (0);
+	return (0);
 }
+
+/**
+ * have_alias - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @i: int
+ *
+ * Return: no return
+ */
 int have_alias(char *buf, int i)
 {
 	int st = i - 1;
 	int end = i;
 	int cnt = 0, flag = 0;
 	char *al = "alias";
+
 	if (st < 0)
 		return (0);
 	while (st >= 0)
 	{
-		if(buf[st] == '\n' || buf[st] == 0
+		if (buf[st] == '\n' || buf[st] == 0
 		   || buf[st] == ';' || buf[st] == '&'
 			|| buf[st] == '|')
 			break;
@@ -32,7 +48,7 @@ int have_alias(char *buf, int i)
 	}
 	if (st < 0)
 		st++;
-	for(; st <= end; st++)
+	for (; st <= end; st++)
 	{
 		if (buf[st] == 'a')
 		{
@@ -49,6 +65,16 @@ int have_alias(char *buf, int i)
 	}
 	return (flag);
 }
+
+/**
+ * replace_stat - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @newbuf: newbuf
+ * @i: int
+ * @pos: pos size
+ *
+ * Return: no return
+ */
 int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 {
 	int a, j, p;
@@ -66,12 +92,23 @@ int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 	free(stat);
 	return (p);
 }
+
+/**
+ * replace_pid - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @newbuf: newbuffer
+ * @i: int i
+ * @pos: pos position
+ *
+ * Return: no return
+ */
 int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 {
 	int a = getpid();
 	char *stat = print_number(a);
 	int j = 0;
 	int p;
+
 	p = *pos;
 	(void)buf;
 	(void)i;
@@ -81,11 +118,22 @@ int replace_pid(char *buf, char *newbuf, int *i, int *pos)
 	free(stat);
 	return (p);
 }
+
+/**
+ * _replacevar - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @newbuf: newbuf
+ * @i: int i
+ * @pos: pos position
+ *
+ * Return: no return
+ */
 void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 {
 	char *name = _calloc(60, 1);
 	char *value = NULL;
 	int cb = *i, j = 0, p = 0;
+
 	cb++;
 	if (buf[cb] == '$' || buf[cb] == '?')
 	{
@@ -115,23 +163,33 @@ void _replacevar(char *buf, char *newbuf, int *i, int *pos)
 	free(name);
 	*i = cb;
 }
+/**
+ * _ignorecomments - ignorecomments.
+ * @buf: node tha has the builtin command
+ * @i: integer
+ *
+ * Return: no return
+ */
 void _ignorecomments(char *buf, int *i)
 {
-	/*if (*i != 0)
-	{
-		if (buf[*i - 1] != ' ' && buf[*i - 1] != '\t')
-			*i = *i + 1;
-			return;
-	}*/
-	while(buf[*i] != 0 && buf[*i] != '\n')
+	while (buf[*i] != 0 && buf[*i] != '\n')
 		*i = *i + 1;
 	*i = *i + 1;
 }
+
+/**
+ * _isalias - show help document of some functions.
+ * @buf: node tha has the builtin command
+ * @i: integer
+ *
+ * Return: no return
+ */
 alias *_isalias(char *buf, int *i)
 {
 	alias *ali =  NULL;
 	int cb = *i, j = 0;
 	char *name = NULL;
+
 	if (cb != 0 && !_isespecialchr(buf[(cb - 1)]))
 		return (NULL);
 	name = _calloc(500, 1);
@@ -149,10 +207,20 @@ alias *_isalias(char *buf, int *i)
 	}
 	return (NULL);
 }
+
+/**
+ * _replacealias - show help document of some functions.
+ * @ali: node tha has the builtin command
+ * @newbuf: new buffer
+ * @pos: size all line
+ *
+ * Return: no return
+ */
 void _replacealias(alias *ali, char *newbuf, int *pos)
 {
 	int i = 0;
 	char *value = NULL;
+
 	value = ali->value;
 	while (value[i])
 	{
@@ -164,12 +232,21 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
 		i++;
 	}
 }
+
+/**
+ * buffer_filter - show help document of some functions.
+ * @buffer: node tha has the builtin command
+ * @p: p
+ *
+ * Return: no return
+ */
 void buffer_filter(char **buffer, ssize_t *p)
 {
 	char *newbuf = _calloc(4096 * 2, 1);
 	alias *ali = NULL;
 	char *buf = *buffer;
 	int pos = 0, i = 0, cpy = 0;
+
 	while (i <= *p)
 	{
 		if (buf[i] == '#')
@@ -177,22 +254,19 @@ void buffer_filter(char **buffer, ssize_t *p)
 			if (i == 0)
 			{
 				_ignorecomments(buf, &i);
-				continue;
-			}
+				continue; }
 			else if (buf[i - 1] == ' ' || buf[i - 1] == '\t' ||
 				 buf[i - 1] == ';')
 			{
 				_ignorecomments(buf, &i);
-				continue;
-			}
+				continue; }
 		}
-		if (buf[i] == '$' && buf[i + 1] != ' '&& buf[i + 1] != '\t'
+		if (buf[i] == '$' && buf[i + 1] != ' ' && buf[i + 1] != '\t'
 		    && buf[i + 1] != 0 && buf[i + 1] != '\n'
-		    && buf[i + 1] != ';' )
+		    && buf[i + 1] != ';')
 		{
 			_replacevar(buf, newbuf, &i, &pos);
-			continue;
-		}
+			continue; }
 		cpy = i;
 		ali = _isalias(buf, &i);
 		if (ali)
@@ -200,14 +274,11 @@ void buffer_filter(char **buffer, ssize_t *p)
 			if (!have_alias(buf, i))
 			{
 				_replacealias(ali, newbuf, &pos);
-				continue;
-			}
-			i = cpy;
-		}
+				continue; }
+			i = cpy; }
 		i = cpy;
 		newbuf[pos] = buf[i];
-		i++, pos++;
-	}
+		i++, pos++; }
 	free(buf);
 	*p = pos;
 	*buffer = newbuf;
