@@ -1,16 +1,6 @@
 env: env
 
-     print a list of the current environment variables, or to run another program in 
-     a custom environment without modifying the current one.
+         print a list of the current environment variables, or to run another program in 
+         a custom environment without modifying the current one.
 
-setenv: setenv VAR [VALUE]
-	It is used to define the value of environment variables.
-
-	returns zero on success, or -1 on error, with errno set to indicate the cause	     of the error.
-
-	If setenv is given no arguments, it displays all environment variables and their values. If only VAR is specified, it sets an environment variable of that name to an e        mpty (null) value. If both VAR and VALUE are specified, it sets the variable named VAR to the value VALUE. setenv is similar to the set command, which also sets an env        ironment variable's value. However, unlike set, setenv also "exports" this environment variable to any subshells. In this way, it is the equivalent of the bash command        export.
-
-   	 returns zero on success, or -1 on error, with errno set to indicate the cause\
-         of the error.
-
-unsetenv: unsetenv
+Usage: env
