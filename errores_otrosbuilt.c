@@ -3,6 +3,12 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+/**
+ * imprimir_errores_history - print errors history.
+ * @h: the list of elements
+ *
+ * Return: no return
+ */
 void imprimir_errores_history(command_t *h)
 {
 	int l1 = 0;
@@ -13,6 +19,7 @@ void imprimir_errores_history(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
@@ -30,7 +37,12 @@ void imprimir_errores_history(command_t *h)
 	free(cont);
 	setstatus(&a);
 }
-
+/**
+ * imprimir_errores_help - print errors help
+ * @h: the list of elements
+ *
+ * Return: no return
+ */
 void imprimir_errores_help(command_t *h)
 {
 	int l1 = 0;
@@ -41,6 +53,7 @@ void imprimir_errores_help(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
@@ -58,7 +71,12 @@ void imprimir_errores_help(command_t *h)
 	free(cont);
 	setstatus(&a);
 }
-
+/**
+ * imprimir_errores_cd - adds a new node at the beginning of a list_t list
+ * @h: pointer to head of the linked list
+ *
+ * return : no return
+ */
 void imprimir_errores_cd(command_t *h)
 {
 	int l1 = 0;
@@ -69,6 +87,7 @@ void imprimir_errores_cd(command_t *h)
 	char *msg = ": not found";
 	char sl = '\n';
 	int a = 2;
+
 	com = h->args[0];
 	cont = print_number(h->cont);
 	n = h->name;
