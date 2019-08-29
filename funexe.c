@@ -103,6 +103,13 @@ void _built(command_t *h)
 	if (entero == 0 && argseach[0][j] != '\0')
 		entero = argseach[0][j] - commandsbuilt[i].built[j];
 }
+
+/**
+ * imprimir_error - print error when command not found.
+ * @h: node tha has the builtin command
+ *
+ * Return: no return
+ */
 void print_err_exit(command_t *h)
 {
 	char *err = h->name;
