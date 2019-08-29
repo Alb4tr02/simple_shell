@@ -5,14 +5,14 @@
 int _isespecialchr(char c)
 {
 	int i = 0;
-        char tokens[] = { '$', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
-        while (tokens[i] != -1)
+	char tokens[] = { '$', '|', '\0', ';', '\n', '#', '$', ' ', '\t',  -1};
+	while (tokens[i] != -1)
 	{
-                if (tokens[i] == c)
-                        return (1);
+		if (tokens[i] == c)
+			return (1);
 		i++;
 	}
-        return (0);
+	return (0);
 }
 int have_alias(char *buf, int i)
 {
