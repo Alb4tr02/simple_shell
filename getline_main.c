@@ -139,7 +139,7 @@ int main(int argc, char **argv)
 	size_t cnt = 0;
 	char c;
 	char *buf = NULL;
-	int flag = 1, flag1 = 1;
+	int flag = 1, flag1 = 1, ez = 0;
 
 	getpath();
 	if (argc > 1)
@@ -148,7 +148,13 @@ int main(int argc, char **argv)
 		flag1 = 0;
 		if (!buf)
 			print_err_file(argv[1]);
-		goto getarg;
+		if (buf[0] == 0)
+		{
+			free(buf);
+			setstatus(&ze);
+			salir(NULL);
+		}
+			goto getarg;
 	}
 	for (; flag1; a = 0, cnt = 0, flag = 1)
 	{
@@ -167,5 +173,4 @@ getarg:
 			return (0);
 		funexc(h);
 	}
-	return (0);
-}
+	return (0); }
