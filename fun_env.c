@@ -50,6 +50,7 @@ int _setenviron(command_t *h)
 {
 	char **args = NULL;
 	int i = 0, st = 0;
+
 	args = h->args;
 	for (; args[i]; i++)
 		;
@@ -73,14 +74,14 @@ int _unsetenv(command_t *h)
 {
 	char **args = NULL;
 	char *var = NULL;
+	char *err = "Error\n";
 	int i = 0;
-
 	args = h->args;
 	for (; args[i]; i++)
 		;
 	if (i != 2)
 	{
-		printf("Error\n");
+		write(STDERR_FILENO, err, _strlen(err));
 		return (-1);
 	}
 	var = _getenvvar(args[1]);
@@ -92,7 +93,7 @@ int _unsetenv(command_t *h)
 	}
 	else
 	{
-		printf("Error\n");
+		write(STDERR_FILENO, err, _strlen(err));
 		return (-1);
 	}
 	return (-1);
