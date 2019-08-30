@@ -182,10 +182,10 @@ int print_one_alias(char *name)
 	aux = buscar_alias(aux, name);
 	if (aux)
 	{
-		write(1, aux->name, _strlen(aux->name));
+		write(1, aux->name, _strlen(aux->name) - 1);
 		write(1, &eq, 1);
 		write(1, &qu, 1);
-		write(1, aux->value, _strlen(aux->value));
+		write(1, aux->value, _strlen(aux->value) - 1);
 		write(1, &qu, 1);
 		write(1, &sl, 1);
 		return (0);
