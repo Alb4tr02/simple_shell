@@ -9,7 +9,7 @@
  * @buf: buffer with the map of logical operators.
  * Return: no return
  */
-void funexc(command_t *h, char *buf)
+void funexc(command_t *h)
 {
 	command_t *copy = NULL;
 	int pos = 0;
@@ -26,12 +26,12 @@ void funexc(command_t *h, char *buf)
 			_extern(h);
 		else
 			_built(h);
-		if (setstatus(NULL) == 0)
+		/*if (setstatus(NULL) == 0)
 			if (buf[pos] == '|')
 				salir(h);
 		if (setstatus(NULL) != 0)
 			if (buf[pos] == '&')
-				salir(h);
+			salir(h);*/
 		h = h->next;
 		freecommand(copy);
 		pos++;
@@ -171,6 +171,5 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
-	free(get_map(NULL));
 	exit(setstatus(NULL));
 }

@@ -91,7 +91,7 @@ int check_line(char *buf, size_t *ct, int *flg)
 	flag = *flg;
 	cnt = *ct;
 	sl = '\n';
-	if (cnt == 0 && buf[0] == 0)
+	if (cnt == 0 && buf  && buf[0] == 0)
 	{
 		write(STDIN_FILENO, &sl, 1);
 		free(buf);
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 	command_t *h = NULL;
 	size_t cnt = 0;
 	char c;
-	char *buf = NULL, *map = NULL;
+	char *buf = NULL;
 	int flag = 1, flag1 = 1, ze = 0;
 
 	getpath();
@@ -168,9 +168,8 @@ int main(int argc, char **argv)
 getarg:
 		buffer_filter(&buf, p);
 		h = _getargs(buf, p, argv[0]);
-		map = get_map(buf);
 		free(buf);
 		if (!h)
 			return (0);
-		funexc(h, map); }
+		funexc(h); }
 	return (0); }

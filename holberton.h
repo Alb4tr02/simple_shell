@@ -103,7 +103,7 @@ int _readandcpy(char *fr, char *to, char *buf);
 char *getvar(char *varname, char *buf);
 void freecommand(command_t *h);
 void getentorno(void);
-void funexc(command_t *h, char *map);
+void funexc(command_t *h);
 void _extern(command_t *h);
 void _built(command_t *h);
 int salir(command_t *h);
