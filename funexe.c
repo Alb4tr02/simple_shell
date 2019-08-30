@@ -26,12 +26,6 @@ void funexc(command_t *h)
 			_extern(h);
 		else
 			_built(h);
-		/*if (setstatus(NULL) == 0)
-			if (buf[pos] == '|')
-				salir(h);
-		if (setstatus(NULL) != 0)
-			if (buf[pos] == '&')
-			salir(h);*/
 		h = h->next;
 		freecommand(copy);
 		pos++;
