@@ -55,7 +55,7 @@ int have_alias(char *buf, int i)
 				if (al[cnt] != buf[st])
 					break;
 				if (!al[cnt + 1] && (buf[st + 1] == ' ' ||
-					        buf[st + 1] == '\t'
+						     buf[st + 1] == '\t'
 						     || buf[st + 1] == '$'))
 					flag = 1;
 			}
