@@ -13,8 +13,9 @@
  */
 void freecommand(command_t *h)
 {
-        int i = 0;
+	int i = 0;
 	char **args = NULL;
+
 	args = h->args;
 	while (args[i])
 	{
@@ -26,19 +27,77 @@ void freecommand(command_t *h)
 	free(args);
 	free(h);
 }
+void fil_buffer(char *buf, size_t *ct, ssize_t *p, char *ch, int *flg)
+{
+	char c;
+	int flag;
+	size_t cnt;
+	ssize_t a;
 
+	a = *p;
+	cnt = *ct;
+	c = *ch;
+	flag = *flg;
+
+	while (read(STDIN_FILENO, &c, 1) == 1)
+	{
+		if (c == 4 && cnt == 0)
+			break;
+		if (c == '\n' && cnt == 0)
+		{
+			free(buf);
+			return;
+		}
+		if (c == '\n' && cnt != 0)
+		{
+			buf[cnt] = 0;
+			flag = 0;
+			break;
+		}
+		buf[cnt++] = c;
+		a++;
+	}
+	*p = a;
+	*ct = cnt;
+	*ch = c;
+	*flg = flag;
+}
+int check_line(char *buf, size_t *ct, int *flg)
+{
+	char sl;
+	size_t cnt;
+	int flag;
+
+	flag = *flg;
+	cnt = *ct;
+	sl = '\n';
+	if (cnt == 0 && buf[0] == 0)
+	{
+		write(STDIN_FILENO, &sl, 1);
+		free(buf);
+		salir(NULL);
+	}
+	if (flag)
+		write(STDIN_FILENO, &sl, 1);
+	if (buf[0] == '\n')
+	{
+		free(buf);
+		return (1);
+	}
+	return (0);
+}
 /**
 * main - void.
 *
 * Return: o if success.
 */
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
 	ssize_t a = 0;
 	ssize_t *p = &a;
 	command_t *h = NULL;
 	size_t cnt = 0;
-	char c, sl = '\n';
+	char c;
 	char *buf = NULL;
 	int flag = 1, flag1 = 1;
 
@@ -49,53 +108,21 @@ int main (int argc, char **argv)
 		flag1 = 0;
 		goto getarg;
 	}
-	while (flag1)
+	for (; flag1; a = 0, cnt = 0, flag = 1)
 	{
-	inicio:
-		a = 0;
 		signal(SIGINT, handle_signal);
 		prompt();
-		cnt = 0;
 		buf = _calloc(4096 * 2, 1);
-		flag = 1;
-		while(read(STDIN_FILENO, &c, 1) == 1)
-		{
-			if (c == 4 && cnt == 0)
-				break;
-			if (c == '\n' && cnt == 0)
-			{
-				free(buf);
-				goto inicio;
-			}
-			if(c == '\n' && cnt != 0)
-			{
-				buf[cnt] = 0;
-				flag = 0;
-				break;
-			}
-			buf[cnt++] = c;
-			a++;
-		}
+		fil_buffer(buf, &cnt, p, &c, &flag);
 		a++;
-		if(cnt == 0 && buf[0] == 0)
-		{
-			write(STDIN_FILENO, &sl, 1);
-			free(buf);
-			salir(NULL);
-		}
-		if (flag)
-			write(STDIN_FILENO, &sl, 1);
-		if (buf[0] == '\n')
-		{
-			free (buf);
+		if (check_line(buf, &cnt, &flag))
 			continue;
-		}
-	getarg:
+getarg:
 		buffer_filter(&buf, p);
 		h = _getargs(buf, p, argv[0]);
 		free(buf);
 		if (!h)
-		 	return (0);
+			return (0);
 		funexc(h);
 	}
 	return (0);
