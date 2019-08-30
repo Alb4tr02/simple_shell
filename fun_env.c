@@ -76,6 +76,7 @@ int _unsetenv(command_t *h)
 	char *var = NULL;
 	char *err = "Error\n";
 	int i = 0;
+
 	args = h->args;
 	for (; args[i]; i++)
 		;
