@@ -93,22 +93,19 @@ void buffer_filter(char **buffer, ssize_t *p)
 			if (i == 0)
 			{
 				_ignorecomments(buf, &i);
-				continue;
-			}
+				continue; }
 			else if (buf[i - 1] == ' ' || buf[i - 1] == '\t' ||
 				 buf[i - 1] == ';')
 			{
 				_ignorecomments(buf, &i);
-				continue;
-			}
+				continue; }
 		}
 		if (buf[i] == '$' && buf[i + 1] != ' ' && buf[i + 1] != '\t'
 			    && buf[i + 1] != 0 && buf[i + 1] != '\n'
 		    && buf[i + 1] != ';')
 		{
 			_replacevar(buf, newbuf, &i, &pos);
-			continue;
-		}
+			continue; }
 		cpy = i;
 		ali = _isalias(buf, &i);
 		if (ali)
@@ -116,14 +113,11 @@ void buffer_filter(char **buffer, ssize_t *p)
 			if (!have_alias(buf, i))
 			{
 				_replacealias(ali, newbuf, &pos);
-				continue;
-			}
-			i = cpy;
-		}
+				continue; }
+			i = cpy; }
 		i = cpy;
 		newbuf[pos] = buf[i];
-		i++, pos++;
-	}
+		i++, pos++; }
 	free(buf);
 	*p = pos;
 	*buffer = newbuf;
