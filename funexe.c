@@ -6,12 +6,13 @@
 /**
  * funexc - call execvp or buitin functions.
  * @h: pointer to the head of the linked list
- *
+ * @buf: buffer with the map of logical operators.
  * Return: no return
  */
-void funexc(command_t *h)
+void funexc(command_t *h, char *buf)
 {
 	command_t *copy = NULL;
+	int pos = 0;
 	static int cont;
 
 	while (h)
@@ -25,9 +26,17 @@ void funexc(command_t *h)
 			_extern(h);
 		else
 			_built(h);
+		if (setstatus(NULL) == 0)
+			if (buf[pos] == '|')
+				salir(h);
+		if (setstatus(NULL) != 0)
+			if (buf[pos] == '&')
+				salir(h);
 		h = h->next;
 		freecommand(copy);
+		pos++;
 	}
+	free(buf);
 }
 
 /**
@@ -163,5 +172,6 @@ int salir(command_t *h)
 		al = ali;
 	}
 	free(buffer);
+	free(get_map(NULL));
 	exit(setstatus(NULL));
 }

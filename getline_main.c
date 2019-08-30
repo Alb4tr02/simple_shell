@@ -171,6 +171,6 @@ getarg:
 		free(buf);
 		if (!h)
 			return (0);
-		funexc(h);
+		funexc(h, get_map(buf));
 	}
 	return (0); }

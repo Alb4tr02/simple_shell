@@ -76,6 +76,7 @@ int _quote_end(char *s1);
 char *_concat(char **args, int *pos,int size);
 int _alias(command_t *h);
 alias *add_alias(alias **head, char *name, char *value);
+char *get_map(char *buf);
 
 /* Array of pointers to environment strings*/
 extern char **environ;
@@ -102,7 +103,7 @@ int _readandcpy(char *fr, char *to, char *buf);
 char *getvar(char *varname, char *buf);
 void freecommand(command_t *h);
 void getentorno(void);
-void funexc(command_t *h);
+void funexc(command_t *h, char *map);
 void _extern(command_t *h);
 void _built(command_t *h);
 int salir(command_t *h);
