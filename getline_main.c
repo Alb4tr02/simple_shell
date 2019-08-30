@@ -27,6 +27,17 @@ void freecommand(command_t *h)
 	free(args);
 	free(h);
 }
+
+/**
+ * fil_buffer - This fuction creates an array of integers.
+ * @buf: pointer that points to the data that will be reallocated.
+ * @ct: size of ptr
+ * @p: new size of ptr
+ * @ch: char
+ * @flg: flag
+ *
+ * Return: pointer to the new adress of data.
+ */
 void fil_buffer(char *buf, size_t *ct, ssize_t *p, char *ch, int *flg)
 {
 	char c;
@@ -62,6 +73,15 @@ void fil_buffer(char *buf, size_t *ct, ssize_t *p, char *ch, int *flg)
 	*ch = c;
 	*flg = flag;
 }
+
+/**
+ * check_line - This fuction creates an array of integers.
+ * @buf: pointer that points to the data that will be reallocated.
+ * @ct: size of ptr
+ * @flg: new size of ptr
+ *
+ * Return: pointer to the new adress of data.
+ */
 int check_line(char *buf, size_t *ct, int *flg)
 {
 	char sl;
@@ -88,6 +108,8 @@ int check_line(char *buf, size_t *ct, int *flg)
 }
 /**
 * main - void.
+* @argc: number of arguments
+* @argv: array of arguments
 *
 * Return: o if success.
 */

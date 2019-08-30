@@ -105,7 +105,7 @@ void _built(command_t *h)
 }
 
 /**
- * imprimir_error - print error when command not found.
+ * print_err_exit - print error when command not found.
  * @h: node tha has the builtin command
  *
  * Return: no return
