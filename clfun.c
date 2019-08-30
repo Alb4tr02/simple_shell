@@ -160,24 +160,3 @@ int  clfun(char **arg)
 		res = -1; }
 	return (res);
 }
-
-/**
- * dirandcommand - add command to the directory of the path.
- * @crtdir: each directory
- * @aux: pointer to the filename
- * @com: command and arguments
- *
- * Return: pointer to the etotal path of the directory
- */
-char *dirandcommand(char *crtdir, char *aux, char *com)
-{
-
-	int l, la;
-
-	for (l = 0; crtdir[l]; l++)
-		aux[l] = crtdir[l];
-	for (la = 0; com[la]; la++, l++)
-		aux[l] = com[la];
-	aux[l] = 0;
-	return (aux);
-}

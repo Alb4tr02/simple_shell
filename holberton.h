@@ -133,4 +133,7 @@ void imprimir_errores_cd(command_t *h);
 char *getpath(void);
 char **notfoundvar(char **env, char **cpyenv, char *newvar);
 void imprimir_error(command_t *h);
+int justhelp(char *pathandfile, int l, char *filejusthelp);
+void printhelp_text(char **filenames, int *posi, char *pathandfile);
+int nextdir(char *filter, int i);
 #endif
