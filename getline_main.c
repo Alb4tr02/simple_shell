@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 	command_t *h = NULL;
 	size_t cnt = 0;
 	char c;
-	char *buf = NULL;
+	char *buf = NULL, *map = NULL;
 	int flag = 1, flag1 = 1, ze = 0;
 
 	getpath();
@@ -168,9 +168,9 @@ int main(int argc, char **argv)
 getarg:
 		buffer_filter(&buf, p);
 		h = _getargs(buf, p, argv[0]);
+		map = get_map(buf);
 		free(buf);
 		if (!h)
 			return (0);
-		funexc(h, get_map(buf));
-	}
+		funexc(h, map); }
 	return (0); }
