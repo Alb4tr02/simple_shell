@@ -49,20 +49,19 @@ int _env(command_t *h)
 int _setenviron(command_t *h)
 {
 	char **args = NULL;
-	int i = 0;
-
+	int i = 0, st = 0;
 	args = h->args;
 	for (; args[i]; i++)
 		;
 	if (i != 3)
 	{
-		printf("Error\n");
-		return (-1);
+		setstatus(&st);
+		return (0);
 	}
 	_setenv(args[1], args[2]);
+	setstatus(&st);
 	return (0);
 }
-
 
 /**
  * _unsetenv - unset variable.
