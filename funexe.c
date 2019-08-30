@@ -119,11 +119,11 @@ void print_err_exit(command_t *h)
 	char *num = print_number(h->cont);
 	char sl = 10;
 
-	write(STDERR_FILENO, err, _strlen(err));
-	write(STDERR_FILENO, sp, _strlen(sp));
-	write(STDERR_FILENO, num, _strlen(num));
-	write(STDERR_FILENO, err1, _strlen(err1));
-	write(STDERR_FILENO, h->args[1], _strlen(h->args[1]));
+	write(STDERR_FILENO, err, _strlen(err) - 1);
+	write(STDERR_FILENO, sp, _strlen(sp) - 1);
+	write(STDERR_FILENO, num, _strlen(num) - 1);
+	write(STDERR_FILENO, err1, _strlen(err1) -1);
+	write(STDERR_FILENO, h->args[1], _strlen(h->args[1]) - 1);
 	write(STDERR_FILENO, &sl, 1);
 	free(num);
 }

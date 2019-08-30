@@ -55,6 +55,7 @@ typedef struct aliases
 	char *value;
 	struct aliases *next;
 } alias;
+char **empty_path(void);
 int setpid(int *pid);
 int _atoi(char *s);
 int setstatus(int *stat);
