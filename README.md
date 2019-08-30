@@ -24,7 +24,7 @@ add_node.c  funcbuilt.c  getline_main.c  hsh			 prompt.c
 back.xc     funexe.c	   getrealenv.c	   look.c				 signal.c
 ```
 
-but also hsh can work in non-interactive mode:
+But also hsh can work in non-interactive mode:
 
 ```c
 echo "/bin/ls" | ./hsh
