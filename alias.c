@@ -87,7 +87,11 @@ alias *setalias(char **tokens)
 	}
 	if (name && value)
 	{
-		res = add_alias(&head, name, value);
+		/*res = buscar_alias(head, value);
+		if (res)
+			res = add_alias(&head, name, res->value);
+		else*/
+			res = add_alias(&head, name, value);
 		return (res);
 	}
 	return (NULL);
@@ -177,14 +181,16 @@ int print_one_alias(char *name)
 	alias *aux = NULL;
 	char *err = "alias: ";
 	char *err1 = " not found\n";
-	char eq = '=', sl = 10;
+	char eq = '=', sl = 10, qu = 39;
 	aux = setalias(NULL);
 	aux = buscar_alias(aux, name);
 	if (aux)
 	{
-		write(1, aux->name, _strlen(aux->name));
+		write(1, aux->name, _strlen(aux->name) - 1);
 		write(1, &eq, 1);
-		write(1, aux->value, _strlen(aux->value));
+		write(1, &qu, 1);
+		write(1, aux->value, _strlen(aux->value) - 1);
+		write(1, &qu, 1);
 		write(1, &sl, 1);
 		return (0);
 	}
@@ -196,14 +202,15 @@ int print_one_alias(char *name)
 void print_all_alias(void)
 {
 	alias *aux = NULL;
-	char sl = 10, eq = '=';
+
 	aux = setalias(NULL);
 	while (aux)
 	{
-		write(1, aux->name, _strlen(aux->name));
+		print_one_alias(aux->name);
+		/*write(1, aux->name, _strlen(aux->name));
 		write(1, &eq, 1);
 		write(1, aux->value, _strlen(aux->value));
-		write(1, &sl, 1);
+		write(1, &sl, 1);*/
 		aux = aux->next;
 	}
 }

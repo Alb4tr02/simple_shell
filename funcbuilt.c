@@ -62,18 +62,17 @@ int _env(command_t *h)
 int _setenviron(command_t *h)
 {
 	char **args = NULL;
-	char *err = "ERROR\n";
-	int i = 0, er = 2;
+	int i = 0, st = 0;
 	args = h->args;
 	for (; args[i]; i++)
 		;
 	if (i != 3)
 	{
-		write(STDERR_FILENO, err, _strlen(err));
-		setstatus(&er);
-		return (-1);
+		setstatus(&st);
+		return (0);
 	}
 	_setenv(args[1], args[2]);
+	setstatus(&st);
 	return (0);
 }
 
