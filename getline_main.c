@@ -139,7 +139,7 @@ int main(int argc, char **argv)
 	size_t cnt = 0;
 	char c;
 	char *buf = NULL;
-	int flag = 1, flag1 = 1, ez = 0;
+	int flag = 1, flag1 = 1, ze = 0;
 
 	getpath();
 	if (argc > 1)
