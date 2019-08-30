@@ -17,7 +17,7 @@ char **getdir(void)
 
 	path = _getenvvar(var);
 	if (!path || path[0] == 0)
-		return (empty_path());
+		return (NULL);
 	sp = numdirectories(path);
 	if (sp == 0)
 		return (dir);
