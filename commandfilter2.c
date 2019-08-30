@@ -75,14 +75,14 @@ int have_alias(char *buf, int i)
  */
 int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 {
-	int a = setstatus(NULL);
-	char *stat = print_number(a);
-	int j = 0;
-	int p;
+	int a, j, p;
+	char *stat;
 
 	(void)buf;
 	(void)i;
+	a = 0, j = 0;
 	a = setstatus(NULL);
+	stat = print_number(a);
 	p = *pos;
 	for (; stat[j]; j++, p = p + 1)
 		newbuf[p] = stat[j];
