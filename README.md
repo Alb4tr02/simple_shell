@@ -112,7 +112,7 @@ hsh can handle ; Command separator. Commands that are separeted with ; areexecut
 "hello"
 "world"
 ```
-you can usea ; separator with spaces or tabs or nothing between the command and the separator.
+You can usea ; separator with spaces or tabs or nothing between the command and the separator.
 
 ## cd
 
