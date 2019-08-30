@@ -91,6 +91,7 @@ int current_dir(char **arg)
 {
 	char *py = NULL;
 	int pos = 0, i = 0, fd = 0;
+
 	py = currentpath();
 	pos = _strlen2(py);
 	for (; arg[0][i]; i++)
@@ -131,8 +132,6 @@ int  clfun(char **arg)
 	dir = getdir();
 	if (dir == NULL)
 		return (-1);
-	for (; com[la]; la++)
-		;
 	la = _strlen2(com);
 	la++;
 	while (dir[i])
@@ -152,11 +151,9 @@ int  clfun(char **arg)
 			close(fd);
 			break; }
 		i++;
-		free(aux);
-	}
+		free(aux); }
 	if (found)
 	{
 		freedir(dir, NULL);
 		res = -1; }
-	return (res);
-}
+	return (res); }
