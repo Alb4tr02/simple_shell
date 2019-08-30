@@ -83,9 +83,9 @@ int replace_stat(char *buf, char *newbuf, int *i, int *pos)
 	(void)buf;
 	(void)i;
 	a = 0, j = 0;
+	a = setstatus(NULL);
 	stat = print_number(a);
 	p = *pos;
-	a = setstatus(NULL);
 	for (; stat[j]; j++, p = p + 1)
 		newbuf[p] = stat[j];
 	p = p + 1;
