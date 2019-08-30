@@ -36,7 +36,6 @@ void funexc(command_t *h, char *buf)
 		freecommand(copy);
 		pos++;
 	}
-	free(buf);
 }
 
 /**
