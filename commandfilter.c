@@ -220,7 +220,12 @@ void _replacealias(alias *ali, char *newbuf, int *pos)
 {
 	int i = 0;
 	char *value = NULL;
+	alias *aux = NULL;
 
+	aux = setalias(NULL);
+	aux = buscar_alias(aux, ali->value);
+	if (aux)
+		ali = aux;
 	value = ali->value;
 	while (value[i])
 	{

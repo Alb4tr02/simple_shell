@@ -87,10 +87,10 @@ alias *setalias(char **tokens)
 	}
 	if (name && value)
 	{
-		res = buscar_alias(head, value);
+		/*res = buscar_alias(head, value);
 		if (res)
 			res = add_alias(&head, name, res->value);
-		else
+		else*/
 			res = add_alias(&head, name, value);
 		return (res);
 	}
