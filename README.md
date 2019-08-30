@@ -6,7 +6,7 @@ Shell is a program that takes commands from the standard input(keyboard) and giv
 
 ## Usage
 
-you need to compile all the c files:
+You need to compile all the c files:
 
 ```bash
 gcc *c -o hsh
@@ -24,7 +24,7 @@ add_node.c  funcbuilt.c  getline_main.c  hsh			 prompt.c
 back.xc     funexe.c	   getrealenv.c	   look.c				 signal.c
 ```
 
-but also hsh can work in non-interactive mode:
+But also hsh can work in non-interactive mode:
 
 ```c
 echo "/bin/ls" | ./hsh
@@ -50,7 +50,7 @@ After you run this command you will see the prompt: >:v. After that propmt you c
 
 ```c
 ./hsh
-<:v ls
+>:v ls
 README.md   add_node.c	cd_functions.c	 environ	       funexe.c   getline_main.c  h_cd.txt    h_history.txt   holberton.h  malloc.c        test
 _realloc.c  alias	clfun.c		 		        	  		          errores_env.c	      		            getargs.c  getrealenv.c      h_env.txt   h_setenv.txt    hsh    man_1_simple_shell  tonya.out alias.c commandfilter.c  errores_otrosbuilt.c  getenv.xc  getvar.c     h_exit.txt  h_unsetenv.txt  itoa.c      prompt.c
 actenv.xc   back.xc	cpyenv.c								    funcbuilt.c				                  getline.c  h_alias.txt          h_help.txt  help_documents  look.c		         signal.c
@@ -112,7 +112,7 @@ hsh can handle ; Command separator. Commands that are separeted with ; areexecut
 "hello"
 "world"
 ```
-you can usea ; separator with spaces or tabs or nothing between the command and the separator.
+You can usea ; separator with spaces or tabs or nothing between the command and the separator.
 
 ## cd
 
