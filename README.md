@@ -6,7 +6,7 @@ Shell is a program that takes commands from the standard input(keyboard) and giv
 
 ## Usage
 
-you need to compile all the c files:
+You need to compile all the c files:
 
 ```bash
 gcc *c -o hsh
