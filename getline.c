@@ -17,6 +17,8 @@ char *_getline(ssize_t *pos, char *pathname)
 	size_t size = MAX, aux = 0;
 
 	fd = open(pathname, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
 	buf = _calloc(size, 1);
 	state = READING;
 	while (state)

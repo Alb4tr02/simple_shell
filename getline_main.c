@@ -107,8 +107,26 @@ int check_line(char *buf, size_t *ct, int *flg)
 	return (0);
 }
 /**
-* main - void.
-* @argc: number of arguments
+ * print_err_file - void.
+ * @name: file's name
+*
+* Return: nothing.
+*/
+
+void print_err_file(char *name)
+{
+	int er = 127, sl = 10;
+	char *err = "./hsh: 0: Can't open ";
+
+	write(STDERR_FILENO, err, _strlen(err) - 1);
+	write(STDERR_FILENO, name, _strlen(name) - 1);
+	write(STDERR_FILENO, &sl, 1);
+	setstatus(&er);
+	salir(NULL);
+}
+/**
+ * main - void.
+ * @argc: number of arguments
 * @argv: array of arguments
 *
 * Return: o if success.
@@ -128,6 +146,8 @@ int main(int argc, char **argv)
 	{
 		buf = _getline(&a, argv[1]);
 		flag1 = 0;
+		if (!buf)
+			print_err_file(argv[1]);
 		goto getarg;
 	}
 	for (; flag1; a = 0, cnt = 0, flag = 1)
