@@ -136,4 +136,5 @@ void imprimir_error(command_t *h);
 int justhelp(char *pathandfile, int l, char *filejusthelp);
 void printhelp_text(char **filenames, int *posi, char *pathandfile);
 int nextdir(char *filter, int i);
+int _isespecialchr(char c);
 #endif
