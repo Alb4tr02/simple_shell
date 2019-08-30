@@ -71,7 +71,7 @@ void freedir(char **dir, char *arg)
 }
 
 /**
- * _strlen - Entry point
+ * _strlen2 - Entry point
  *@s: pointer the string we want to now length
  *
  * Return: 0
@@ -87,6 +87,13 @@ int _strlen2(char *s)
 	}
 	return (i);
 }
+
+/**
+ * current_dir - show help document of some functions.
+ * @arg: node tha has the builtin command
+ *
+ * Return: no return
+ */
 int current_dir(char **arg)
 {
 	char *py = NULL;
