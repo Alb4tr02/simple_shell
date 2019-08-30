@@ -38,15 +38,15 @@ back.xc     funexe.c	   getrealenv.c	   look.c				 signal.c
 ##  Execution
 
 
-To invoke the simple_shell, you need to write the next command: 
+To invoke the simple_shell, you need to write the next command:
 
 ```c
 ./hsh
->:v 
+>:v
 
 ```
 
-After you run this command you will see the prompt: >:v. After that propmt you can put the command (extern or builtin), example: 
+After you run this command you will see the prompt: >:v. After that propmt you can put the command (extern or builtin), example:
 
 ```c
 ./hsh
@@ -54,7 +54,7 @@ After you run this command you will see the prompt: >:v. After that propmt you c
 README.md   add_node.c	cd_functions.c	 environ	       funexe.c   getline_main.c  h_cd.txt    h_history.txt   holberton.h  malloc.c        test
 _realloc.c  alias	clfun.c		 		        	  		          errores_env.c	      		            getargs.c  getrealenv.c      h_env.txt   h_setenv.txt    hsh    man_1_simple_shell  tonya.out alias.c commandfilter.c  errores_otrosbuilt.c  getenv.xc  getvar.c     h_exit.txt  h_unsetenv.txt  itoa.c      prompt.c
 actenv.xc   back.xc	cpyenv.c								    funcbuilt.c				                  getline.c  h_alias.txt          h_help.txt  help_documents  look.c		         signal.c
->:v 
+>:v
 ```
 ## Command Execution
 
@@ -62,7 +62,7 @@ actenv.xc   back.xc	cpyenv.c								    funcbuilt.c				                  getline
 
 hsh returns Zero for success and differnt Zero for failure
 
-## Signals 
+## Signals
 
 hsh ignores the Ctrl + C input, you can use Ctrl + d to exit the program.
 
@@ -78,7 +78,7 @@ hsh ignores the Ctrl + C input, you can use Ctrl + d to exit the program.
 ? is relplaced with return value of the las program executed
 
 Example:
- 
+
 ```c
 >:v echo $?
 >:v 0
@@ -189,7 +189,7 @@ example:
 
 >:v
 ```
-# AUTHORS 
+# AUTHORS
 
 - Karen Herrera
 - Johan David Muñoz
