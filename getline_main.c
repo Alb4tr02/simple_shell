@@ -91,7 +91,7 @@ int check_line(char *buf, size_t *ct, int *flg)
 	flag = *flg;
 	cnt = *ct;
 	sl = '\n';
-	if (cnt == 0 && buf  && buf[0] == 0)
+	if (cnt == 0 && buf[0] == 0)
 	{
 		write(STDIN_FILENO, &sl, 1);
 		free(buf);

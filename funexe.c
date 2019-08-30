@@ -6,7 +6,6 @@
 /**
  * funexc - call execvp or buitin functions.
  * @h: pointer to the head of the linked list
- * @buf: buffer with the map of logical operators.
  * Return: no return
  */
 void funexc(command_t *h)
