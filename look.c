@@ -4,6 +4,12 @@
 #include <sys/wait.h>
 #define MAX 500
 
+
+ /**
+ * setpid - set
+ * @pid: pointer to status
+ * Return: number of status
+ */
 int setpid(int *pid)
 {
 	static int _pid;
