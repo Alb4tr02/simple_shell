@@ -1,4 +1,4 @@
-setenv: setenv [VAR][VALUE] 
+setenv: setenv [VAR][VALUE]
 
 change the value  or add an a new environment variable and its value
 

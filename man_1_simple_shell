@@ -6,7 +6,7 @@
 .SH DESCRIPTION
 .B hsh\fR \ Shell is a program that takes commands from the standard input(keyboard) and gives them to the operating system to execute. This repository contains a small versión of a Shell. This is a very small version of the shell.
 
-.B Invocation 
+.B Invocation
 .in +2n
 \fBhsh\fR can be invoke interactively and non-interactvely.
 If \fBhsh\fR when is executing interactively \fBhsh\fR displays the prompt: \fI<:v \

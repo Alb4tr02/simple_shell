@@ -14,6 +14,8 @@
  * struct command_s - singly linked list
  * @args: argument
  * @id: id token (0- intern or 1 - extern)
+ * @cont: cont
+ * @name: name
  * @next: points to the next node
  *
  * Description: singly linked list node structure
@@ -41,10 +43,11 @@ typedef struct builtins
 } builtin;
 
 /**
-* struct builtins - type of builtins
+* struct aliases - type of builtins
 *
-* @built: command
-* @f: the function assoiated
+* @name: command
+* @value: the function assoiated
+* @next: next
 */
 typedef struct aliases
 {
@@ -73,7 +76,7 @@ alias *buscar_alias(alias *head, char *name);
 int _have_value(char *arg);
 char **token_alias(char *alias);
 int _quote_end(char *s1);
-char *_concat(char **args, int *pos,int size);
+char *_concat(char **args, int *pos, int size);
 int _alias(command_t *h);
 alias *add_alias(alias **head, char *name, char *value);
 char *get_map(char *buf);
@@ -124,7 +127,7 @@ char *filtro1(char *path);
 char *filtro2(char *filter);
 int aredots(char *path, int pos, int size);
 int lukeSkywalker(void);
-int darthVader();
+int darthVader(void);
 void imprimir_error_setenv(command_t *h);
 void imprimir_error_unsetenv(command_t *h);
 void imprimir_error_setenv(command_t *h);
